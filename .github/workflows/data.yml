@@ -14,5 +14,6 @@ jobs:
 
     steps:
     - name: Run C# file
+      working-directory: ./CodewarsGitHubLogger
       run: |
-        cd CodewarsGitHubLogger
+        dotnet run
