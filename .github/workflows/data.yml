@@ -1,4 +1,4 @@
-name: Get data
+name: Start project
 
 on:
   push:
