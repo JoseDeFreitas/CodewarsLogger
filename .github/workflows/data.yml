@@ -15,5 +15,6 @@ jobs:
     steps:
     - name: Run C# file
       run: |
+        ls
         cd CodewarsGitHubLogger
         dotnet run
