@@ -3,7 +3,6 @@ name: Get data
 on:
   push:
     branches: [ main ]
-    paths: "CodewarsGitHubLogger/"
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
@@ -16,4 +15,4 @@ jobs:
     steps:
     - name: Run C# file
       run: |
-        dotnet run
+        dotnet run --project CodewarsGitHubLogger.csproj
