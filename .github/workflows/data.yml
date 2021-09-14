@@ -15,4 +15,4 @@ jobs:
     steps:
     - name: Run C# file
       run: |
-        dotnet run
+        dotnet run --project ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj
