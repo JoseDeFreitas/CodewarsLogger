@@ -3,10 +3,8 @@ name: .NET
 on:
   push:
     branches: [ main ]
-    paths: "CodewarsGitHubLogger/"
   pull_request:
     branches: [ main ]
-    paths: "CodewarsGitHubLogger/"
 
 jobs:
   build:
@@ -20,8 +18,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj
+      run: dotnet restore
     - name: Build
-      run: dotnet build ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj --no-restore
+      run: dotnet build --no-restore
     - name: Test
-      run: dotnet test ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal
