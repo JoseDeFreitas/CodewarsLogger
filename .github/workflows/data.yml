@@ -18,5 +18,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Run C# file
+    - name: Restore
+      run: dotnet restore ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj
+    - name: Build
+      run: dotnet build ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj --no-restore
+    - name: Test
+      run: dotnet test ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj --no-build --verbosity normal
+    - name: Run
       run: dotnet run --project ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj
