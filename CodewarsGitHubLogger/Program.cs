@@ -19,8 +19,8 @@ namespace CodewarsGitHubLogger
 
             Directory.CreateDirectory(folderPath);
 
-            var responseStream = await httpClient.GetStringAsync($"{katasUrl}?page=0");
-            var response = JsonSerializer.Deserialize<Kata>(responseStream);
+            var responseJson = await httpClient.GetStreamAsync($"{katasUrl}?page=0");
+            Kata response = await JsonSerializer.DeserializeAsync<Kata>(responseJson);
 
             Console.WriteLine(response);
         }
@@ -28,17 +28,17 @@ namespace CodewarsGitHubLogger
 
     class Kata
     {
-        int totalPages;
-        int totalItems;
-        List<KataData> data;
+        public int totalPages { get; set; }
+        public int totalItems { get; set; }
+        public List<KataData> data { get; set; }
     }
 
     class KataData
     {
-        string id;
-        string name;
-        string slug;
-        string completedAt;
-        List<string> completedLanguages;
+        public string id { get; set; }
+        public string name { get; set; }
+        public string slug { get; set; }
+        public string completedAt { get; set; }
+        public List<string> completedLanguages { get; set; }
     }
 }
