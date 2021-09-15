@@ -12,18 +12,15 @@ namespace CodewarsGitHubLogger
         static string codewarsUsername = Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
         static string userUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}";
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             string folderPath = "../Katas/";
 
             Directory.CreateDirectory(folderPath);
 
-            Console.WriteLine(GetKatas(0));
-        }
+            var response = await httpClient.GetStringAsync($"{userUrl}/code-challenges/completed?page=0");
 
-        static async Task<string> GetKatas(int pageNumber)
-        {
-            var response = await httpClient.GetStringAsync($"{userUrl}/code-challenges/completed?page={pageNumber}");
+            Console.WriteLine(response);
         }
     }
 }
