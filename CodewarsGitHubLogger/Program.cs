@@ -1,16 +1,17 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Json;
+using System.Text.Json;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace CodewarsGitHubLogger
 {
     class Program
     {
         static HttpClient httpClient = new HttpClient();
-        static string codewarsUsername = Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
-        static string userUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}";
+        static string codewarsUsername = "JoseDeFreitas"; // Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
+        static string katasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
 
         static async Task Main(string[] args)
         {
@@ -18,9 +19,26 @@ namespace CodewarsGitHubLogger
 
             Directory.CreateDirectory(folderPath);
 
-            var response = await httpClient.GetStringAsync($"{userUrl}/code-challenges/completed?page=0");
+            var responseStream = httpClient.GetStreamAsync($"{katasUrl}?page=0");
+            var response = await JsonSerializer.DeserializeAsync<Kata>(await responseStream);
 
             Console.WriteLine(response);
         }
+    }
+
+    class Kata
+    {
+        int totalPages;
+        int totalItems;
+        List<KataData> data;
+    }
+
+    class KataData
+    {
+        string id;
+        string name;
+        string slug;
+        string completedAt;
+        List<string> completedLanguages;
     }
 }
