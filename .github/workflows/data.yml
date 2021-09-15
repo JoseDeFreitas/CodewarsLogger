@@ -26,3 +26,5 @@ jobs:
       run: dotnet test ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj --no-build --verbosity normal
     - name: Run
       run: dotnet run --project ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj
+      env:
+        CODEWARS_USERNAME: ${{ secrets.CODEWARS_USERNAME }}
