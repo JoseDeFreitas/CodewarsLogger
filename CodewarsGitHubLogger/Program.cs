@@ -19,8 +19,8 @@ namespace CodewarsGitHubLogger
 
             Directory.CreateDirectory(folderPath);
 
-            var responseStream = httpClient.GetStreamAsync($"{katasUrl}?page=0");
-            var response = await JsonSerializer.DeserializeAsync<Kata>(await responseStream);
+            var responseStream = await httpClient.GetStringAsync($"{katasUrl}?page=0");
+            var response = JsonSerializer.Deserialize<Kata>(responseStream);
 
             Console.WriteLine(response);
         }
