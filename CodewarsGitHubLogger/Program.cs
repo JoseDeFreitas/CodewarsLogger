@@ -14,27 +14,30 @@ namespace CodewarsGitHubLogger
         static async Task Main(string[] args)
         {
             string codewarsUsername = "JoseDeFreitas"; // Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
-            string katasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
+            string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
-            string folderPath = "../Katas";
+            string mainFolderPath = "../Katas";
 
-            Directory.CreateDirectory(folderPath);
+            Directory.CreateDirectory(mainFolderPath);
 
-            Stream responseJson = await httpClient.GetStreamAsync(katasUrl);
-            Kata response = await JsonSerializer.DeserializeAsync<Kata>(responseJson);
-            int numberOfPages = response.totalPages;
+            // Response used to get the total number of pages available
+            Stream mainResponseJson = await httpClient.GetStreamAsync(completedKatasUrl);
+            KataCompleted mainResponseObject = await JsonSerializer.DeserializeAsync<KataCompleted>(mainResponseJson);
+            int numberOfPages = mainResponseObject.totalPages;
 
             for (int page = 0; page < numberOfPages; page++)
             {
-                Stream responseStream = await httpClient.GetStreamAsync($"{katasUrl}?page={page}");
-                Kata kataObject = await JsonSerializer.DeserializeAsync<Kata>(responseStream);
+                // Response used to get the information of all the katas in the specified page
+                Stream responseStream = await httpClient.GetStreamAsync($"{completedKatasUrl}?page={page}");
+                KataCompleted kataObject = await JsonSerializer.DeserializeAsync<KataCompleted>(responseStream);
 
                 foreach (var kata in kataObject.data)
                 {
+                    // Response used to get the description of the kata
                     Stream responseKataInfo = await httpClient.GetStreamAsync($"{kataInfoUrl}{kata.id}");
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
 
-                    string kataFolder = Path.Combine(folderPath, kata.slug);
+                    string kataFolder = Path.Combine(mainFolderPath, kata.slug);
 
                     try
                     {
@@ -62,7 +65,7 @@ namespace CodewarsGitHubLogger
         }
     }
 
-    class Kata
+    class KataCompleted
     {
         public int totalPages { get; set; }
         public int totalItems { get; set; }
