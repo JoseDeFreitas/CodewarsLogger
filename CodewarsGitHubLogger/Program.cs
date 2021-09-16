@@ -25,6 +25,8 @@ namespace CodewarsGitHubLogger
             KataCompleted mainResponseObject = await JsonSerializer.DeserializeAsync<KataCompleted>(mainResponseJson);
             int numberOfPages = mainResponseObject.totalPages;
 
+            int numberOfExceptions = 0;
+
             for (int page = 0; page < numberOfPages; page++)
             {
                 // Response used to get the information of all the katas in the specified page
@@ -46,6 +48,7 @@ namespace CodewarsGitHubLogger
                     catch (IOException exception)
                     {
                         Console.WriteLine(exception);
+                        numberOfExceptions++;
                         continue;
                     }
 
@@ -61,7 +64,10 @@ namespace CodewarsGitHubLogger
                 }
             }
 
-            Console.WriteLine("All data was loaded successfully.");
+            if (numberOfExceptions == 0)
+                Console.WriteLine("All data was loaded successfully.");
+            else
+                Console.WriteLine($"All data was loaded except {numberOfExceptions.ToString()}.");
         }
     }
 
