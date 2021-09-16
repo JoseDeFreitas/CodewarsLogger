@@ -15,14 +15,31 @@ namespace CodewarsGitHubLogger
 
         static async Task Main(string[] args)
         {
-            string folderPath = "../Katas/";
+            string folderPath = "../Katas";
 
             Directory.CreateDirectory(folderPath);
 
-            var responseJson = await httpClient.GetStreamAsync($"{katasUrl}?page=0");
+            Stream responseJson = await httpClient.GetStreamAsync(katasUrl);
             Kata response = await JsonSerializer.DeserializeAsync<Kata>(responseJson);
+            int numberOfPages = response.totalPages;
 
-            Console.WriteLine(response);
+            for (int page = 0; page < numberOfPages; page++)
+            {
+                Stream responseStream = await httpClient.GetStreamAsync($"{katasUrl}?page={page}");
+                Kata kataObject = await JsonSerializer.DeserializeAsync<Kata>(responseStream);
+
+                foreach (var kata in kataObject.data)
+                {
+                    try
+                    {
+                        Directory.CreateDirectory(Path.Combine(folderPath, kata.slug));
+                    }
+                    catch (IOException exception)
+                    {
+                        Console.WriteLine(exception);
+                    }
+                }
+            }
         }
     }
 
