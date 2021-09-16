@@ -41,6 +41,7 @@ namespace CodewarsGitHubLogger
 
                     string kataFolder = Path.Combine(mainFolderPath, kata.slug);
 
+                    // Create folder with the slug name of the kata
                     try
                     {
                         Directory.CreateDirectory(kataFolder);
@@ -52,6 +53,7 @@ namespace CodewarsGitHubLogger
                         continue;
                     }
 
+                    // Create "README.md" file containing information of the kata
                     string[] content =
                     {
                         $"# [{kata.name}]({kataInfoUrl}{kata.id})\n",
