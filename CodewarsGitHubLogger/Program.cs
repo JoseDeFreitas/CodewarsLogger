@@ -67,7 +67,7 @@ namespace CodewarsGitHubLogger
             if (numberOfExceptions == 0)
                 Console.WriteLine("All data was loaded successfully.");
             else
-                Console.WriteLine($"All data was loaded except {numberOfExceptions.ToString()}.");
+                Console.WriteLine($"All data was loaded except {numberOfExceptions.ToString()} katas.");
         }
     }
 
