@@ -40,6 +40,8 @@ namespace CodewarsGitHubLogger
                     }
                 }
             }
+
+            Console.WriteLine("All data was loaded successfully.");
         }
     }
 
