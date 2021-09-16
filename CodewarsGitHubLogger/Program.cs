@@ -37,6 +37,7 @@ namespace CodewarsGitHubLogger
                     catch (IOException exception)
                     {
                         Console.WriteLine(exception);
+                        continue;
                     }
                 }
             }
