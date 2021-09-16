@@ -57,7 +57,7 @@ namespace CodewarsGitHubLogger
                         $"# [{kata.name}]({kataInfoUrl}{kata.id})\n",
                         $"**Completed at:** {kata.completedAt}\n",
                         $"**Completed languages:** {string.Join(", ", kata.completedLanguages)}\n",
-                        $"## Description\n{kataInfoObject.description}"
+                        $"## Description\n\n{kataInfoObject.description}"
                     };
 
                     await File.WriteAllLinesAsync(Path.Combine(kataFolder, "README.md"), content);
