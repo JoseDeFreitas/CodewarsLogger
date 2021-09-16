@@ -15,6 +15,7 @@ namespace CodewarsGitHubLogger
         {
             string codewarsUsername = "JoseDeFreitas"; // Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
             string katasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
+            string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
             string folderPath = "../Katas";
 
             Directory.CreateDirectory(folderPath);
@@ -30,15 +31,30 @@ namespace CodewarsGitHubLogger
 
                 foreach (var kata in kataObject.data)
                 {
+                    Stream responseKataInfo = await httpClient.GetStreamAsync($"{kataInfoUrl}{kata.id}");
+                    KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
+
+                    string kataFolder = Path.Combine(folderPath, kata.slug);
+
                     try
                     {
-                        Directory.CreateDirectory(Path.Combine(folderPath, kata.slug));
+                        Directory.CreateDirectory(kataFolder);
                     }
                     catch (IOException exception)
                     {
                         Console.WriteLine(exception);
                         continue;
                     }
+
+                    string[] content =
+                    {
+                        $"# [{kata.name}]({kataInfoUrl}{kata.id})\n",
+                        $"**Completed at:** {kata.completedAt}\n",
+                        $"**Completed languages:** {string.Join(", ", kata.completedLanguages)}\n",
+                        $"## Description\n{kataInfoObject.description}"
+                    };
+
+                    await File.WriteAllLinesAsync(Path.Combine(kataFolder, "README.md"), content);
                 }
             }
 
@@ -60,5 +76,10 @@ namespace CodewarsGitHubLogger
         public string slug { get; set; }
         public string completedAt { get; set; }
         public List<string> completedLanguages { get; set; }
+    }
+
+    class KataInfo
+    {
+        public string description { get; set; }
     }
 }
