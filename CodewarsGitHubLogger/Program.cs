@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using OpenQA.Selenium;
 using System.Net.Http;
 using System.Text.Json;
+using OpenQA.Selenium.Firefox;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -19,6 +21,8 @@ namespace CodewarsGitHubLogger
             string mainFolderPath = "../Katas";
 
             Directory.CreateDirectory(mainFolderPath);
+
+            OpenWebServer();
 
             // Response used to get the total number of pages available
             Stream mainResponseJson = await httpClient.GetStreamAsync(completedKatasUrl);
@@ -70,6 +74,25 @@ namespace CodewarsGitHubLogger
                 Console.WriteLine("All data was loaded successfully.");
             else
                 Console.WriteLine($"All data was loaded except {numberOfExceptions.ToString()} katas.");
+        }
+
+        static void OpenWebServer()
+        {
+            IWebDriver driver = new FirefoxDriver();
+
+            try
+            {
+                driver.Navigate().GoToUrl(@"https://www.codewars.com/users/sign_in");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+
+            IWebElement siginForm = driver.FindElement(By.Id("new_user"));
+            siginForm.FindElement(By.TagName("button")).Click();
+
+            driver.Quit();
         }
     }
 
