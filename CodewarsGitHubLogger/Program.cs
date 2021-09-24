@@ -119,6 +119,7 @@ namespace CodewarsGitHubLogger
 
             driver.Quit();
 
+            // Print informational comment for the user to know about the state of the execution
             if (numberOfExceptions == 0)
                 Console.WriteLine("All data was loaded successfully.");
             else
