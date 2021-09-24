@@ -79,7 +79,7 @@ namespace CodewarsGitHubLogger
 
                     string kataFolder = Path.Combine(mainFolderPath, kata.slug);
 
-                    CreateMainFilesAsync(
+                    await CreateMainFilesAsync(
                         kataFolder, kata.name, kataInfoUrl,
                         kata.id, kata.completedAt, kata.completedLanguages,
                         kataInfoObject.description
