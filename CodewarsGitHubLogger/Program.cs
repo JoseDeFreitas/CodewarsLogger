@@ -193,10 +193,7 @@ namespace CodewarsGitHubLogger
             }
                         
             // Create file containing the code solution of the kata (based on the programming language)
-            string[] code =
-            {
-                solutionCode
-            };
+            string[] code = { solutionCode };
     
             await File.WriteAllLinesAsync(Path.Combine(folder, $"{slug}.{languagesExtensions[language]}"), code);
         }
