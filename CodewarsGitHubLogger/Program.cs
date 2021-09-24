@@ -12,7 +12,7 @@ namespace CodewarsGitHubLogger
     class Program
     {
         static HttpClient httpClient = new HttpClient();
-        static IWebDriver driver = new FirefoxDriver("geckodriver.exe");
+        static IWebDriver driver = new FirefoxDriver();
         static string githubUsername = Environment.GetEnvironmentVariable("USERNAME_GITHUB");
         static string githubPassword = Environment.GetEnvironmentVariable("PASSWORD_GITHUB");
         static int numberOfExceptions = 0;
