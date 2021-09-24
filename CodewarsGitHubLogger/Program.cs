@@ -36,6 +36,8 @@ namespace CodewarsGitHubLogger
                 {"ruby", "rb"}, {"rust", "rs"}, {"scala", "scala"}, {"shell", "sh"},
                 {"sql", "sql"}, {"swift", "swift"}, {"typescript", "ts"}, {"vb", "vb"},
             };
+            int numberOfExceptions = 0;
+            List<string> idsOfExceptions = new List<string>();
 
             Directory.CreateDirectory(mainFolderPath);
 
@@ -63,8 +65,6 @@ namespace CodewarsGitHubLogger
             KataCompleted mainResponseObject = await JsonSerializer.DeserializeAsync<KataCompleted>(mainResponseJson);
             int numberOfPages = mainResponseObject.totalPages;
 
-            int numberOfExceptions = 0;
-
             for (int page = 0; page < numberOfPages; page++)
             {
                 // Response used to get the information of all the katas in the specified page
@@ -88,6 +88,7 @@ namespace CodewarsGitHubLogger
                     {
                         Console.WriteLine(exception);
                         numberOfExceptions++;
+                        idsOfExceptions.Add(kata.id);
                         continue;
                     }
 
@@ -118,6 +119,8 @@ namespace CodewarsGitHubLogger
                         catch (Exception exception)
                         {
                             Console.WriteLine(exception);
+                            numberOfExceptions++;
+                            idsOfExceptions.Add(kata.id);
                             continue;
                         }
                         
@@ -137,7 +140,7 @@ namespace CodewarsGitHubLogger
             if (numberOfExceptions == 0)
                 Console.WriteLine("All data was loaded successfully.");
             else
-                Console.WriteLine($"All data was loaded except {numberOfExceptions.ToString()} katas.");
+                Console.WriteLine($"All data was loaded except {numberOfExceptions.ToString()} katas: {string.Join(" - ", idsOfExceptions)}.");
         }
     }
 
