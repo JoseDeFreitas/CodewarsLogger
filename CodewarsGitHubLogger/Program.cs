@@ -12,14 +12,15 @@ namespace CodewarsGitHubLogger
     class Program
     {
         static HttpClient httpClient = new HttpClient();
+        static IWebDriver driver = new FirefoxDriver("./");
+        static string githubUsername = "USERNAME"; // Environment.GetEnvironmentVariable("GITHUB_USERNAME");
+        static string githubPassword = "PASSWORD"; // Environment.GetEnvironmentVariable("GITHUB_PASSWORD");
         static int numberOfExceptions = 0;
         static List<string> idsOfExceptions = new List<string>();
 
         static async Task Main(string[] args)
         {
             string codewarsUsername = "JoseDeFreitas"; // Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
-            string githubUsername = "USERNAME"; // Environment.GetEnvironmentVariable("GITHUB_USERNAME");
-            string githubPassword = "PASSWORD"; // Environment.GetEnvironmentVariable("GITHUB_PASSWORD");
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
             string mainFolderPath = "../Katas";
@@ -41,24 +42,7 @@ namespace CodewarsGitHubLogger
 
             Directory.CreateDirectory(mainFolderPath);
 
-            // Start Firefox web browser
-            IWebDriver driver = new FirefoxDriver("./");
-
-            try
-            {
-                driver.Navigate().GoToUrl(@"https://www.codewars.com/users/sign_in");
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-            }
-
-            IWebElement siginForm = driver.FindElement(By.Id("new_user"));
-            siginForm.FindElement(By.TagName("button")).Click();
-
-            driver.FindElement(By.Id("login_field")).SendKeys(githubUsername);
-            driver.FindElement(By.Id("password")).SendKeys(githubPassword);
-            driver.FindElement(By.Name("commit")).Click();
+            SigInToCodewars();
 
             // Response used to get the total number of pages available
             Stream mainResponseJson = await httpClient.GetStreamAsync(completedKatasUrl);
@@ -124,6 +108,25 @@ namespace CodewarsGitHubLogger
                 Console.WriteLine("All data was loaded successfully.");
             else
                 Console.WriteLine($"All data was loaded except {numberOfExceptions.ToString()} katas: {string.Join(" - ", idsOfExceptions)}.");
+        }
+
+        static void SigInToCodewars()
+        {
+            try
+            {
+                driver.Navigate().GoToUrl(@"https://www.codewars.com/users/sign_in");
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+
+            IWebElement siginForm = driver.FindElement(By.Id("new_user"));
+            siginForm.FindElement(By.TagName("button")).Click();
+
+            driver.FindElement(By.Id("login_field")).SendKeys(githubUsername);
+            driver.FindElement(By.Id("password")).SendKeys(githubPassword);
+            driver.FindElement(By.Name("commit")).Click();
         }
 
         static async Task CreateMainFilesAsync(
