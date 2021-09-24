@@ -12,6 +12,8 @@ namespace CodewarsGitHubLogger
     class Program
     {
         static HttpClient httpClient = new HttpClient();
+        static int numberOfExceptions = 0;
+        static List<string> idsOfExceptions = new List<string>();
 
         static async Task Main(string[] args)
         {
@@ -36,8 +38,6 @@ namespace CodewarsGitHubLogger
                 {"ruby", "rb"}, {"rust", "rs"}, {"scala", "scala"}, {"shell", "sh"},
                 {"sql", "sql"}, {"swift", "swift"}, {"typescript", "ts"}, {"vb", "vb"},
             };
-            int numberOfExceptions = 0;
-            List<string> idsOfExceptions = new List<string>();
 
             Directory.CreateDirectory(mainFolderPath);
 
@@ -79,29 +79,11 @@ namespace CodewarsGitHubLogger
 
                     string kataFolder = Path.Combine(mainFolderPath, kata.slug);
 
-                    // Create folder with the slug name of the kata
-                    try
-                    {
-                        Directory.CreateDirectory(kataFolder);
-                    }
-                    catch (IOException exception)
-                    {
-                        Console.WriteLine(exception);
-                        numberOfExceptions++;
-                        idsOfExceptions.Add(kata.id);
-                        continue;
-                    }
-
-                    // Create "README.md" file containing information of the kata
-                    string[] content =
-                    {
-                        $"# [{kata.name}]({kataInfoUrl}{kata.id})\n",
-                        $"**Completed at:** {kata.completedAt}\n",
-                        $"**Completed languages:** {string.Join(", ", kata.completedLanguages)}\n",
-                        $"## Description\n\n{kataInfoObject.description}"
-                    };
-
-                    await File.WriteAllLinesAsync(Path.Combine(kataFolder, "README.md"), content);
+                    CreateMainFilesAsync(
+                        kataFolder, kata.name, kataInfoUrl,
+                        kata.id, kata.completedAt, kata.completedLanguages,
+                        kataInfoObject.description
+                    );
 
                     foreach (string language in kata.completedLanguages)
                     {
@@ -141,6 +123,37 @@ namespace CodewarsGitHubLogger
                 Console.WriteLine("All data was loaded successfully.");
             else
                 Console.WriteLine($"All data was loaded except {numberOfExceptions.ToString()} katas: {string.Join(" - ", idsOfExceptions)}.");
+        }
+
+        static async Task CreateMainFilesAsync(
+            string folder, string name, string url,
+            string id, string date, List<string> languages,
+            string description
+        )
+        {
+            // Create folder with the slug name of the kata
+            try
+            {
+                Directory.CreateDirectory(folder);
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine(exception);
+                numberOfExceptions++;
+                idsOfExceptions.Add(id);
+                continue;
+            }
+
+            // Create "README.md" file containing information of the kata
+            string[] content =
+            {
+                $"# [{name}]({url}{id})\n",
+                $"**Completed at:** {date}\n",
+                $"**Completed languages:** {string.Join(", ", languages)}\n",
+                $"## Description\n\n{description}"
+            };
+
+            await File.WriteAllLinesAsync(Path.Combine(folder, "README.md"), content);
         }
     }
 
