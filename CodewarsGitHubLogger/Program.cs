@@ -13,8 +13,8 @@ namespace CodewarsGitHubLogger
     {
         static HttpClient httpClient = new HttpClient();
         static IWebDriver driver = new FirefoxDriver("./");
-        static string githubUsername = "USERNAME"; // Environment.GetEnvironmentVariable("GITHUB_USERNAME");
-        static string githubPassword = "PASSWORD"; // Environment.GetEnvironmentVariable("GITHUB_PASSWORD");
+        static string githubUsername = Environment.GetEnvironmentVariable("GITHUB_USERNAME");
+        static string githubPassword = Environment.GetEnvironmentVariable("GITHUB_PASSWORD");
         static int numberOfExceptions = 0;
         static List<string> idsOfExceptions = new List<string>();
         static Dictionary<string, string> languagesExtensions = new Dictionary<string, string>() {
