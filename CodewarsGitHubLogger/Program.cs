@@ -78,6 +78,9 @@ namespace CodewarsGitHubLogger
 
         static void OpenWebServer()
         {
+            string githubUsername = "USERNAME"; // Environment.GetEnvironmentVariable("GITHUB_USERNAME");
+            string githubPassword = "PASSWORD"; // Environment.GetEnvironmentVariable("GITHUB_PASSWORD");
+
             IWebDriver driver = new FirefoxDriver("./");
 
             try
@@ -91,6 +94,10 @@ namespace CodewarsGitHubLogger
 
             IWebElement siginForm = driver.FindElement(By.Id("new_user"));
             siginForm.FindElement(By.TagName("button")).Click();
+
+            driver.FindElement(By.Id("login_field")).SendKeys(githubUsername);
+            driver.FindElement(By.Id("password")).SendKeys(githubPassword);
+            driver.FindElement(By.Name("commit")).Click();
 
             driver.Quit();
         }
