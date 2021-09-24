@@ -17,6 +17,21 @@ namespace CodewarsGitHubLogger
         static string githubPassword = "PASSWORD"; // Environment.GetEnvironmentVariable("GITHUB_PASSWORD");
         static int numberOfExceptions = 0;
         static List<string> idsOfExceptions = new List<string>();
+        static Dictionary<string, string> languagesExtensions = new Dictionary<string, string>() {
+            {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
+            {"clojure", "clj"}, {"cobol", "cob"}, {"coffeescript", "coffee"}, {"commonlisp", "lisp"},
+            {"coq", "coq"}, {"cplusplus", "cpp"}, {"crystal", "cr"}, {"csharp", "cs"},
+            {"dart", "dart"}, {"elixir", "ex"}, {"elm", "elm"}, {"erlang", "erl"},
+            {"factor", "factor"}, {"forth", "fth"}, {"fortran", "f"}, {"fsharp", "fs"},
+            {"go", "go"}, {"groovy", "groovy"}, {"haskell", "hs"}, {"haxe", "hx"},
+            {"idris", "idr"}, {"java", "java"}, {"javascript", "js"}, {"julia", "jl"},
+            {"kotlin", "kt"}, {"lean", "lean"}, {"lua", "lua"}, {"nasm", "nasm"},
+            {"nimrod", "nim"}, {"objective", "m"}, {"ocaml", "ml"}, {"pascal", "pas"},
+            {"perl", "pl"}, {"php", "php"}, {"powershell", "ps1"}, {"prolog", "pro"},
+            {"purescript", "purs"}, {"python", "py"}, {"r", "r"}, {"racket", "rkt"},
+            {"ruby", "rb"}, {"rust", "rs"}, {"scala", "scala"}, {"shell", "sh"},
+            {"sql", "sql"}, {"swift", "swift"}, {"typescript", "ts"}, {"vb", "vb"},
+        };
 
         static async Task Main(string[] args)
         {
@@ -24,21 +39,6 @@ namespace CodewarsGitHubLogger
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
             string mainFolderPath = "../Katas";
-            Dictionary<string, string> languagesExtensions = new Dictionary<string, string>() {
-                {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
-                {"clojure", "clj"}, {"cobol", "cob"}, {"coffeescript", "coffee"}, {"commonlisp", "lisp"},
-                {"coq", "coq"}, {"cplusplus", "cpp"}, {"crystal", "cr"}, {"csharp", "cs"},
-                {"dart", "dart"}, {"elixir", "ex"}, {"elm", "elm"}, {"erlang", "erl"},
-                {"factor", "factor"}, {"forth", "fth"}, {"fortran", "f"}, {"fsharp", "fs"},
-                {"go", "go"}, {"groovy", "groovy"}, {"haskell", "hs"}, {"haxe", "hx"},
-                {"idris", "idr"}, {"java", "java"}, {"javascript", "js"}, {"julia", "jl"},
-                {"kotlin", "kt"}, {"lean", "lean"}, {"lua", "lua"}, {"nasm", "nasm"},
-                {"nimrod", "nim"}, {"objective", "m"}, {"ocaml", "ml"}, {"pascal", "pas"},
-                {"perl", "pl"}, {"php", "php"}, {"powershell", "ps1"}, {"prolog", "pro"},
-                {"purescript", "purs"}, {"python", "py"}, {"r", "r"}, {"racket", "rkt"},
-                {"ruby", "rb"}, {"rust", "rs"}, {"scala", "scala"}, {"shell", "sh"},
-                {"sql", "sql"}, {"swift", "swift"}, {"typescript", "ts"}, {"vb", "vb"},
-            };
 
             Directory.CreateDirectory(mainFolderPath);
 
@@ -71,32 +71,7 @@ namespace CodewarsGitHubLogger
 
                     foreach (string language in kata.completedLanguages)
                     {
-                        IWebElement solutionsList;
-                        IWebElement solutionItem;
-                        string solutionCode;
-
-                        try
-                        {
-                            driver.Navigate().GoToUrl($@"https://www.codewars.com/kata/{kata.id}/solutions/{language}/me/newest");
-                            solutionsList = driver.FindElement(By.Id("solutions_list"));
-                            solutionItem = solutionsList.FindElement(By.TagName("li"));
-                            solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
-                        }
-                        catch (Exception exception)
-                        {
-                            Console.WriteLine(exception);
-                            numberOfExceptions++;
-                            idsOfExceptions.Add(kata.id);
-                            continue;
-                        }
-                        
-                        // Create file containing the code solution of the kata (based on the programming language)
-                        string[] code =
-                        {
-                            solutionCode
-                        };
-    
-                        await File.WriteAllLinesAsync(Path.Combine(kataFolder, $"{kata.slug}.{languagesExtensions[language]}"), code);
+                        await CreateCodeFileAsync(kataFolder, kata.id, language, kata.slug);
                     }
                 }
             }
@@ -157,6 +132,35 @@ namespace CodewarsGitHubLogger
             };
 
             await File.WriteAllLinesAsync(Path.Combine(folder, "README.md"), content);
+        }
+
+        static async Task CreateCodeFileAsync(string folder, string id, string language, string slug)
+        {
+            IWebElement solutionsList;
+            IWebElement solutionItem;
+            string solutionCode = "";
+
+            try
+            {
+                driver.Navigate().GoToUrl($@"https://www.codewars.com/kata/{id}/solutions/{language}/me/newest");
+                solutionsList = driver.FindElement(By.Id("solutions_list"));
+                solutionItem = solutionsList.FindElement(By.TagName("li"));
+                solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                numberOfExceptions++;
+                idsOfExceptions.Add(id);
+            }
+                        
+            // Create file containing the code solution of the kata (based on the programming language)
+            string[] code =
+            {
+                solutionCode
+            };
+    
+            await File.WriteAllLinesAsync(Path.Combine(folder, $"{slug}.{languagesExtensions[language]}"), code);
         }
     }
 
