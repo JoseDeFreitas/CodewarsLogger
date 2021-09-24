@@ -106,6 +106,7 @@ namespace CodewarsGitHubLogger
                 Environment.Exit(1);
             }
 
+            // Clicks the GitHub OAuth button and fills the fields with the credentials
             IWebElement siginForm = driver.FindElement(By.Id("new_user"));
             siginForm.FindElement(By.TagName("button")).Click();
 
@@ -178,6 +179,7 @@ namespace CodewarsGitHubLogger
             IWebElement solutionItem;
             string solutionCode = "";
 
+            // Search for all the DOM elements of the page
             try
             {
                 driver.Navigate().GoToUrl($@"https://www.codewars.com/kata/{id}/solutions/{language}/me/newest");
