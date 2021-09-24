@@ -104,18 +104,22 @@ namespace CodewarsGitHubLogger
 
                     foreach (string language in kata.completedLanguages)
                     {
+                        IWebElement solutionsList;
+                        IWebElement solutionItem;
+                        string solutionCode;
+
                         try
                         {
                             driver.Navigate().GoToUrl($@"https://www.codewars.com/kata/{kata.id}/solutions/{language}/me/newest");
+                            solutionsList = driver.FindElement(By.Id("solutions_list"));
+                            solutionItem = solutionsList.FindElement(By.TagName("li"));
+                            solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
                         }
                         catch (Exception exception)
                         {
                             Console.WriteLine(exception);
+                            continue;
                         }
-
-                        IWebElement solutionsList = driver.FindElement(By.Id("solutions_list"));
-                        IWebElement solutionItem = solutionsList.FindElement(By.TagName("li"));
-                        string solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
                         
                         // Create file containing the code solution of the kata (based on the programming language)
                         string[] code =
