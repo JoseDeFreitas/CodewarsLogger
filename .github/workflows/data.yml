@@ -24,3 +24,5 @@ jobs:
       run: dotnet run --project ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj
       env:
         CODEWARS_USERNAME: ${{ secrets.CODEWARS_USERNAME }}
+        GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
+        GITHUB_PASSWORD: ${{ secrets.GITHUB_PASSWORD }}
