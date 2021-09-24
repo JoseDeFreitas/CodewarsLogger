@@ -21,6 +21,7 @@ namespace CodewarsGitHubLogger
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
             string mainFolderPath = "../Katas";
+            Dictionary<string, string> languageExtensions = new Dictionary<string, string>();
 
             Directory.CreateDirectory(mainFolderPath);
 
@@ -86,6 +87,30 @@ namespace CodewarsGitHubLogger
                     };
 
                     await File.WriteAllLinesAsync(Path.Combine(kataFolder, "README.md"), content);
+
+                    foreach (string language in kata.completedLanguages)
+                    {
+                        try
+                        {
+                            driver.Navigate().GoToUrl($@"https://www.codewars.com/kata/{kata.id}/solutions/{language}/me/newest");
+                        }
+                        catch (Exception exception)
+                        {
+                            Console.WriteLine(exception);
+                        }
+
+                        IWebElement solutionsList = driver.FindElement(By.Id("solutions_list"));
+                        IWebElement solutionItem = solutionsList.FindElement(By.TagName("li"));
+                        string solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
+                        
+                        // Create file containing the code solution of the kata (based on the programming language)
+                        string[] code =
+                        {
+                            solutionCode
+                        };
+    
+                        await File.WriteAllLinesAsync(Path.Combine(kataFolder, $"{kata.slug}"), code);
+                        }
                 }
             }
 
