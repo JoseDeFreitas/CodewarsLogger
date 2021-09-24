@@ -124,7 +124,7 @@ namespace CodewarsGitHubLogger
                         };
     
                         await File.WriteAllLinesAsync(Path.Combine(kataFolder, $"{kata.slug}.{languagesExtensions[language]}"), code);
-                        }
+                    }
                 }
             }
 
