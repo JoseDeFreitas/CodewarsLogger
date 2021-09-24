@@ -85,6 +85,13 @@ namespace CodewarsGitHubLogger
                 Console.WriteLine($"All data was loaded except {numberOfExceptions.ToString()} katas: {string.Join(" - ", idsOfExceptions)}.");
         }
 
+        /// <summary>
+        /// Using the credentials provided (GitHub username and passwords) to sign in to
+        /// Codewars. It doesn't allow signing in with Codewars creadentials (username and
+        /// password) because it's intended to work only if the user registered using the
+        /// GitHub OAuth.
+        /// </summary>
+        /// <exception>When the driver can't connect to the Codewars website.</exception>
         static void SigInToCodewars()
         {
             try
@@ -104,6 +111,20 @@ namespace CodewarsGitHubLogger
             driver.FindElement(By.Name("commit")).Click();
         }
 
+        /// <summary>
+        /// "Main files" are: the kata folder and the README.md file. The name of the
+        /// folder will be the slug of the kata, and the README.md file will contain some
+        /// information about the kata (the name, the link to the Codewars page of the kata,
+        /// the date of completion, the completed languages, and the description).
+        /// </summary>
+        /// <param name="folder">The name of the folder (based on the kata slug).</param>
+        /// <param name="name">The name of the kata (not the slug).</param>
+        /// <param name="url">The url to the kata on the Codewars website.</param>
+        /// <param name="id">The ID of the kata.</param>
+        /// <param name="date">The date the kata was completed on.</param>
+        /// <param name="languages">The programming languages the kata was completed in.</param>
+        /// <param name="description">The description of the kata (Markdown-formatted).</param>
+        /// <exception>If the folder can't be created.</exception>
         static async Task CreateMainFilesAsync(
             string folder, string name, string url,
             string id, string date, List<string> languages,
@@ -134,6 +155,20 @@ namespace CodewarsGitHubLogger
             await File.WriteAllLinesAsync(Path.Combine(folder, "README.md"), content);
         }
 
+        /// <summary>
+        /// "Main files" are: the kata folder and the README.md file. The name of the
+        /// folder will be the slug of the kata, and the README.md file will contain some
+        /// information about the kata (the name, the link to the Codewars page of the kata,
+        /// the date of completion, the completed languages, and the description).
+        /// </summary>
+        /// <param name="folder">The name of the folder (based on the kata slug).</param>
+        /// <param name="id">The ID of the kata.</param>
+        /// <param name="language">The programming language inside the list of them.</param>
+        /// <param name="slug">The slug of the kata (not the name).</param>
+        /// <exception>
+        /// When the driver can't connect to the Codewars website or the DOM elements
+        /// couldn't be found (due to a problem with Codewars).
+        /// </exception>
         static async Task CreateCodeFileAsync(string folder, string id, string language, string slug)
         {
             IWebElement solutionsList;
