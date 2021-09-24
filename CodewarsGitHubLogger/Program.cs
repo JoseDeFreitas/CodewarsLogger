@@ -78,7 +78,7 @@ namespace CodewarsGitHubLogger
 
         static void OpenWebServer()
         {
-            IWebDriver driver = new FirefoxDriver();
+            IWebDriver driver = new FirefoxDriver("./");
 
             try
             {
