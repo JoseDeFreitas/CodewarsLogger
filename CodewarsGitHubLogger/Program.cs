@@ -142,7 +142,6 @@ namespace CodewarsGitHubLogger
                 Console.WriteLine(exception);
                 numberOfExceptions++;
                 idsOfExceptions.Add(id);
-                continue;
             }
 
             // Create "README.md" file containing information of the kata
