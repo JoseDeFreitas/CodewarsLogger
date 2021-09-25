@@ -129,7 +129,7 @@ namespace CodewarsGitHubLogger
         /// <param name="languages">The programming languages the kata was completed in.</param>
         /// <param name="description">The description of the kata (Markdown-formatted).</param>
         /// <exception>If the folder can't be created.</exception>
-        static async Task CreateMainFilesAsync(
+        static async Task<int> CreateMainFilesAsync(
             string folder, string name, string url,
             string id, string date, List<string> languages,
             string description
@@ -145,6 +145,7 @@ namespace CodewarsGitHubLogger
                 Console.WriteLine(exception);
                 numberOfExceptions++;
                 idsOfExceptions.Add(id);
+                return 2;
             }
 
             // Create "README.md" file containing information of the kata
@@ -157,6 +158,8 @@ namespace CodewarsGitHubLogger
             };
 
             await File.WriteAllLinesAsync(Path.Combine(folder, "README.md"), content);
+
+            return 0;
         }
 
         /// <summary>
@@ -173,7 +176,7 @@ namespace CodewarsGitHubLogger
         /// When the driver can't connect to the Codewars website or the DOM elements
         /// couldn't be found (due to a problem with Codewars).
         /// </exception>
-        static async Task CreateCodeFileAsync(string folder, string id, string language, string slug)
+        static async Task<int> CreateCodeFileAsync(string folder, string id, string language, string slug)
         {
             IWebElement solutionsList;
             IWebElement solutionItem;
@@ -190,17 +193,21 @@ namespace CodewarsGitHubLogger
             catch (TimeoutException exception)
             {
                 Console.WriteLine(exception);
+                return 1;
             }
             catch (NoSuchElementException)
             {
                 numberOfExceptions++;
                 idsOfExceptions.Add(id);
+                return 3;
             }
                         
             // Create file containing the code solution of the kata (based on the programming language)
             string[] code = { solutionCode };
     
             await File.WriteAllLinesAsync(Path.Combine(folder, $"{slug}.{languagesExtensions[language]}"), code);
+
+            return 0;
         }
     }
 
