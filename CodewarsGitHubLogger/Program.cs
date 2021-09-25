@@ -33,7 +33,7 @@ namespace CodewarsGitHubLogger
             {"sql", "sql"}, {"swift", "swift"}, {"typescript", "ts"}, {"vb", "vb"},
         };
 
-        static async Task<int> Main(string[] args)
+        static async Task Main(string[] args)
         {
             string codewarsUsername = "JoseDeFreitas"; // Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
@@ -92,8 +92,6 @@ namespace CodewarsGitHubLogger
                 Console.WriteLine($"{separatorLine}All data was loaded successfully.");
             else
                 Console.WriteLine($"{separatorLine}All data was loaded except {numberOfExceptions.ToString()} katas: {string.Join(" - ", idsOfExceptions)}.");
-            
-            return 0;
         }
 
         /// <summary>
