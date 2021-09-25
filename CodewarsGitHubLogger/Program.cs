@@ -137,26 +137,13 @@ namespace CodewarsGitHubLogger
         /// <param name="languages">The programming languages the kata was completed in.</param>
         /// <param name="description">The description of the kata (Markdown-formatted).</param>
         /// <exception>If the folder can't be created.</exception>
-        static async Task<int> CreateMainFilesAsync(
+        static async Task CreateMainFilesAsync(
             string folder, string name, string url,
             string id, string date, List<string> languages,
             string description
         )
         {
-            // Create folder with the slug name of the kata
-            try
-            {
-                Directory.CreateDirectory(folder);
-            }
-            catch (IOException exception)
-            {
-                Console.WriteLine(exception);
-                numberOfExceptions++;
-                idsOfExceptions.Add(id);
-                return 2;
-            }
-
-            // Create "README.md" file containing information of the kata
+            // Define content of the README.md file
             string[] content =
             {
                 $"# [{name}]({url}{id})\n",
@@ -165,9 +152,18 @@ namespace CodewarsGitHubLogger
                 $"## Description\n\n{description}"
             };
 
-            await File.WriteAllLinesAsync(Path.Combine(folder, "README.md"), content);
-
-            return 0;
+            // Create folder with the slug name of the kata and the README.md file
+            try
+            {
+                Directory.CreateDirectory(folder);
+                await File.WriteAllLinesAsync(Path.Combine(folder, "README.md"), content);
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine(exception);
+                numberOfExceptions++;
+                idsOfExceptions.Add(id);
+            }
         }
 
         /// <summary>
@@ -183,38 +179,41 @@ namespace CodewarsGitHubLogger
         /// When the driver can't connect to the Codewars website or the DOM elements
         /// couldn't be found (due to a problem with Codewars).
         /// </exception>
-        static async Task<int> CreateCodeFileAsync(string path, string id, string language)
+        static async Task CreateCodeFileAsync(string path, string id, string language)
         {
             IWebElement solutionsList;
             IWebElement solutionItem;
             string solutionCode = "";
 
+            // Define content of the code file
+            string[] code = { solutionCode };
+
             // Search for the necessary DOM elements of the page
             try
             {
                 driver.Navigate().GoToUrl($@"https://www.codewars.com/kata/{id}/solutions/{language}/me/newest");
+
                 solutionsList = driver.FindElement(By.Id("solutions_list"));
                 solutionItem = solutionsList.FindElement(By.TagName("li"));
                 solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
+
+                await File.WriteAllLinesAsync(path, code);
             }
             catch (TimeoutException exception)
             {
                 Console.WriteLine(exception);
-                return 1;
+                return;
             }
-            catch (NoSuchElementException)
+            catch (NoSuchElementException exception)
+            {
+                Console.WriteLine(exception);
+                return;
+            }
+            catch (IOException)
             {
                 numberOfExceptions++;
                 idsOfExceptions.Add(id);
-                return 3;
             }
-                        
-            // Create file containing the code solution of the kata (based on the programming language)
-            string[] code = { solutionCode };
-    
-            await File.WriteAllLinesAsync(path, code);
-
-            return 0;
         }
     }
 
