@@ -71,7 +71,12 @@ namespace CodewarsGitHubLogger
 
                     foreach (string language in kata.completedLanguages)
                     {
-                        await CreateCodeFileAsync(kataFolder, kata.id, language, kata.slug);
+                        string codeFile = Path.Combine(kataFolder, $"{kata.slug}.{languagesExtensions[language]}");
+
+                        if (!File.Exists(codeFile))
+                            await CreateCodeFileAsync(codeFile, kata.id, language);
+                        else
+                            continue;
                     }
                 }
             }
@@ -168,15 +173,14 @@ namespace CodewarsGitHubLogger
         /// information about the kata (the name, the link to the Codewars page of the kata,
         /// the date of completion, the completed languages, and the description).
         /// </summary>
-        /// <param name="folder">The name of the folder (based on the kata slug).</param>
+        /// <param name="path">The path of the code file (for each language).</param>
         /// <param name="id">The ID of the kata.</param>
         /// <param name="language">The programming language inside the list of them.</param>
-        /// <param name="slug">The slug of the kata (not the name).</param>
         /// <exception>
         /// When the driver can't connect to the Codewars website or the DOM elements
         /// couldn't be found (due to a problem with Codewars).
         /// </exception>
-        static async Task<int> CreateCodeFileAsync(string folder, string id, string language, string slug)
+        static async Task<int> CreateCodeFileAsync(string path, string id, string language)
         {
             IWebElement solutionsList;
             IWebElement solutionItem;
@@ -205,7 +209,7 @@ namespace CodewarsGitHubLogger
             // Create file containing the code solution of the kata (based on the programming language)
             string[] code = { solutionCode };
     
-            await File.WriteAllLinesAsync(Path.Combine(folder, $"{slug}.{languagesExtensions[language]}"), code);
+            await File.WriteAllLinesAsync(path, code);
 
             return 0;
         }
