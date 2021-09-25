@@ -61,20 +61,20 @@ namespace CodewarsGitHubLogger
                     Stream responseKataInfo = await httpClient.GetStreamAsync($"{kataInfoUrl}{kata.id}");
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
 
-                    string kataFolder = Path.Combine(mainFolderPath, kata.slug);
+                    string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
 
                     await CreateMainFilesAsync(
-                        kataFolder, kata.name, kataInfoUrl,
+                        kataFolderPath, kata.name, kataInfoUrl,
                         kata.id, kata.completedAt, kata.completedLanguages,
                         kataInfoObject.description
                     );
 
                     foreach (string language in kata.completedLanguages)
                     {
-                        string codeFile = Path.Combine(kataFolder, $"{kata.slug}.{languagesExtensions[language]}");
+                        string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{languagesExtensions[language]}");
 
-                        if (!File.Exists(codeFile))
-                            await CreateCodeFileAsync(codeFile, kata.id, language);
+                        if (!File.Exists(codeFilePath))
+                            await CreateCodeFileAsync(codeFilePath, kata.id, language);
                         else
                             continue;
                     }
