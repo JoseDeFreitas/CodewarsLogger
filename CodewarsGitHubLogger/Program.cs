@@ -168,10 +168,10 @@ namespace CodewarsGitHubLogger
         }
 
         /// <summary>
-        /// "Main files" are: the kata folder and the README.md file. The name of the
-        /// folder will be the slug of the kata, and the README.md file will contain some
-        /// information about the kata (the name, the link to the Codewars page of the kata,
-        /// the date of completion, the completed languages, and the description).
+        /// Pulls the code of the kata from the Codewars website. It supports all the
+        /// programming languages the code was completed in. With that code in hand,
+        /// copies it to a new file with the proper language extensions and adds it to
+        /// the kata folder. One file per programming language completed.
         /// </summary>
         /// <param name="path">The path of the code file (for each language).</param>
         /// <param name="id">The ID of the kata.</param>
