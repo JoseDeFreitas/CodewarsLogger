@@ -63,11 +63,14 @@ namespace CodewarsGitHubLogger
 
                     string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
 
-                    await CreateMainFilesAsync(
-                        kataFolderPath, kata.name, kataInfoUrl,
-                        kata.id, kata.completedAt, kata.completedLanguages,
-                        kataInfoObject.description
-                    );
+                    if (!Directory.Exists(kataFolderPath))
+                    {
+                        await CreateMainFilesAsync(
+                            kataFolderPath, kata.name, kataInfoUrl,
+                            kata.id, kata.completedAt, kata.completedLanguages,
+                            kataInfoObject.description
+                        );
+                    }
 
                     foreach (string language in kata.completedLanguages)
                     {
