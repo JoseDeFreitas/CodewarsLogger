@@ -100,7 +100,7 @@ namespace CodewarsGitHubLogger
             {
                 driver.Navigate().GoToUrl(@"https://www.codewars.com/users/sign_in");
             }
-            catch (Exception exception)
+            catch (TimeoutException exception)
             {
                 Console.WriteLine(exception);
                 Environment.Exit(1);
@@ -187,9 +187,12 @@ namespace CodewarsGitHubLogger
                 solutionItem = solutionsList.FindElement(By.TagName("li"));
                 solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
             }
-            catch (Exception exception)
+            catch (TimeoutException exception)
             {
                 Console.WriteLine(exception);
+            }
+            catch (NoSuchElementException)
+            {
                 numberOfExceptions++;
                 idsOfExceptions.Add(id);
             }
