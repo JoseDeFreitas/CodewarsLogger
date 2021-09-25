@@ -86,10 +86,12 @@ namespace CodewarsGitHubLogger
 
             driver.Quit();
 
+            string separatorLine = "-------------------------\n";
+
             if (numberOfExceptions == 0)
-                Console.WriteLine("All data was loaded successfully.");
+                Console.WriteLine($"{separatorLine}All data was loaded successfully.");
             else
-                Console.WriteLine($"All data was loaded except {numberOfExceptions.ToString()} katas: {string.Join(" - ", idsOfExceptions)}.");
+                Console.WriteLine($"{separatorLine}All data was loaded except {numberOfExceptions.ToString()} katas: {string.Join(" - ", idsOfExceptions)}.");
             
             return 0;
         }
