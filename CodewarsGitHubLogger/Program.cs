@@ -186,7 +186,7 @@ namespace CodewarsGitHubLogger
             IWebElement solutionItem;
             string solutionCode = "";
 
-            // Search for all the DOM elements of the page
+            // Search for the necessary DOM elements of the page
             try
             {
                 driver.Navigate().GoToUrl($@"https://www.codewars.com/kata/{id}/solutions/{language}/me/newest");
