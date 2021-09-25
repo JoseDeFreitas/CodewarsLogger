@@ -44,7 +44,7 @@ namespace CodewarsGitHubLogger
 
             SigInToCodewars();
 
-            // Response used to get the total number of pages available
+            // Response used only to get the total number of pages available
             Stream mainResponseJson = await httpClient.GetStreamAsync(completedKatasUrl);
             KataCompleted mainResponseObject = await JsonSerializer.DeserializeAsync<KataCompleted>(mainResponseJson);
             int numberOfPages = mainResponseObject.totalPages;
@@ -57,7 +57,7 @@ namespace CodewarsGitHubLogger
 
                 foreach (var kata in kataObject.data)
                 {
-                    // Response used to get the description of the kata
+                    // Response used only to get the description of the kata
                     Stream responseKataInfo = await httpClient.GetStreamAsync($"{kataInfoUrl}{kata.id}");
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
 
@@ -86,7 +86,6 @@ namespace CodewarsGitHubLogger
 
             driver.Quit();
 
-            // Print informational comment for the user to know about the state of the execution
             if (numberOfExceptions == 0)
                 Console.WriteLine("All data was loaded successfully.");
             else
@@ -114,7 +113,6 @@ namespace CodewarsGitHubLogger
                 Environment.Exit(1);
             }
 
-            // Clicks the GitHub OAuth button and fills the fields with the credentials
             IWebElement siginForm = driver.FindElement(By.Id("new_user"));
             siginForm.FindElement(By.TagName("button")).Click();
 
@@ -143,7 +141,6 @@ namespace CodewarsGitHubLogger
             string description
         )
         {
-            // Define content of the README.md file
             string[] content =
             {
                 $"# [{name}]({url}{id})\n",
@@ -152,7 +149,6 @@ namespace CodewarsGitHubLogger
                 $"## Description\n\n{description}"
             };
 
-            // Create folder with the slug name of the kata and the README.md file
             try
             {
                 Directory.CreateDirectory(folder);
@@ -185,10 +181,8 @@ namespace CodewarsGitHubLogger
             IWebElement solutionItem;
             string solutionCode = "";
 
-            // Define content of the code file
             string[] code = { solutionCode };
 
-            // Search for the necessary DOM elements of the page
             try
             {
                 driver.Navigate().GoToUrl($@"https://www.codewars.com/kata/{id}/solutions/{language}/me/newest");
