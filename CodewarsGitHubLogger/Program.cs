@@ -68,7 +68,7 @@ namespace CodewarsGitHubLogger
                         await CreateMainFilesAsync(
                             kataFolderPath, kata.name, kataInfoUrl,
                             kata.id, kata.completedAt, kata.completedLanguages,
-                            kataInfoObject.description
+                            kataInfoObject.description, kataInfoObject.rank
                         );
                     }
 
@@ -138,7 +138,7 @@ namespace CodewarsGitHubLogger
         static async Task CreateMainFilesAsync(
             string folder, string name, string url,
             string id, string date, List<string> languages,
-            string description
+            string description, Dictionary<string, string> rank
         )
         {
             string[] content =
@@ -146,6 +146,7 @@ namespace CodewarsGitHubLogger
                 $"# [{name}]({url}{id})\n",
                 $"**Completed at:** {date}\n",
                 $"**Completed languages:** {string.Join(", ", languages)}\n",
+                $"**Rank:** {rank["name"]}",
                 $"## Description\n\n{description}"
             };
 
