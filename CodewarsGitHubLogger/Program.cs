@@ -68,7 +68,7 @@ namespace CodewarsGitHubLogger
                         await CreateMainFilesAsync(
                             kataFolderPath, kata.name, kataInfoUrl,
                             kata.id, kata.completedAt, kata.completedLanguages,
-                            kataInfoObject.description, kataInfoObject.rank
+                            kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
                         );
                     }
 
@@ -83,7 +83,7 @@ namespace CodewarsGitHubLogger
                     }
 
                     if (createIndex == "index")
-                        await CreateIndexFileAsync(kata.name, kata.slug, kataInfoObject.tags);
+                        await CreateIndexFileAsync(kata.name, kata.slug);
                 }
             }
 
@@ -141,7 +141,7 @@ namespace CodewarsGitHubLogger
         static async Task CreateMainFilesAsync(
             string folder, string name, string url,
             string id, string date, List<string> languages,
-            string description, Dictionary<string, string> rank
+            string description, Dictionary<string, string> rank, List<string> tags
         )
         {
             string[] content =
@@ -149,6 +149,7 @@ namespace CodewarsGitHubLogger
                 $"# [{name}]({url}{id})\n",
                 $"**Completed at:** {date}\n",
                 $"**Completed languages:** {string.Join(", ", languages)}\n",
+                $"**Tags:** {string.Join(", ", tags)}",
                 $"**Rank:** {rank["name"]}",
                 $"## Description\n\n{description}"
             };
@@ -214,7 +215,7 @@ namespace CodewarsGitHubLogger
             }
         }
 
-        static async Task CreateIndexFileAsync(string name, string slug, List<string> tags)
+        static async Task CreateIndexFileAsync(string name, string slug)
         {
             string indexFilePath = "../Index.md";
             string[] content =
