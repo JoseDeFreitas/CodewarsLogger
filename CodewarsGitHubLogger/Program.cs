@@ -33,7 +33,7 @@ namespace CodewarsGitHubLogger
             {"sql", "sql"}, {"swift", "swift"}, {"typescript", "ts"}, {"vb", "vb"},
         };
 
-        static async Task Main(string[] args)
+        static async Task Main(string createIndex)
         {
             string codewarsUsername = "JoseDeFreitas"; // Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
@@ -81,6 +81,9 @@ namespace CodewarsGitHubLogger
                         else
                             continue;
                     }
+
+                    if (createIndex == "index")
+                        CreateIndexFileAsync();
                 }
             }
 
@@ -209,6 +212,11 @@ namespace CodewarsGitHubLogger
                 numberOfExceptions++;
                 idsOfExceptions.Add(id);
             }
+        }
+
+        static async Task CreateIndexFileAsync()
+        {
+
         }
     }
 
