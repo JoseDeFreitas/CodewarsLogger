@@ -32,6 +32,13 @@ namespace CodewarsGitHubLogger
             {"ruby", "rb"}, {"rust", "rs"}, {"scala", "scala"}, {"shell", "sh"},
             {"sql", "sql"}, {"swift", "swift"}, {"typescript", "ts"}, {"vb", "vb"},
         };
+        static Dictionary<string, List<string>> kataCategories = new Dictionary<string, List<string>>() {
+            {"reference", new List<string>()}, // Equivalent to the "Fundamentals" category
+            {"algorithms", new List<string>()},
+            {"bug_fixes", new List<string>()},
+            {"refactoring", new List<string>()},
+            {"games", new List<string>()} // Equivalent to the "Puzzles" category
+        };
 
         static async Task Main(string createIndex)
         {
@@ -60,6 +67,8 @@ namespace CodewarsGitHubLogger
                     // Response used only to get the description of the kata
                     Stream responseKataInfo = await httpClient.GetStreamAsync($"{kataInfoUrl}{kata.id}");
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
+
+                    kataCategories[kataInfoObject.category].Add($"{kata.name}§{kata.slug}");
 
                     string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
 
@@ -220,7 +229,12 @@ namespace CodewarsGitHubLogger
             string indexFilePath = "../Index.md";
             string[] content =
             {
-                "a"
+                "# Index of katas by its category/discipline",
+                "## Fundamentals",
+                "## Algorithms",
+                "## Bug Fixes",
+                "## Refactoring",
+                "## Puzzles",
             };
 
             try
