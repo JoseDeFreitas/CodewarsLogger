@@ -83,7 +83,7 @@ namespace CodewarsGitHubLogger
                     }
 
                     if (createIndex == "index")
-                        CreateIndexFileAsync();
+                        await CreateIndexFileAsync(kata.name, kata.slug, kataInfoObject.tags);
                 }
             }
 
@@ -214,9 +214,22 @@ namespace CodewarsGitHubLogger
             }
         }
 
-        static async Task CreateIndexFileAsync()
+        static async Task CreateIndexFileAsync(string name, string slug, List<string> tags)
         {
+            string indexFilePath = "../Index.md";
+            string[] content =
+            {
+                "a"
+            };
 
+            try
+            {
+                await File.WriteAllLinesAsync(indexFilePath, content);
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
     }
 
