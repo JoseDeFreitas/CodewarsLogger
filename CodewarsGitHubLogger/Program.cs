@@ -230,5 +230,7 @@ namespace CodewarsGitHubLogger
     class KataInfo
     {
         public string description { get; set; }
+        public List<string> tags { get; set; }
+        public Dictionary<string, string> rank { get; set; }
     }
 }
