@@ -12,7 +12,6 @@ namespace CodewarsGitHubLogger
     class Program
     {
         static HttpClient httpClient = new HttpClient();
-        static IWebDriver driver = new FirefoxDriver("./");
         static string githubUsername = Environment.GetEnvironmentVariable("USERNAME_GITHUB");
         static string githubPassword = Environment.GetEnvironmentVariable("PASSWORD_GITHUB");
         static int numberOfExceptions = 0;
@@ -42,6 +41,10 @@ namespace CodewarsGitHubLogger
 
         static async Task Main(string[] createIndex)
         {
+            FirefoxOptions options = new FirefoxOptions();
+            options.AddArgument("--headless");
+            IWebDriver driver = new FirefoxDriver("./", options);
+
             string codewarsUsername = "JoseDeFreitas"; // Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
@@ -49,7 +52,7 @@ namespace CodewarsGitHubLogger
 
             Directory.CreateDirectory(mainFolderPath);
 
-            SigInToCodewars();
+            SigInToCodewars(driver);
 
             // Response used only to get the total number of pages available
             Stream mainResponseJson = await httpClient.GetStreamAsync(completedKatasUrl);
@@ -85,7 +88,7 @@ namespace CodewarsGitHubLogger
                         string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{languagesExtensions[language]}");
 
                         if (!File.Exists(codeFilePath))
-                            await CreateCodeFileAsync(codeFilePath, kata.id, language);
+                            await CreateCodeFileAsync(driver, codeFilePath, kata.id, language);
                         else
                             continue;
                     }
@@ -111,8 +114,9 @@ namespace CodewarsGitHubLogger
         /// password) because it's intended to work only if the user registered using the
         /// GitHub OAuth.
         /// </summary>
+        /// <param name="driver">The Firefox driver initialised in the Main method.</param>
         /// <exception>When the driver can't connect to the Codewars website.</exception>
-        static void SigInToCodewars()
+        static void SigInToCodewars(IWebDriver driver)
         {
             try
             {
@@ -181,6 +185,7 @@ namespace CodewarsGitHubLogger
         /// copies it to a new file with the proper language extensions and adds it to
         /// the kata folder. One file per programming language completed.
         /// </summary>
+        /// <param name="driver">The Firefox driver initialised in the Main method.</param>
         /// <param name="path">The path of the code file (for each language).</param>
         /// <param name="id">The ID of the kata.</param>
         /// <param name="language">The programming language inside the list of them.</param>
@@ -188,7 +193,7 @@ namespace CodewarsGitHubLogger
         /// When the driver can't connect to the Codewars website or the DOM elements
         /// couldn't be found (due to a problem with Codewars).
         /// </exception>
-        static async Task CreateCodeFileAsync(string path, string id, string language)
+        static async Task CreateCodeFileAsync(IWebDriver driver, string path, string id, string language)
         {
             IWebElement solutionsList;
             IWebElement solutionItem;
