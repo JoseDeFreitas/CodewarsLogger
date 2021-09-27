@@ -53,6 +53,7 @@ the wiki of this repository to learn more about what you can do. Also, head to t
 the wiki to learn about the protection of your credentials. I recommend you take a read on the entire
 wiki because there is useful and important information for you to know.
 
-If you have any issue, please [open an issue]() explaining what's happening.
+If you're facing a problem, please open an issue by choosing a template from the available
+[issue templates](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new/choose).
 
 ## Disclaimer
