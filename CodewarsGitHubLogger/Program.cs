@@ -199,8 +199,6 @@ namespace CodewarsGitHubLogger
             IWebElement solutionItem;
             string solutionCode = "";
 
-            string[] code = { solutionCode };
-
             try
             {
                 driver.Navigate().GoToUrl($@"https://www.codewars.com/kata/{id}/solutions/{language}/me/newest");
@@ -209,7 +207,7 @@ namespace CodewarsGitHubLogger
                 solutionItem = solutionsList.FindElement(By.TagName("li"));
                 solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
 
-                await File.WriteAllLinesAsync(path, code);
+                await File.WriteAllTextAsync(path, solutionCode);
             }
             catch (TimeoutException exception)
             {
