@@ -1,0 +1,39 @@
+name: Bug report
+description: Fill this form if you are facing a bug of the program
+labels: [bug]
+body:
+  - type: textarea
+    id: actual_behaviour
+    attributes:
+      label: Actual behaviour
+      description: Describe the actual behaviour of the program when the bug happens.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_behaviour
+    attributes:
+      label: Expected behaviour
+      description: Describe the expected behaviour of the program. How should it behave without the bug?
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Tell what are the steps to reproduce the bug.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: aditional_information
+    attributes:
+      label: Additional information
+      description: If you need to add something else, use this field.
+      render: shell
+    validations:
+      required: false
