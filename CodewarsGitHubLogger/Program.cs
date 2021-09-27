@@ -72,7 +72,7 @@ namespace CodewarsGitHubLogger
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
                     string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
 
-                    kataCategories[kataInfoObject.category].Add($"- [{kata.name}]({kataFolderPath})");
+                    kataCategories[kataInfoObject.category].Add($"- [{kata.name}]({mainFolderPath}/{kata.slug})");
 
                     if (!Directory.Exists(kataFolderPath))
                     {
