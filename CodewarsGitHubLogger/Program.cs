@@ -43,9 +43,9 @@ namespace CodewarsGitHubLogger
         {
             FirefoxOptions options = new FirefoxOptions();
             options.AddArgument("--headless");
-            IWebDriver driver = new FirefoxDriver("./", options);
+            IWebDriver driver = new FirefoxDriver(options);
 
-            string codewarsUsername = "JoseDeFreitas"; // Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
+            string codewarsUsername = Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
             string mainFolderPath = "../Katas";
