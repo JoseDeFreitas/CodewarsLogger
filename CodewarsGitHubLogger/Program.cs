@@ -67,10 +67,9 @@ namespace CodewarsGitHubLogger
                     // Response used only to get the description of the kata
                     Stream responseKataInfo = await httpClient.GetStreamAsync($"{kataInfoUrl}{kata.id}");
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
-
-                    kataCategories[kataInfoObject.category].Add($"{kata.name}§{kata.slug}");
-
                     string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
+
+                    kataCategories[kataInfoObject.category].Add($"- [{kata.name}]({kataFolderPath})");
 
                     if (!Directory.Exists(kataFolderPath))
                     {
@@ -90,11 +89,11 @@ namespace CodewarsGitHubLogger
                         else
                             continue;
                     }
-
-                    if (createIndex == "index")
-                        await CreateIndexFileAsync(kata.name, kata.slug);
                 }
             }
+
+            if (createIndex == "index")
+                await CreateIndexFileAsync();
 
             driver.Quit();
 
@@ -224,17 +223,17 @@ namespace CodewarsGitHubLogger
             }
         }
 
-        static async Task CreateIndexFileAsync(string name, string slug)
+        static async Task CreateIndexFileAsync()
         {
-            string indexFilePath = "../Index.md";
+            string indexFilePath = "../INDEX.md";
             string[] content =
             {
                 "# Index of katas by its category/discipline",
-                "## Fundamentals",
-                "## Algorithms",
-                "## Bug Fixes",
-                "## Refactoring",
-                "## Puzzles",
+                $"## Fundamentals\n{string.Join("\n", kataCategories["reference"])}",
+                $"## Algorithms\n{string.Join("\n", kataCategories["algorithms"])}",
+                $"## Bug Fixes\n{string.Join("\n", kataCategories["bug_fixes"])}",
+                $"## Refactoring\n{string.Join("\n", kataCategories["refactoring"])}",
+                $"## Puzzles\n{string.Join("\n", kataCategories["games"])}",
             };
 
             try
