@@ -223,6 +223,13 @@ namespace CodewarsGitHubLogger
             }
         }
 
+        /// <summary>
+        /// If the program was run with the --index flag, this method executes, and
+        /// creates a file called "INDEX.md" that lists all the katas based on its
+        /// category/discipline, in order to make the navigation through the katas
+        /// easier and faster, while being logic.
+        /// <summary>
+        /// <exception>If the file can't be created.</exception>
         static async Task CreateIndexFileAsync()
         {
             string indexFilePath = "../INDEX.md";
