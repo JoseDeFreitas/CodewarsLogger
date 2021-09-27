@@ -12,7 +12,7 @@ namespace CodewarsGitHubLogger
     class Program
     {
         static HttpClient httpClient = new HttpClient();
-        static IWebDriver driver = new FirefoxDriver();
+        static IWebDriver driver = new FirefoxDriver("./");
         static string githubUsername = Environment.GetEnvironmentVariable("USERNAME_GITHUB");
         static string githubPassword = Environment.GetEnvironmentVariable("PASSWORD_GITHUB");
         static int numberOfExceptions = 0;
@@ -40,7 +40,7 @@ namespace CodewarsGitHubLogger
             {"games", new List<string>()} // Equivalent to the "Puzzles" category
         };
 
-        static async Task Main(string createIndex)
+        static async Task Main(string[] createIndex)
         {
             string codewarsUsername = "JoseDeFreitas"; // Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
@@ -92,7 +92,7 @@ namespace CodewarsGitHubLogger
                 }
             }
 
-            if (createIndex == "index")
+            if (createIndex[1] == "index")
                 await CreateIndexFileAsync();
 
             driver.Quit();
@@ -149,7 +149,7 @@ namespace CodewarsGitHubLogger
         static async Task CreateMainFilesAsync(
             string folder, string name, string url,
             string id, string date, List<string> languages,
-            string description, Dictionary<string, string> rank, List<string> tags
+            string description, Dictionary<string, object> rank, List<string> tags
         )
         {
             string[] content =
@@ -276,6 +276,6 @@ namespace CodewarsGitHubLogger
         public string category { get; set; }
         public string description { get; set; }
         public List<string> tags { get; set; }
-        public Dictionary<string, string> rank { get; set; }
+        public Dictionary<string, object> rank { get; set; }
     }
 }
