@@ -161,8 +161,8 @@ namespace CodewarsGitHubLogger
                 $"# [{name}]({url}{id})\n",
                 $"**Completed at:** {date}\n",
                 $"**Completed languages:** {string.Join(", ", languages)}\n",
-                $"**Tags:** {string.Join(", ", tags)}",
-                $"**Rank:** {rank["name"]}",
+                $"**Tags:** {string.Join(", ", tags)}\n",
+                $"**Rank:** {rank["name"]}\n",
                 $"## Description\n\n{description}"
             };
 
