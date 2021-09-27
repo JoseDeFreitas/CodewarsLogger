@@ -37,15 +37,15 @@ everything copying automatically. Below is the ordered list of steps you must fo
 1. Click on the green button "Use this template".
 2. Choose a name for your repository and click on "Create repository from template".
 3. Go to the settings of your new repository and then to the "Secrets" tab.
-4. Create these 3 secrets by clicking the button "New repository secret":
-   1. `USERNAME_GITHUB`: your GitHub username.
-   2. `PASSWORD_GITHUB`: your GitHub password.
-   3. `CODEWARS_USERNAME`: your Codewars username.
+4. Create these 3 secrets by clicking the button "New repository secret" (and then in the green button "Add secret"):
+   1. Name: `USERNAME_GITHUB`. Value: your GitHub username.
+   2. Name: `PASSWORD_GITHUB`. Value: your GitHub password.
+   3. Name: `CODEWARS_USERNAME`. Value: your Codewars username.
 5. Go to the "Actions" tab of the repository and click on the "Start project" workflow.
 6. Click on the button "Run workflow" (with the `main` branch selected) and again in the green "Run workflow" button.
 
 And that's it! Keep in mind that it will take some time the first time you run it (especially if you
-have completed a lot of katas).
+have completed a lot of katas, because the program must loop through all of them).
 
 You can customize some aspects of the program, such as the content of the README.md files,
 the name and the directory of the INDEX.md file and other stuff. Head to the "[Customisation page]()" in
