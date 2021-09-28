@@ -256,6 +256,13 @@ namespace CodewarsGitHubLogger
                 Console.WriteLine(exception);
             }
         }
+
+        static bool AreFilesEqual(string[] oldFile, string[] newFile)
+        {
+            bool result = false;
+
+            return result;
+        }
     }
 
     class KataCompleted
