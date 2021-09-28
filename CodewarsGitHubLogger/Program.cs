@@ -257,11 +257,18 @@ namespace CodewarsGitHubLogger
             }
         }
 
-        static bool AreFilesEqual(string[] oldFile, string[] newFile)
+        static bool AreFilesEqual(string oldFile, string newFile)
         {
-            bool result = false;
+            for (int i = 0; i < oldFile.Length; i++)
+            {
+                for (int j = 0; j < newFile.Length; j++)
+                {
+                    if (i != j)
+                        return false;
+                }
+            }
 
-            return result;
+            return true;
         }
     }
 
