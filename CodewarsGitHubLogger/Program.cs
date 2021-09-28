@@ -277,6 +277,15 @@ namespace CodewarsGitHubLogger
             }
         }
 
+        /// <summary>
+        /// Checks if the two files provided are equal. Used to overrite an old file
+        /// if the new comes with recent code (from a refactor) or any change in the
+        /// Markdown's files. This method is called by every method that creates
+        /// files.
+        /// </summary>
+        /// <param name="oldFile">The content of the file that already exists.</param>
+        /// <param name="newFile">The content of the file that was just read.</param>
+
         static bool AreFilesEqual(string oldFile, string newFile)
         {
             for (int i = 0; i < oldFile.Length; i++)
