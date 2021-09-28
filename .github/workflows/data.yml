@@ -26,4 +26,4 @@ jobs:
     - name: Test
       run: dotnet test ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj --verbosity normal
     - name: Run
-      run: dotnet run --project ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj
+      run: dotnet run --project ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj -- ${{ env.CODEWARS_USERNAME }} ${{ env.USERNAME_GITHUB }} ${{ env.PASSWORD_GITHUB }}
