@@ -1,4 +1,4 @@
-name: Start project
+name: Get katas
 
 on:
   push:
