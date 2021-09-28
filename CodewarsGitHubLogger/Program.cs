@@ -41,6 +41,8 @@ namespace CodewarsGitHubLogger
 
         static async Task Main(string[] args)
         {
+            Console.WriteLine(string.Join(", ", args));
+
             FirefoxOptions options = new FirefoxOptions();
             options.AddArgument("--headless");
             IWebDriver driver = new FirefoxDriver(options);
