@@ -48,8 +48,8 @@ And that's it! Keep in mind that it will take some time the first time you run i
 have completed a lot of katas, because the program must loop through all of them).
 
 You can customize some aspects of the program, such as the content of the README.md files,
-the name and the directory of the INDEX.md file and other stuff. Head to the "[Customisation page]()" in
-the wiki of this repository to learn more about what you can do. Also, head to the "[Privacy page]()" in
+the name and the directory of the INDEX.md file and other stuff. Head to the ["Customisation" page]() in
+the wiki of this repository to learn more about what you can do. Also, head to the ["Privacy" page]() in
 the wiki to learn about the protection of your credentials. I recommend you take a read on the entire
 wiki because there is useful and important information for you to know.
 
@@ -57,3 +57,13 @@ If you're facing a problem, please open an issue by choosing a template from the
 [issue templates](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new/choose).
 
 ## Disclaimer
+
+This repository is under the [BSD-2-Clause License](LICENSE) to follow
+[Codewars's Terms of Service](https://www.codewars.com/about/terms-of-service) (that were last updated
+on October, 2018). There's no problem in having your solutions to the code-challenges publicly available.
+
+If you've read above sections, you know you can customise the program to make it work as you want. Keep in
+mind that **I offer the program as you're seeing in this repository**. Any changes you made in your repository
+are up to you, and I'm not responsible for them. Be careful on what you change, especially in the workflow
+file. For more related information, please read the ["Privacy" page]() of the wiki. I encourage you to read
+the whole wiki, too.
