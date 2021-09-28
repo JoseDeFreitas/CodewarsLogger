@@ -74,23 +74,17 @@ namespace CodewarsGitHubLogger
 
                     kataCategories[kataInfoObject.category].Add($"- [{kata.name}]({mainFolderPath}/{kata.slug})");
 
-                    if (!Directory.Exists(kataFolderPath))
-                    {
-                        await CreateMainFilesAsync(
-                            kataFolderPath, kata.name, kataInfoUrl,
-                            kata.id, kata.completedAt, kata.completedLanguages,
-                            kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
-                        );
-                    }
+                    await CreateMainFilesAsync(
+                        kataFolderPath, kata.name, kataInfoUrl,
+                        kata.id, kata.completedAt, kata.completedLanguages,
+                        kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
+                    );
 
                     foreach (string language in kata.completedLanguages)
                     {
                         string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{languagesExtensions[language]}");
 
-                        if (!File.Exists(codeFilePath))
-                            await CreateCodeFileAsync(driver, codeFilePath, kata.id, language);
-                        else
-                            continue;
+                        await CreateCodeFileAsync(driver, codeFilePath, kata.id, language);
                     }
                 }
             }
@@ -156,6 +150,7 @@ namespace CodewarsGitHubLogger
             string description, Dictionary<string, object> rank, List<string> tags
         )
         {
+            string filePath = Path.Combine(folder, "README.md");
             string content =
             $@"
                 # [{name}]({url}{id})\n
@@ -169,7 +164,16 @@ namespace CodewarsGitHubLogger
             try
             {
                 Directory.CreateDirectory(folder);
-                await File.WriteAllTextAsync(Path.Combine(folder, "README.md"), content);
+
+                if (File.Exists(filePath))
+                {
+                    if (AreFilesEqual(await File.ReadAllTextAsync(filePath), content))
+                        await File.WriteAllTextAsync(filePath, content);
+                    else
+                        return;
+                }
+                else
+                    await File.WriteAllTextAsync(filePath, content);
             }
             catch (IOException exception)
             {
@@ -207,7 +211,15 @@ namespace CodewarsGitHubLogger
                 solutionItem = solutionsList.FindElement(By.TagName("li"));
                 solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
 
-                await File.WriteAllTextAsync(path, solutionCode);
+                if (File.Exists(path))
+                {
+                    if (AreFilesEqual(await File.ReadAllTextAsync(path), solutionCode))
+                        await File.WriteAllTextAsync(path, solutionCode);
+                    else
+                        return;
+                }
+                else
+                    await File.WriteAllTextAsync(path, solutionCode);
             }
             catch (TimeoutException exception)
             {
@@ -235,7 +247,7 @@ namespace CodewarsGitHubLogger
         /// <exception>If the file can't be created.</exception>
         static async Task CreateIndexFileAsync()
         {
-            string indexFilePath = "../INDEX.md";
+            string filePath = "../INDEX.md";
             string content =
             $@"
                 # Index of katas by its category/discipline\n
@@ -249,7 +261,15 @@ namespace CodewarsGitHubLogger
 
             try
             {
-                await File.WriteAllTextAsync(indexFilePath, content);
+                if (File.Exists(filePath))
+                {
+                    if (AreFilesEqual(await File.ReadAllTextAsync(filePath), content))
+                        await File.WriteAllTextAsync(filePath, content);
+                    else
+                        return;
+                }
+                else
+                    await File.WriteAllTextAsync(filePath, content);
             }
             catch (IOException exception)
             {
