@@ -12,7 +12,7 @@ namespace CodewarsGitHubLogger
     class Program
     {
         static HttpClient httpClient = new HttpClient();
-        static string githubUsername = Environment.GetEnvironmentVariable("USERNAME_GITHUB");
+        static string githubUsername = "JoseDeFreitas"; //Environment.GetEnvironmentVariable("USERNAME_GITHUB");
         static string githubPassword = Environment.GetEnvironmentVariable("PASSWORD_GITHUB");
         static int numberOfExceptions = 0;
         static List<string> idsOfExceptions = new List<string>();
