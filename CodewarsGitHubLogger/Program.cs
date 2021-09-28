@@ -283,7 +283,7 @@ namespace CodewarsGitHubLogger
             {
                 for (int j = 0; j < newFile.Length; j++)
                 {
-                    if (i != j)
+                    if (oldFile.ToCharArray()[i] != newFile.ToCharArray()[j])
                         return false;
                 }
             }
