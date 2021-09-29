@@ -89,7 +89,7 @@ namespace CodewarsGitHubLogger
                 }
             }
 
-            if (args[3] == "-i")
+            if (args[0] == "-i")
                 await CreateIndexFileAsync();
 
             driver.Quit();
