@@ -281,7 +281,6 @@ namespace CodewarsGitHubLogger
         /// </summary>
         /// <param name="oldFile">The content of the file that already exists.</param>
         /// <param name="newFile">The content of the file that was just read.</param>
-
         static bool AreFilesEqual(string oldFile, string newFile)
         {
             for (int i = 0; i < oldFile.Length; i++)
