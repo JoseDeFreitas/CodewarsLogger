@@ -12,8 +12,8 @@ namespace CodewarsGitHubLogger
     class Program
     {
         static HttpClient httpClient = new HttpClient();
-        static string githubUsername = "Raynfg88"; //Environment.GetEnvironmentVariable("USERNAME_GITHUB");
-        static string githubPassword = "YABDKABD7839HAJKF"; //Environment.GetEnvironmentVariable("PASSWORD_GITHUB");
+        static string githubUsername = Environment.GetEnvironmentVariable("USERNAME_GITHUB");
+        static string githubPassword = Environment.GetEnvironmentVariable("PASSWORD_GITHUB");
         static int numberOfExceptions = 0;
         static List<string> idsOfExceptions = new List<string>();
         static Dictionary<string, string> languagesExtensions = new Dictionary<string, string>() {
@@ -45,7 +45,7 @@ namespace CodewarsGitHubLogger
             options.AddArgument("--headless");
             IWebDriver driver = new FirefoxDriver(options);
 
-            string codewarsUsername = "KatacompleterPrograms"; //Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
+            string codewarsUsername = Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
             string mainFolderPath = "../Katas";
