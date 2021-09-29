@@ -152,14 +152,12 @@ namespace CodewarsGitHubLogger
         {
             string filePath = Path.Combine(folder, "README.md");
             string content =
-            $@"
-                # [{name}]({url}{id})\n
-                **Completed at:** {date}\n
-                **Completed languages:** {string.Join(", ", languages)}\n
-                **Tags:** {string.Join(", ", tags)}\n
-                **Rank:** {rank["name"]}\n
-                ## Description\n\n{description}
-            ";
+            $"# [{name}]({url}{id})\n"
+            + $"**Completed at:** {date}\n"
+            + $"**Completed languages:** {string.Join(", ", languages)}\n"
+            + $"**Tags:** {string.Join(", ", tags)}\n"
+            + $"**Rank:** {rank["name"]}\n"
+            + $"## Description\n\n{description}";
 
             try
             {
@@ -249,15 +247,13 @@ namespace CodewarsGitHubLogger
         {
             string filePath = "../INDEX.md";
             string content =
-            $@"
-                # Index of katas by its category/discipline\n
-                Code challenges in [Codewars](https://www.codewars.com) are categorised in the following disciplines.
-                \n## Fundamentals\n\n{string.Join("\n", kataCategories["reference"])}
-                \n## Algorithms\n\n{string.Join("\n", kataCategories["algorithms"])}
-                \n## Bug Fixes\n\n{string.Join("\n", kataCategories["bug_fixes"])}
-                \n## Refactoring\n\n{string.Join("\n", kataCategories["refactoring"])}
-                \n## Puzzles\n\n{string.Join("\n", kataCategories["games"])}
-            ";
+            $"# Index of katas by its category/discipline\n"
+            + $"Code challenges in [Codewars](https://www.codewars.com) are categorised in the following disciplines."
+            + $"\n## Fundamentals\n\n{string.Join("\n", kataCategories["reference"])}"
+            + $"\n## Algorithms\n\n{string.Join("\n", kataCategories["algorithms"])}"
+            + $"\n## Bug Fixes\n\n{string.Join("\n", kataCategories["bug_fixes"])}"
+            + $"\n## Refactoring\n\n{string.Join("\n", kataCategories["refactoring"])}"
+            + $"\n## Puzzles\n\n{string.Join("\n", kataCategories["games"])}";
 
             try
             {
