@@ -18,9 +18,16 @@ jobs:
         dotnet-version: 5.0.x
     - name: Test
       run: dotnet test ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj --verbosity normal
-    - name: Run
+    - name: Run program
       env:
         CODEWARS_USERNAME: ${{ secrets.CODEWARS_USERNAME }}
         USERNAME_GITHUB: ${{ secrets.USERNAME_GITHUB }}
         PASSWORD_GITHUB: ${{ secrets.PASSWORD_GITHUB }}
       run: dotnet run --project ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj -- ${{ env.CODEWARS_USERNAME }} ${{ env.USERNAME_GITHUB }} ${{ env.PASSWORD_GITHUB }}
+    - name: Commit files
+      run: |
+        git config --global user.name "JoseDeFreitas/CodewarsGitHubLogger"
+        git config --global user.email "CodewarsGitHubLogger[bot]@JoseDeFreitas.github.io"
+        git add .
+        git commit -m 'Update katas' || echo
+        git push
