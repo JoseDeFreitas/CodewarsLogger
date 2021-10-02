@@ -1,10 +1,5 @@
 name: Get katas
 
-env:
-  CODEWARS_USERNAME: ${{ secrets.CODEWARS_USERNAME }}
-  GITHUB_USERNAME: ${{ secrets.USERNAME_GITHUB }}
-  GITHUB_PASSWORD: ${{ secrets.PASSWORD_GITHUB }}
-
 on:
   schedule:
     - cron: "0 13 * * 1"
@@ -24,4 +19,8 @@ jobs:
     - name: Test
       run: dotnet test ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj --verbosity normal
     - name: Run
+      env:
+        CODEWARS_USERNAME: ${{ secrets.CODEWARS_USERNAME }}
+        GITHUB_USERNAME: ${{ secrets.USERNAME_GITHUB }}
+        GITHUB_PASSWORD: ${{ secrets.PASSWORD_GITHUB }}
       run: dotnet run --project ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj -- -i
