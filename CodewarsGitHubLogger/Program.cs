@@ -177,9 +177,9 @@ namespace CodewarsGitHubLogger
                 else
                     await File.WriteAllTextAsync(filePath, content);
             }
-            catch (IOException)
+            catch (IOException exception)
             {
-                //Console.WriteLine(exception);
+                Console.WriteLine(exception);
                 numberOfExceptions++;
                 idsOfExceptions.Add(id);
             }
@@ -223,14 +223,13 @@ namespace CodewarsGitHubLogger
                 else
                     await File.WriteAllTextAsync(path, solutionCode);
             }
-            catch (TimeoutException)
+            catch (TimeoutException exception)
             {
-                //Console.WriteLine(exception);
+                Console.WriteLine(exception);
                 return;
             }
             catch (NoSuchElementException)
             {
-                //Console.WriteLine(exception);
                 return;
             }
             catch (IOException)
@@ -271,9 +270,9 @@ namespace CodewarsGitHubLogger
                 else
                     await File.WriteAllTextAsync(filePath, content);
             }
-            catch (IOException)
+            catch (IOException exception)
             {
-                //Console.WriteLine(exception);
+                Console.WriteLine(exception);
             }
         }
 
