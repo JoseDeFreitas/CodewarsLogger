@@ -23,7 +23,7 @@ jobs:
         CODEWARS_USERNAME: ${{ secrets.CODEWARS_USERNAME }}
         USERNAME_GITHUB: ${{ secrets.USERNAME_GITHUB }}
         PASSWORD_GITHUB: ${{ secrets.PASSWORD_GITHUB }}
-      run: dotnet run --project ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj -- ${{ env.CODEWARS_USERNAME }} ${{ env.USERNAME_GITHUB }} ${{ env.PASSWORD_GITHUB }}
+      run: dotnet run --project ./CodewarsGitHubLogger/CodewarsGitHubLogger.csproj -- ${{ env.CODEWARS_USERNAME }} ${{ env.USERNAME_GITHUB }} ${{ env.PASSWORD_GITHUB }} -i
     - name: Commit files
       run: |
         git config --global user.name "JoseDeFreitas/CodewarsGitHubLogger"
