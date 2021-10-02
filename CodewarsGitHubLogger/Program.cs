@@ -228,9 +228,9 @@ namespace CodewarsGitHubLogger
                 //Console.WriteLine(exception);
                 return;
             }
-            catch (NoSuchElementException exception)
+            catch (NoSuchElementException)
             {
-                Console.WriteLine(exception);
+                //Console.WriteLine(exception);
                 return;
             }
             catch (IOException)
