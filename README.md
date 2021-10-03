@@ -74,7 +74,8 @@ repository of your choice). I provide a [simple example of a local run to a diff
 in the wiki.
 
 And that's it! Keep in mind that it will take some time the first time you run it (especially if you
-have completed a lot of katas, because the program must loop through all of them).
+have completed a lot of katas, because the program must loop through all of them). You must run the program
+every time you want to update the katas. It takes care of repeated files and code refactors.
 
 You can customize some aspects of the program, such as the content of the README.md files,
 the name and the directory of the INDEX.md file and other stuff. Head to the ["Customisation" section]() in
