@@ -49,7 +49,7 @@ everything copying automatically. Below is the ordered list of steps you must fo
 
 1. Click on the green button "Use this template".
 2. Choose a name for your repository and click on "Create repository from template".
-3. Clone this new repository locally in your machine. [Read instructions here]().
+3. Clone or add remotely to the pull the new repository locally in your machine.
 4. Move to the `CodewarsGitHubLogger`folder.
 5. Run the program doing `dotnet run -- YOUR_CODEWARS_USERNAME YOUR_GITHUB_USERNAME YOUR_GITHUB_PASSWORD`.
    - Optionally you can append the flag `-i` or `--index` as the last argument to create an index file.
