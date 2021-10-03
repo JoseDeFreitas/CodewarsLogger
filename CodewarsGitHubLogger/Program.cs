@@ -41,7 +41,7 @@ namespace CodewarsGitHubLogger
         {
             FirefoxOptions options = new FirefoxOptions();
             options.AddArgument("--headless");
-            IWebDriver driver = new FirefoxDriver(options);
+            IWebDriver driver = new FirefoxDriver("./", options);
 
             // Define variables for each credential
             string codewarsUsername = "";
