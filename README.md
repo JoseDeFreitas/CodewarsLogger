@@ -4,8 +4,7 @@ This program allows you to connect to [Codewars](https://www.codewars.com) by us
 (through the GitHub OAuth sign in option) and extract all the code of each programming language of
 every kata you have completed.
 
-Click on the hamburger button next to the word "README.md" this file to open the table of contents and
-jump to the sections that are relevant to you. To keep this file simple and short, I only describe here
+To keep this file simple and short, I only describe here
 the most important information, and a summary of other topics. To see all the information, go to the
 [repository wiki](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki).
 
