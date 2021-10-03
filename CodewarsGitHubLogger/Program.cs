@@ -12,9 +12,6 @@ namespace CodewarsGitHubLogger
     class Program
     {
         static HttpClient httpClient = new HttpClient();
-        static string codewarsUsername = Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
-        static string githubUsername = Environment.GetEnvironmentVariable("USERNAME_GITHUB");
-        static string githubPassword = Environment.GetEnvironmentVariable("PASSWORD_GITHUB");
         static int numberOfExceptions = 0;
         static List<string> idsOfExceptions = new List<string>();
         static Dictionary<string, string> languagesExtensions = new Dictionary<string, string>() {
@@ -46,13 +43,29 @@ namespace CodewarsGitHubLogger
             options.AddArgument("--headless");
             IWebDriver driver = new FirefoxDriver(options);
 
+            string codewarsUsername = "";
+            string githubUsername = "";
+            string githubPassword = "";
+
+            try
+            {
+                codewarsUsername = args[0];
+                githubUsername = args[1];
+                githubPassword = args[2];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("You must pass the credentials.");
+                Environment.Exit(1);
+            }
+
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
             string mainFolderPath = "../Katas";
 
             Directory.CreateDirectory(mainFolderPath);
 
-            SigInToCodewars(driver);
+            SigInToCodewars(driver, githubUsername, githubPassword);
 
             // Response used only to get the total number of pages available
             Stream mainResponseJson = await httpClient.GetStreamAsync(completedKatasUrl);
@@ -91,7 +104,7 @@ namespace CodewarsGitHubLogger
 
             try
             {
-                if (args[0] == "-i" || args[0] == "--index")
+                if (args[3] == "-i" || args[3] == "--index")
                     await CreateIndexFileAsync();
             }
             catch (IndexOutOfRangeException)
@@ -117,7 +130,7 @@ namespace CodewarsGitHubLogger
         /// </summary>
         /// <param name="driver">The Firefox driver initialised in the Main method.</param>
         /// <exception>When the driver can't connect to the Codewars website.</exception>
-        static void SigInToCodewars(IWebDriver driver)
+        static void SigInToCodewars(IWebDriver driver, string githubUsername, string githubPassword)
         {
             try
             {
@@ -126,7 +139,7 @@ namespace CodewarsGitHubLogger
             catch (TimeoutException exception)
             {
                 Console.WriteLine(exception);
-                Environment.Exit(1);
+                Environment.Exit(2);
             }
 
             IWebElement siginForm = driver.FindElement(By.Id("new_user"));
