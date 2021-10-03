@@ -188,7 +188,7 @@ namespace CodewarsGitHubLogger
 
                 if (File.Exists(filePath))
                 {
-                    if (AreFilesEqual(await File.ReadAllTextAsync(filePath), content))
+                    if (String.Compare(await File.ReadAllTextAsync(filePath), content) != 0)
                         await File.WriteAllTextAsync(filePath, content);
                     else
                         return;
@@ -234,7 +234,7 @@ namespace CodewarsGitHubLogger
 
                 if (File.Exists(path))
                 {
-                    if (AreFilesEqual(await File.ReadAllTextAsync(path), solutionCode))
+                    if (String.Compare(await File.ReadAllTextAsync(path), solutionCode) != 0)
                         await File.WriteAllTextAsync(path, solutionCode);
                     else
                         return;
@@ -281,7 +281,7 @@ namespace CodewarsGitHubLogger
             {
                 if (File.Exists(filePath))
                 {
-                    if (AreFilesEqual(await File.ReadAllTextAsync(filePath), content))
+                    if (String.Compare(await File.ReadAllTextAsync(filePath), content) != 0)
                         await File.WriteAllTextAsync(filePath, content);
                     else
                         return;
@@ -293,28 +293,6 @@ namespace CodewarsGitHubLogger
             {
                 Console.WriteLine(exception);
             }
-        }
-
-        /// <summary>
-        /// Checks if the two files provided are equal. Used to overrite an old file
-        /// if the new comes with recent code (from a refactor) or any change in the
-        /// Markdown's files. This method is called by every method that creates
-        /// files.
-        /// </summary>
-        /// <param name="oldFile">The content of the file that already exists.</param>
-        /// <param name="newFile">The content of the file that was just read.</param>
-        static bool AreFilesEqual(string oldFile, string newFile)
-        {
-            for (int i = 0; i < oldFile.Length; i++)
-            {
-                for (int j = 0; j < newFile.Length; j++)
-                {
-                    if (oldFile.ToCharArray()[i] != newFile.ToCharArray()[j])
-                        return false;
-                }
-            }
-
-            return true;
         }
     }
 
