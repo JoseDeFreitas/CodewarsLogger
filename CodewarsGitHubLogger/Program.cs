@@ -1,4 +1,10 @@
-﻿using System;
+/*
+Program created by José De Freitas (https://github.com/JoseDeFreitas).
+Link to the repository: https://github.com/JoseDeFreitas/CodewarsGitHubLogger.
+Licensed under the BSD-2-Clause License.
+*/
+
+using System;
 using System.IO;
 using OpenQA.Selenium;
 using System.Net.Http;
