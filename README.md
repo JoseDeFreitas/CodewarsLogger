@@ -63,7 +63,7 @@ You can do this without getting into any trouble, because the program is intende
 there's no need in having it visible in GitHub.
 
 For more information about customisation of the repository and the program, read the
-["Customisation" section]() of the wiki.
+["Customisation" section](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Customisation) of the wiki.
 
 ### Other methods
 
@@ -78,8 +78,8 @@ have completed a lot of katas, because the program must loop through all of them
 every time you want to update the katas. It takes care of repeated files and code refactors.
 
 You can customize some aspects of the program, such as the content of the README.md files,
-the name and the directory of the INDEX.md file and other stuff. Head to the ["Customisation" section]() in
-the wiki of this repository to learn more about what you can do. Also, head to the ["Privacy" page]() in
+the name and the directory of the INDEX.md file and other stuff. Head to the ["Customisation" section](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Customisation) in
+the wiki of this repository to learn more about what you can do. Also, head to the ["Privacy" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Privacy) in
 the wiki to learn about the protection of your credentials. I recommend you take a read to the entire
 wiki because there is useful and important information for you to know.
 
@@ -95,5 +95,5 @@ on October, 2018). There's no problem in having your solutions to the code-chall
 If you've read above sections, you know you can customise the program to make it work as you want. Keep in
 mind that **I offer the program as you see in this repository**. Any changes you made in your repository
 are up to you, and I'm not responsible for them. Be careful on what you change, especially in the workflow
-file. For more related information, please read the ["Privacy" page]() of the wiki. I encourage you to read
+file. For more related information, please read the ["Privacy" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Privacy) of the wiki. I encourage you to read
 the whole wiki, too.
