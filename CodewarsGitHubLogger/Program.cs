@@ -12,8 +12,8 @@ namespace CodewarsGitHubLogger
     class Program
     {
         static HttpClient httpClient = new HttpClient();
-        //static string githubUsername = Environment.GetEnvironmentVariable("USERNAME_GITHUB");
-        //static string githubPassword = Environment.GetEnvironmentVariable("PASSWORD_GITHUB");
+        static string githubUsername = Environment.GetEnvironmentVariable("USERNAME_GITHUB");
+        static string githubPassword = Environment.GetEnvironmentVariable("PASSWORD_GITHUB");
         static int numberOfExceptions = 0;
         static List<string> idsOfExceptions = new List<string>();
         static Dictionary<string, string> languagesExtensions = new Dictionary<string, string>() {
@@ -45,18 +45,14 @@ namespace CodewarsGitHubLogger
             options.AddArgument("--headless");
             IWebDriver driver = new FirefoxDriver(options);
 
-            string codewarsUsername = args[0];
-            string githubUsername = args[1];
-            string githubPassword = args[2];
-
-            //string codewarsUsername = Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
+            string codewarsUsername = Environment.GetEnvironmentVariable("CODEWARS_USERNAME");
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
             string mainFolderPath = "../Katas";
 
             Directory.CreateDirectory(mainFolderPath);
 
-            SigInToCodewars(driver, githubUsername, githubPassword);
+            SigInToCodewars(driver);
 
             // Response used only to get the total number of pages available
             Stream mainResponseJson = await httpClient.GetStreamAsync(completedKatasUrl);
@@ -114,7 +110,7 @@ namespace CodewarsGitHubLogger
         /// </summary>
         /// <param name="driver">The Firefox driver initialised in the Main method.</param>
         /// <exception>When the driver can't connect to the Codewars website.</exception>
-        static void SigInToCodewars(IWebDriver driver, string githubUsername, string githubPassword)
+        static void SigInToCodewars(IWebDriver driver)
         {
             try
             {
