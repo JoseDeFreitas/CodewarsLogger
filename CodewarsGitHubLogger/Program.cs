@@ -43,6 +43,7 @@ namespace CodewarsGitHubLogger
             options.AddArgument("--headless");
             IWebDriver driver = new FirefoxDriver(options);
 
+            // Define variables for each credential
             string codewarsUsername = "";
             string githubUsername = "";
             string githubPassword = "";
@@ -129,6 +130,8 @@ namespace CodewarsGitHubLogger
         /// GitHub OAuth.
         /// </summary>
         /// <param name="driver">The Firefox driver initialised in the Main method.</param>
+        /// <param name="githubUsername">The GitHub username of the user.</param>
+        /// <param name="githubPassword">The GitHub password of the user.</param>
         /// <exception>When the driver can't connect to the Codewars website.</exception>
         static void SigInToCodewars(IWebDriver driver, string githubUsername, string githubPassword)
         {
