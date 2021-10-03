@@ -25,32 +25,63 @@ completed (plus more than one programming language if available) would take you 
 you'd have to update it every time you complete a kata).
 
 This repository allows you to copy in your repository the code of the completed challanges you've done
-automatically: you don't have to do anything. Moreover, the files and directories are stored in such a
-way that it's easy to navigate through them.
+automatically: you don't have to do anything, just run the program and let ir do its job. Moreover, the
+files and directories are stored in such a way that it's easy to navigate through them.
 
 ## Usage
 
+### Requirements
+
+To use this program you need:
+
+- dotnet core 5.0.
+- A Codewars account.
+- A GitHub account.
+
+Important things to note: **you must have registered into Codewars using the GitHub OAuth option**
+and **you must sign in to Codewars before running the program** so GitHub won't ask you to confirm the
+sign in with a code. The Firefox Driver can't accomplish this because the code is sent to your email
+direction.
+
+### All-in-one method
+
 To use this program you just need an initial configuration. After that, you just have to sit and watch
-everything copying automatically. Below is the ordered list of steps you must follow to get all working
-(I suppose that you already have both a GitHub account and a Codewars account):
+everything copying automatically. Below is the ordered list of steps you must follow to get all working:
 
 1. Click on the green button "Use this template".
 2. Choose a name for your repository and click on "Create repository from template".
-3. Go to the settings of your new repository and then to the "Secrets" tab.
-4. Create these 3 secrets by clicking the button "New repository secret" (and then in the green button "Add secret"):
-   1. Name: `USERNAME_GITHUB`. Value: your GitHub username.
-   2. Name: `PASSWORD_GITHUB`. Value: your GitHub password.
-   3. Name: `CODEWARS_USERNAME`. Value: your Codewars username.
-5. Go to the "Actions" tab of the repository and click on the "Start project" workflow.
-6. Click on the button "Run workflow" (with the `main` branch selected) and again in the green "Run workflow" button.
+3. Clone this new repository locally in your machine.
+4. Add the following environment variables:
+   1. Name: `CODEWARS_USERNAME`. Value: your Codewars username.
+   2. Name: `USERNAME_GITHUB`. Value: your GitHub username.
+   3. Name: `PASSWORD_GITHUB`. Value: your GitHub password.
+5. Move to the `CodewarsGitHubLogger` and run the program doing `dotnet run`.
+6. Wait for the program to complete.
+7. Add all the files to the stage, commit them and push them.
+
+(Optional step): add the folder `CodewarsGitHubLogger` to the `.gitignore` file. This is useful if you
+don't want to show the folder that contains the program I've created, as it's not a kata by itself.
+You can do this without getting into any trouble, because the program is intended to be run locally, so
+there's no need in having it visible in GitHub.
+
+For more information about customisation of the repository and the program, read the
+["Customisation" section]() of the wiki.
+
+### Other methods
+
+Of course, you can just download the entire repository as a `.zip` file and keep only the
+[CodewarsGitHubLogger](/CodewarsGitHubLogger) folder. Then, add the environment variables and make it so
+it creates and updates all the files in the folder you want (the folder that is connected to the GitHub
+repository of your choice). I provide a [simple example of a local run to a different folder]()
+in the wiki.
 
 And that's it! Keep in mind that it will take some time the first time you run it (especially if you
 have completed a lot of katas, because the program must loop through all of them).
 
 You can customize some aspects of the program, such as the content of the README.md files,
-the name and the directory of the INDEX.md file and other stuff. Head to the ["Customisation" page]() in
+the name and the directory of the INDEX.md file and other stuff. Head to the ["Customisation" section]() in
 the wiki of this repository to learn more about what you can do. Also, head to the ["Privacy" page]() in
-the wiki to learn about the protection of your credentials. I recommend you take a read on the entire
+the wiki to learn about the protection of your credentials. I recommend you take a read to the entire
 wiki because there is useful and important information for you to know.
 
 If you're facing a problem, please open an issue by choosing a template from the available
@@ -63,7 +94,7 @@ This repository is under the [BSD-2-Clause License](LICENSE) to follow
 on October, 2018). There's no problem in having your solutions to the code-challenges publicly available.
 
 If you've read above sections, you know you can customise the program to make it work as you want. Keep in
-mind that **I offer the program as you're seeing in this repository**. Any changes you made in your repository
+mind that **I offer the program as you see in this repository**. Any changes you made in your repository
 are up to you, and I'm not responsible for them. Be careful on what you change, especially in the workflow
 file. For more related information, please read the ["Privacy" page]() of the wiki. I encourage you to read
 the whole wiki, too.
