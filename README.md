@@ -50,8 +50,8 @@ everything copying automatically. Below is the ordered list of steps you must fo
 
 1. Click on the green button "Use this template".
 2. Choose a name for your repository and click on "Create repository from template".
-3. Clone this new repository locally in your machine.
-4. Add the following environment variables:
+3. Clone this new repository locally in your machine. [Read instructions here]().
+4. Add the following environment variables ([Read instructions here]()):
    1. Name: `CODEWARS_USERNAME`. Value: your Codewars username.
    2. Name: `USERNAME_GITHUB`. Value: your GitHub username.
    3. Name: `PASSWORD_GITHUB`. Value: your GitHub password.
