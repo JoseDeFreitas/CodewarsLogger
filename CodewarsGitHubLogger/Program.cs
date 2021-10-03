@@ -86,7 +86,7 @@ namespace CodewarsGitHubLogger
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
                     string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
 
-                    kataCategories[kataInfoObject.category].Add($"- [{kata.name}]({mainFolderPath}/{kata.slug})");
+                    kataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{kata.slug})");
 
                     await CreateMainFilesAsync(
                         kataFolderPath, kata.name, kataInfoUrl,
