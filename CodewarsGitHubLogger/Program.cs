@@ -89,8 +89,15 @@ namespace CodewarsGitHubLogger
                 }
             }
 
-            if (args[3] == "-i" || args[3] == "--index")
-                await CreateIndexFileAsync();
+            try
+            {
+                if (args[0] == "-i" || args[0] == "--index")
+                    await CreateIndexFileAsync();
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("'Index' flag was not specified");
+            }
 
             driver.Quit();
 
