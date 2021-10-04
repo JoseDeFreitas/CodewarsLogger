@@ -53,7 +53,7 @@ accomplish this because the code is sent to your email address.
 
 If you registered into Codewars using its own registration system instead of the GitHub OAuth method, you
 can change the file to receive and sign in with your Codewars credentials. You can read the section
-"[use Codewars credentials instead of GitHub's]()" to know how to do this.
+"[Use Codewars credentials instead of GitHub's](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Examples#use-codewars-credentials-instead-of-githubs)" to know how to do this.
 
 ### All-in-one method
 
