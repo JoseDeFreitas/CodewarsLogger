@@ -4,28 +4,37 @@ This program allows you to connect to [Codewars](https://www.codewars.com) by us
 (through the GitHub OAuth sign in option) and extract all the code of each programming language of
 every kata you have completed.
 
+**It's discouraged to put your Codewars solutions publicly available because, even though it depends
+on every person and it's a responsibility of one self, having your solutions publicly available may
+increase the number of dishonest users that copy and paste the solutions to its own advantage. An user
+can get sanctioned if the Codewars' staff notice an unusual behaviour. Read the
+[Codewars Code of Conduct](https://docs.codewars.com/community/rules/) for more information (especially
+the last rule).**
+
+**Although it's not prohibited, please: don't put your Codewars solutions publicly available on GitHub.
+Keep your repository private.**
+
 To keep this file simple and short, I only describe here
 the most important information, and a summary of other topics. To see all the information, go to the
 [repository wiki](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki).
 
 ## Why?
 
-I developed this small program because GitHub is the biggest portfolio for all kind of programmers
-(along with websites and/or other media profiles). A key skill every programmer should have is problem
-solving (algorithms, paradigms, data structures, etc.), and Codewars is a very good platform to
-practice this hability because of its structure, support of multiple programming languages, user rank
-system, easily (with moderation) code challenge creation system and social interaction between users
-(similar code-challenges, comments, votes, and more).
+A key skill every programmer should have is problem solving (algorithms, paradigms, data structures,
+etc.), and Codewars is a very good platform to practice this hability because of its structure, support
+of multiple programming languages, user rank system, easily (with moderation) code challenge creation
+system and social interaction between users (similar code-challenges, comments, votes, and more).
 
-By having a repository that contains all the code challenges you have completed, everyone (including
-recruiters) can see what you've done, what languages do you use with ease and your strenghts and
-weaknesses. You could do this manually, but going to all the pages of solutions of all the katas you've
-completed (plus more than one programming language if available) would take you a lot of time (and
-you'd have to update it every time you complete a kata).
+By having a private repository that contains all the code challenges you have completed, you can keep a
+personal registry of all your katas in a more readable way. Moreover, you can allow (temporarily) a recruiter
+to see what you've done, so they will know your strenghts and weaknesses, as well as the programming languages
+you use with ease. You could do all of this manually, but going to all the pages of solutions of all the
+katas you've completed (plus more than one programming language if available) would take you a lot of time
+(and you'd have to update it every time you complete a kata).
 
-This repository allows you to copy in your repository the code of the completed challanges you've done
-automatically: you don't have to do anything, just run the program and let it do its job. Moreover, the
-files and directories are stored in such a way that it's easy to navigate through them.
+This repository allows you to copy in your private repository the code of the completed challanges you've
+done automatically: you don't have to do anything, just run the program and let it do its job. Moreover,
+the files and directories are stored in such a way that it's easy to navigate through them.
 
 ## Usage
 
@@ -52,16 +61,16 @@ To use this program you just need an initial configuration. After that, you just
 everything being pulled automatically. Below is the ordered list of steps you must follow to get all working:
 
 1. Click on the green button "Use this template".
-2. Choose a name for your repository and click on "Create repository from template".
+2. Choose a name for your repository, mark the "Private" option and click on "Create repository from template".
 3. [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) or [add remotely](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories) to pull the new repository locally in your machine.
 4. Move to the `CodewarsGitHubLogger` folder.
 5. Run the program by writing `dotnet run -- YOUR_CODEWARS_USERNAME YOUR_GITHUB_USERNAME YOUR_GITHUB_PASSWORD` in your command line.
    - Optionally you can append the flag `-i` or `--index` as the last argument to create an index file.
 6. Wait for the program to complete (you'll see a message that indicates the completion status).
-7. Add all the files to the stage, commit them and push them to your repository.
+7. Add all the files to the stage, commit them and push them to your private repository.
 
 (Optional step): add the folder `CodewarsGitHubLogger` to the `.gitignore` file. This is useful if you
-don't want to show the folder that contains the program I've created, as it's not a kata by itself.
+don't want to see the folder that contains the program I've created, as it's not a kata by itself.
 You can do this without getting into any trouble, because the program is intended to be run locally, so
 there's no need in having it visible in GitHub.
 
@@ -72,8 +81,8 @@ For more information about customisation of the repository and the program, read
 
 Of course, you can just download the entire repository as a `.zip` file and keep only the
 [CodewarsGitHubLogger](/CodewarsGitHubLogger) folder. Then, make it so it creates and updates
-all the files in the folder you want (the folder that is connected to the GitHub repository of
-your choice). I provide a [simple example of a local run to a different folder]() in the wiki.
+all the files in the folder you want (the folder that is connected to the private GitHub repository
+of your choice). I provide a [simple example of a local run to a different folder]() in the wiki.
 
 ### After completion
 
@@ -95,10 +104,10 @@ issue by choosing a template from the available [issue templates](https://github
 
 This repository is under the [BSD-2-Clause License](LICENSE) to follow
 [Codewars's Terms of Service](https://www.codewars.com/about/terms-of-service) (that were last updated
-on October, 2018). There's no problem in having your solutions to the code-challenges publicly available.
+on October, 2018).
 
 If you've read above sections, you know you can customise the program to make it work as you want. Keep in
-mind that **I offer the program as you see in this repository**. Any changes you made in your repository
+mind that **I offer the program as you see in this repository**. Any changes you made in your private repository
 are up to you, and I'm not responsible for them. Be careful on what you change. For more related information,
 please read the ["Privacy" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Privacy) of the
 wiki. I encourage you to read the whole wiki, too.
