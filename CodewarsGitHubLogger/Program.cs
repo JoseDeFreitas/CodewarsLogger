@@ -276,7 +276,6 @@ namespace CodewarsGitHubLogger
             string filePath = "../INDEX.md";
             string content =
             $"# Index of katas by its category/discipline\n"
-            + $"\nCode challenges in [Codewars](https://www.codewars.com) are categorised in the following disciplines.\n"
             + $"\n## Fundamentals\n\n{string.Join("\n", kataCategories["reference"])}"
             + $"\n## Algorithms\n\n{string.Join("\n", kataCategories["algorithms"])}"
             + $"\n## Bug Fixes\n\n{string.Join("\n", kataCategories["bug_fixes"])}"
