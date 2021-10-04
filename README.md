@@ -87,8 +87,9 @@ the wiki of this repository to learn more about what you can do. Also, head to t
 the wiki to learn about the protection of your credentials. I recommend you take a read to the entire
 wiki because there is useful and important information for you to know.
 
-If you're facing a problem, please open an issue by choosing a template from the available
-[issue templates](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new/choose).
+If you're facing a problem, go to the ["Failures" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Failures)
+of the wiki and look if the error/warning you're getting appears in there. If it doesn't, please open an
+issue by choosing a template from the available [issue templates](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new/choose).
 
 ## Disclaimer
 
