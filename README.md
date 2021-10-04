@@ -6,7 +6,7 @@ every kata you have completed.
 
 **It's discouraged to put your Codewars solutions publicly available because, even though it depends
 on every person and it's a responsibility of one self, having your solutions publicly available may
-increase the number of dishonest users that copy and paste the solutions to its own advantage. An user
+increase the number of dishonest users that copy and paste the solutions to their own advantage. An user
 can get sanctioned if the Codewars' staff notice an unusual behaviour. Read the
 [Codewars Code of Conduct](https://docs.codewars.com/community/rules/) for more information (especially
 the last rule).**
