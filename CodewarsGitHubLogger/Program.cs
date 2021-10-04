@@ -182,10 +182,10 @@ namespace CodewarsGitHubLogger
             string filePath = Path.Combine(folder, "README.md");
             string content =
             $"# [{name}]({url}{id})\n"
-            + $"**Completed at:** {date}\n"
-            + $"**Completed languages:** {string.Join(", ", languages)}\n"
-            + $"**Tags:** {string.Join(", ", tags)}\n"
-            + $"**Rank:** {rank["name"]}\n"
+            + $"\n**Completed at:** {date}\n"
+            + $"\n**Completed languages:** {string.Join(", ", languages)}\n"
+            + $"\n**Tags:** {string.Join(", ", tags)}\n"
+            + $"\n**Rank:** {rank["name"]}\n\n"
             + $"## Description\n\n{description}";
 
             try
