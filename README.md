@@ -82,7 +82,7 @@ For more information about customisation of the repository and the program, read
 Of course, you can just download the entire repository as a `.zip` file and keep only the
 [CodewarsGitHubLogger](/CodewarsGitHubLogger) folder. Then, make it so it creates and updates
 all the files in the folder you want (the folder that is connected to the private GitHub repository
-of your choice). I provide a [simple example of a local run to a different folder]() in the wiki.
+of your choice). I provide a [simple example of a local run to a different folder](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Examples#create-all-files-in-a-different-directory) in the wiki.
 
 ### After completion
 
