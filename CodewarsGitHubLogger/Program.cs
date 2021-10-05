@@ -72,7 +72,7 @@ namespace CodewarsGitHubLogger
 
             Directory.CreateDirectory(mainFolderPath);
 
-            SigInToCodewars(driver, githubUsername, githubPassword);
+            SignInToCodewars(driver, githubUsername, githubPassword);
 
             // Response used only to get the total number of pages available
             Stream mainResponseJson = await httpClient.GetStreamAsync(completedKatasUrl);
@@ -139,7 +139,7 @@ namespace CodewarsGitHubLogger
         /// <param name="githubUsername">The GitHub username of the user.</param>
         /// <param name="githubPassword">The GitHub password of the user.</param>
         /// <exception>When the driver can't connect to the Codewars website.</exception>
-        static void SigInToCodewars(IWebDriver driver, string githubUsername, string githubPassword)
+        static void SignInToCodewars(IWebDriver driver, string githubUsername, string githubPassword)
         {
             try
             {
