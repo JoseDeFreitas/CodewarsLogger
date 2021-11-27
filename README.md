@@ -52,7 +52,7 @@ the program** so GitHub won't ask you to confirm the sign in with a code. The Fi
 accomplish this because the code is sent to your email address.
 
 If you registered into Codewars using its own registration system instead of the GitHub OAuth method, you
-can change the file to receive and sign in with your Codewars credentials. You can read the section
+can change the file to receive and sign in with your Codewars credentials. You can read the subsection
 "[Use Codewars credentials instead of GitHub's](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Examples#use-codewars-credentials-instead-of-githubs)" to know how to do this.
 
 ### All-in-one method
@@ -72,7 +72,7 @@ everything being pulled automatically. Below is the ordered list of steps you mu
 (Optional step): add the folder `CodewarsGitHubLogger` to the `.gitignore` file. This is useful if you
 don't want to see the folder that contains the program I've created, as it's not a kata by itself.
 You can do this without getting into any trouble, because the program is intended to be run locally, so
-there's no need in having it visible in GitHub.
+there's no need in having it visible on GitHub.
 
 For more information about customisation of the repository and the program, read the
 ["Customisation" section](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Customisation) of the wiki.
