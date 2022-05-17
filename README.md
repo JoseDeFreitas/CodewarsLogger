@@ -110,19 +110,16 @@ issue by choosing a template from the available [issue templates](https://github
 <details>
    <summary>Folders of the katas</summary>
    <img src="https://user-images.githubusercontent.com/37962411/168847279-53692969-6a12-4b2e-8ed6-85b929d49beb.png">
-
 </details>
 
 <details>
    <summary>Inside a kata folder</summary>
    <img src="https://user-images.githubusercontent.com/37962411/168847303-9f71d056-5888-489d-804d-12c0b330ad91.png">
-
 </details>
 
 <details>
    <summary>Solution of a kata</summary>
    <img src="https://user-images.githubusercontent.com/37962411/168847325-97818ed9-da90-4dda-bb41-cbaa6b04cc2c.png">
-
 </details>
 
 ## Disclaimer
