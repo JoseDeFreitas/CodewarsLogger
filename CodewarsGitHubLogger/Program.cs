@@ -276,7 +276,7 @@ namespace CodewarsGitHubLogger
             string filePath = "../INDEX.md";
             string content =
             $"# Index of katas by its category/discipline\n\n"
-            + $"These are all the code-challenges I've successfully completed. Total completed katas: {}"
+            + $"These are all the code-challenges I've successfully completed. Total completed katas: {{}}"
             + $"\n## Fundamentals\n\n{string.Join("\n", kataCategories["reference"])}"
             + $"\n## Algorithms\n\n{string.Join("\n", kataCategories["algorithms"])}"
             + $"\n## Bug Fixes\n\n{string.Join("\n", kataCategories["bug_fixes"])}"
