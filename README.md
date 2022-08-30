@@ -51,7 +51,7 @@ executable of the Mozilla Firefox web browser, so it can make everything by itse
 a code for the GitHub OAuth option (because you have two-factor authentication), you'll not be able to
 use the program. If you use the Codewars login credentials there shouldn't be any problems.
 
-### All-in-one method
+### Running the program
 
 These are the steps that you must follow to run the program:
 1. Download the executable file depending on the OS you have (head to the ["Releases" tab](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/releases)).
