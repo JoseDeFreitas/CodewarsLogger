@@ -235,7 +235,7 @@ namespace CodewarsGitHubLogger
                 driver.Navigate().GoToUrl($@"https://www.codewars.com/kata/{id}/solutions/{language}/me/newest");
 
                 solutionsList = driver.FindElement(By.Id("solutions_list"));
-                solutionItem = solutionsList.FindElement(By.TagName("li"));
+                solutionItem = solutionsList.FindElement(By.TagName("div"));
                 solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
 
                 if (File.Exists(path))
