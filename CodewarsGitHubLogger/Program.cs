@@ -56,6 +56,7 @@ namespace CodewarsGitHubLogger
             string codewarsUsername = "";
             string usernameOrEmail = "";
             string password = "";
+            string createIndexFile = "";
 
             try
             {
@@ -63,6 +64,7 @@ namespace CodewarsGitHubLogger
                 codewarsUsername = credentials[0];
                 usernameOrEmail = credentials[2];
                 password = credentials[3];
+                createIndexFile = credentials[4];
             }
             catch (IndexOutOfRangeException)
             {
@@ -113,15 +115,8 @@ namespace CodewarsGitHubLogger
                 }
             }
 
-            try
-            {
-                if (credentials[4] == "y")
-                    await CreateIndexFileAsync();
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("'Index' flag was not specified");
-            }
+            if (credentials[4] == "y")
+                await CreateIndexFileAsync();
 
             driver.Quit();
 
