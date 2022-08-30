@@ -45,20 +45,26 @@ namespace CodewarsGitHubLogger
 
         static async Task Main(string[] args)
         {
+            List<string> credentials = ReadUserCredentials();
+
             FirefoxOptions options = new FirefoxOptions();
             options.AddArgument("--headless");
             IWebDriver driver = new FirefoxDriver("./", options);
 
             // Define variables for each credential
+            string loginMethod = "";
             string codewarsUsername = "";
-            string githubUsername = "";
-            string githubPassword = "";
+            string usernameOrEmail = "";
+            string password = "";
+            string createIndexFile = "";
 
             try
             {
-                codewarsUsername = args[0];
-                githubUsername = args[1];
-                githubPassword = args[2];
+                loginMethod = credentials[1];
+                codewarsUsername = credentials[0];
+                usernameOrEmail = credentials[2];
+                password = credentials[3];
+                createIndexFile = credentials[4];
             }
             catch (IndexOutOfRangeException)
             {
@@ -72,7 +78,7 @@ namespace CodewarsGitHubLogger
 
             Directory.CreateDirectory(mainFolderPath);
 
-            SignInToCodewars(driver, githubUsername, githubPassword);
+            SignInToCodewars(driver, loginMethod, usernameOrEmail, password);
 
             // Response used only to get the total number of pages available
             Stream mainResponseJson = await httpClient.GetStreamAsync(completedKatasUrl);
@@ -109,15 +115,8 @@ namespace CodewarsGitHubLogger
                 }
             }
 
-            try
-            {
-                if (args[3] == "-i" || args[3] == "--index")
-                    await CreateIndexFileAsync();
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("'Index' flag was not specified");
-            }
+            if (credentials[4] == "y")
+                await CreateIndexFileAsync();
 
             driver.Quit();
 
@@ -127,19 +126,85 @@ namespace CodewarsGitHubLogger
                 Console.WriteLine($"{separatorLine}All data was loaded successfully.");
             else
                 Console.WriteLine($"{separatorLine}All data was loaded except {numberOfExceptions.ToString()} katas: {string.Join(" - ", idsOfExceptions)}.");
+
+            Console.Write("Press any key to exit.");
+            Console.ReadLine();
         }
 
         /// <summary>
-        /// Using the credentials provided (GitHub username and passwords) to sign in to
-        /// Codewars. It doesn't allow signing in with Codewars creadentials (username and
-        /// password) because it's intended to work only if the user registered using the
-        /// GitHub OAuth.
+        /// Serves as the main view of the console application by asking the user for the
+        /// necessary credentials (Codewars' or GitHub's) and saving all the information
+        /// and sending it to the main method.
+        /// </summary>
+        /// <returns>
+        /// A list of 4 strings: the Codewars username, the email/GitHub username, the
+        /// Codewars password/GitHub password and whether to create an index file or not
+        /// ("y" or "n").
+        /// </returns>
+        static List<string> ReadUserCredentials()
+        {
+            List<string> credentials = new List<string>();
+            bool loopFlag = true;
+
+            Console.WriteLine("CodewarsGitHubLogger, v1.1.0. Source code: https://github.com/JoseDeFreitas/CodewarsGitHubLogger");
+            Console.Write("Enter your Codewars username:");
+            credentials.Add(Console.ReadLine());
+            Console.Write("Press \"g\" to log using GitHub or \"c\" to log using Codewars:");
+            string loginMethod = Console.ReadLine();
+
+            while (loopFlag)
+            {
+                if (loginMethod == "g")
+                {
+                    credentials.Add(loginMethod);
+                    Console.Write("Enter your GitHub username:");
+                    credentials.Add(Console.ReadLine());
+                    Console.Write("Enter your GitHub password:");
+                    credentials.Add(Console.ReadLine());
+
+                    loopFlag = false;
+                }
+                else if (loginMethod == "c")
+                {
+                    credentials.Add(loginMethod);
+                    Console.Write("Enter your email:");
+                    credentials.Add(Console.ReadLine());
+                    Console.Write("Enter your Codewars password:");
+                    credentials.Add(Console.ReadLine());
+
+                    loopFlag = false;
+                }
+                else
+                    Console.WriteLine("Only \"g\" and \"c\" are valid options.");
+            }
+
+            Console.Write("Do you want to create an index file (y/n)?");
+            string decision = Console.ReadLine();
+
+            while (!loopFlag)
+            {
+                if (decision == "y" || decision == "n")
+                {
+                    credentials.Add(decision);
+                    loopFlag = true;
+                }
+                else
+                    Console.WriteLine("Only \"y\" and \"n\" are valid options.");
+            }
+
+            return credentials;
+        }
+
+        /// <summary>
+        /// Using the credentials provided (GitHub username and password or email and Codewars
+        /// password) to sign in to Codewars.
         /// </summary>
         /// <param name="driver">The Firefox driver initialised in the Main method.</param>
-        /// <param name="githubUsername">The GitHub username of the user.</param>
-        /// <param name="githubPassword">The GitHub password of the user.</param>
+        /// <param name="loginMethod">The Firefox driver initialised in the Main method.</param>
+        /// <param name="usernameOrEmail">The GitHub username or the email of the user.</param>
+        /// <param name="password">The GitHub password or the Codewars password of the user.</param>
         /// <exception>When the driver can't connect to the Codewars website.</exception>
-        static void SignInToCodewars(IWebDriver driver, string githubUsername, string githubPassword)
+        static void SignInToCodewars(IWebDriver driver, string loginMethod, string usernameOrEmail, string password)
         {
             try
             {
@@ -151,12 +216,23 @@ namespace CodewarsGitHubLogger
                 Environment.Exit(2);
             }
 
-            IWebElement siginForm = driver.FindElement(By.Id("new_user"));
-            siginForm.FindElement(By.TagName("button")).Click();
+            if (loginMethod == "g")
+            {
+                IWebElement siginForm = driver.FindElement(By.Id("new_user"));
+                siginForm.FindElement(By.TagName("button")).Click();
 
-            driver.FindElement(By.Id("login_field")).SendKeys(githubUsername);
-            driver.FindElement(By.Id("password")).SendKeys(githubPassword);
-            driver.FindElement(By.Name("commit")).Click();
+                driver.FindElement(By.Id("login_field")).SendKeys(usernameOrEmail);
+                driver.FindElement(By.Id("password")).SendKeys(password);
+                driver.FindElement(By.Name("commit")).Click();
+            }
+            else
+            {
+                IWebElement siginForm = driver.FindElement(By.Id("new_user"));
+
+                driver.FindElement(By.Id("user_email")).SendKeys(usernameOrEmail);
+                driver.FindElement(By.Id("user_password")).SendKeys(password);
+                siginForm.FindElement(By.ClassName("is-red")).Click();
+            }
         }
 
         /// <summary>
