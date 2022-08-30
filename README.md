@@ -1,8 +1,8 @@
 # CodewarsGitHubLogger
 
 This program allows you to connect to [Codewars](https://www.codewars.com) by using your credentials
-(through the GitHub OAuth sign in option) and extract all the code of each programming language of
-every kata you have completed.
+(through the GitHub OAuth sign in option or through the Codewars sign in form) and extract all the
+code of each programming language of every kata you have completed.
 
 **It's discouraged to put your Codewars solutions publicly available because, even though it depends
 on every person and it's a responsibility of one self, having your solutions publicly available may
@@ -42,47 +42,27 @@ the files and directories are stored in such a way that it's easy to navigate th
 
 To use this program you need:
 
-- dotnet core 5.0.
-- A Codewars account.
-- A GitHub account.
+- Firefox web browser installed on your computer.
+- [GeckoDriver file from Mozilla](https://github.com/mozilla/geckodriver/releases) (which is just an
+executable of the Mozilla Firefox web browser, so it can make everything by itself).
+- A Codewars account (it doesn't matter if you signed up using the GitHub OAuth or the Codewars form).
 
-Important things to note: if you want to use the program without modifying it and as-is, **you must have
-registered into Codewars using the GitHub OAuth option** and **you must sign in to Codewars before running
-the program** so GitHub won't ask you to confirm the sign in with a code. The Firefox driver can't
-accomplish this because the code is sent to your email address.
-
-If you registered into Codewars using its own registration system instead of the GitHub OAuth method, you
-can change the file to receive and sign in with your Codewars credentials. You can read the subsection
-"[Use Codewars credentials instead of GitHub's](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Examples#use-codewars-credentials-instead-of-githubs)" to know how to do this.
+**Important thing to note**: this program only navigates to the Codewars website; if you need to input
+a code for the GitHub OAuth option (because you have two-factor authentication), you'll not be able to
+use the program. If you use the Codewars login credentials there shouldn't be any problems.
 
 ### All-in-one method
 
-To use this program you just need an initial configuration. After that, you just have to sit down and watch
-everything being pulled automatically. Below is the ordered list of steps you must follow to get all working:
+These are the steps that you must follow to run the program:
+1. Download the executable file depending on the OS you have (head to the ["Releases" tab](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/releases)).
+2. Get the [Mozilla geckodriver](https://github.com/mozilla/geckodriver/releases) from the "Releases" tab in Mozilla's repository (also according to your
+OS).
+3. Run the executable with the geckodriver file in the same directory.
+4. Follow the instructions prompted.
 
-1. Click on the green button "Use this template".
-2. Choose a name for your repository, mark the "Private" option and click on "Create repository from template".
-3. [Clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) or [add remotely](https://docs.github.com/en/get-started/getting-started-with-git/managing-remote-repositories) to pull the new repository locally in your machine.
-4. Move to the `CodewarsGitHubLogger` folder.
-5. Run the program by writing `dotnet run -- YOUR_CODEWARS_USERNAME YOUR_GITHUB_USERNAME YOUR_GITHUB_PASSWORD` in your command line.
-   - Optionally you can append the flag `-i` or `--index` as the last argument to create an index file.
-6. Wait for the program to complete (you'll see a message that indicates the completion status).
-7. Add all the files to the stage, commit them and push them to your private repository.
-
-(Optional step): add the folder `CodewarsGitHubLogger` to the `.gitignore` file. This is useful if you
-don't want to see the folder that contains the program I've created, as it's not a kata by itself.
-You can do this without getting into any trouble, because the program is intended to be run locally, so
-there's no need in having it visible on GitHub.
-
-For more information about customisation of the repository and the program, read the
-["Customisation" section](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Customisation) of the wiki.
-
-### Other methods
-
-Of course, you can just download the entire repository as a `.zip` file and keep only the
-[CodewarsGitHubLogger](/CodewarsGitHubLogger) folder. Then, make it so it creates and updates
-all the files in the folder you want (the folder that is connected to the private GitHub repository
-of your choice). I provide a [simple example of a local run to a different folder](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Examples#create-all-files-in-a-different-directory) in the wiki.
+After all the data is copied inside the directory you selected, you just need to use git to add to the stage,
+commit and push to your private GitHub repository. You can create a `.gitignore` to ignore the executable
+files, that you probably don't want them to show up.
 
 ### After completion
 
@@ -129,7 +109,7 @@ This repository is under the [BSD-2-Clause License](LICENSE) to follow
 on October, 2018).
 
 If you've read above sections, you know you can customise the program to make it work as you want. Keep in
-mind that **I offer the program as you see in this repository**. Any changes you made in your private repository
-are up to you, and I'm not responsible for them. Be careful on what you change. For more related information,
-please read the ["Privacy" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Privacy) of the
-wiki. I encourage you to read the whole wiki, too.
+mind that **I offer the program as you see it in this repository**. Any changes you made are up to you, and
+and I'm not responsible for them. Be careful on what you change. For more related information, please read
+the ["Privacy" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Privacy) of the wiki. I
+encourage you to read the whole wiki, too. **Don't forget to read the rules from Codewars.**
