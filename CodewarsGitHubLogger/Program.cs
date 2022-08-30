@@ -231,7 +231,7 @@ namespace CodewarsGitHubLogger
 
                 driver.FindElement(By.Id("user_email")).SendKeys(usernameOrEmail);
                 driver.FindElement(By.Id("user_password")).SendKeys(password);
-                siginForm.FindElement(By.TagName("button")).Click(); // This is the first button, needs to be the second one
+                siginForm.FindElement(By.ClassName("is-red")).Click();
             }
         }
 
