@@ -131,6 +131,9 @@ namespace CodewarsGitHubLogger
                 Console.WriteLine($"{separatorLine}All data was loaded successfully.");
             else
                 Console.WriteLine($"{separatorLine}All data was loaded except {numberOfExceptions.ToString()} katas: {string.Join(" - ", idsOfExceptions)}.");
+
+            Console.Write("Press any key to exit.");
+            Console.ReadLine();
         }
 
         /// <summary>
