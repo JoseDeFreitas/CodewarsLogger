@@ -196,15 +196,13 @@ namespace CodewarsGitHubLogger
         }
 
         /// <summary>
-        /// Using the credentials provided (GitHub username and passwords) to sign in to
-        /// Codewars. It doesn't allow signing in with Codewars creadentials (username and
-        /// password) because it's intended to work only if the user registered using the
-        /// GitHub OAuth.
+        /// Using the credentials provided (GitHub username and password or email and Codewars
+        /// password) to sign in to Codewars.
         /// </summary>
         /// <param name="driver">The Firefox driver initialised in the Main method.</param>
         /// <param name="loginMethod">The Firefox driver initialised in the Main method.</param>
-        /// <param name="usernameOrEmail">The GitHub username of the user.</param>
-        /// <param name="password">The GitHub password of the user.</param>
+        /// <param name="usernameOrEmail">The GitHub username or the email of the user.</param>
+        /// <param name="password">The GitHub password or the Codewars password of the user.</param>
         /// <exception>When the driver can't connect to the Codewars website.</exception>
         static void SignInToCodewars(IWebDriver driver, string loginMethod, string usernameOrEmail, string password)
         {
