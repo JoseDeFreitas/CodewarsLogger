@@ -146,6 +146,7 @@ namespace CodewarsGitHubLogger
         static List<string> ReadUserCredentials()
         {
             List<string> credentials = new List<string>();
+            bool loopFlag = true;
 
             Console.WriteLine("CodewarsGitHubLogger, v1.1.0. Source code: https://github.com/JoseDeFreitas/CodewarsGitHubLogger");
             Console.Write("Enter your Codewars username:");
@@ -153,32 +154,45 @@ namespace CodewarsGitHubLogger
             Console.Write("Press \"g\" to log using GitHub or \"c\" to log using Codewars:");
             string loginMethod = Console.ReadLine();
 
-            if (loginMethod == "g")
+            while (loopFlag)
             {
-                credentials.Add(loginMethod);
-                Console.Write("Enter your GitHub username:");
-                credentials.Add(Console.ReadLine());
-                Console.Write("Enter your GitHub password:");
-                credentials.Add(Console.ReadLine());
+                if (loginMethod == "g")
+                {
+                    credentials.Add(loginMethod);
+                    Console.Write("Enter your GitHub username:");
+                    credentials.Add(Console.ReadLine());
+                    Console.Write("Enter your GitHub password:");
+                    credentials.Add(Console.ReadLine());
+
+                    loopFlag = false;
+                }
+                else if (loginMethod == "c")
+                {
+                    credentials.Add(loginMethod);
+                    Console.Write("Enter your email:");
+                    credentials.Add(Console.ReadLine());
+                    Console.Write("Enter your Codewars password:");
+                    credentials.Add(Console.ReadLine());
+
+                    loopFlag = false;
+                }
+                else
+                    Console.WriteLine("Only \"g\" and \"c\" are valid options.");
             }
-            else if (loginMethod == "c")
-            {
-                credentials.Add(loginMethod);
-                Console.Write("Enter your email:");
-                credentials.Add(Console.ReadLine());
-                Console.Write("Enter your Codewars password:");
-                credentials.Add(Console.ReadLine());
-            }
-            else
-                Console.WriteLine("Only \"g\" and \"c\" are valid options.");
 
             Console.Write("Do you want to create an index file (y/n)?");
             string decision = Console.ReadLine();
 
-            if (decision == "y" || decision == "n")
-                credentials.Add(decision);
-            else
-                Console.WriteLine("Only \"y\" and \"n\" are valid options.");
+            while (!loopFlag)
+            {
+                if (decision == "y" || decision == "n")
+                {
+                    credentials.Add(decision);
+                    loopFlag = true;
+                }
+                else
+                    Console.WriteLine("Only \"y\" and \"n\" are valid options.");
+            }
 
             return credentials;
         }
