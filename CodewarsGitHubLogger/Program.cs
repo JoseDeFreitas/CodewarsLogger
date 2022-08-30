@@ -59,8 +59,8 @@ namespace CodewarsGitHubLogger
 
             try
             {
-                loginMethod = credentials[0];
-                codewarsUsername = credentials[1];
+                loginMethod = credentials[1];
+                codewarsUsername = credentials[0];
                 usernameOrEmail = credentials[2];
                 password = credentials[3];
             }
