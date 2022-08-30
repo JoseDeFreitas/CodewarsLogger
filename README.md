@@ -43,8 +43,8 @@ the files and directories are stored in such a way that it's easy to navigate th
 To use this program you need:
 
 - Firefox web browser installed on your computer.
-- [GeckoDriver file from Mozilla](https://github.com/mozilla/geckodriver/releases) (which is just an
-executable of the Mozilla Firefox web browser, so it can make everything by itself).
+- GeckoDriver file from Mozilla (which is just an executable of the Mozilla Firefox web browser, so it
+can make everything by itself).
 - A Codewars account (it doesn't matter if you signed up using the GitHub OAuth or the Codewars form).
 
 **Important thing to note**: this program only navigates to the Codewars website; if you need to input
