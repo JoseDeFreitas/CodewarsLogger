@@ -176,6 +176,7 @@ namespace CodewarsGitHubLogger
                 }
                 else
                     Console.WriteLine("Only \"g\" and \"c\" are valid options.");
+                    Environment.Exit(3);
             }
 
             Console.Write("Do you want to create an index file (y/n)?");
@@ -190,6 +191,7 @@ namespace CodewarsGitHubLogger
                 }
                 else
                     Console.WriteLine("Only \"y\" and \"n\" are valid options.");
+                    Environment.Exit(3);
             }
 
             return credentials;
