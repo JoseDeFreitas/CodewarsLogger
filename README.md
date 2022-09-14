@@ -106,7 +106,7 @@ issue by choosing a template from the available [issue templates](https://github
 
 This repository is under the [BSD-2-Clause License](LICENSE) to follow
 [Codewars's Terms of Service](https://www.codewars.com/about/terms-of-service) (that were last updated
-on October, 2018).
+on April, 2022).
 
 If you've read above sections, you know you can customise the program to make it work as you want. Keep in
 mind that **I offer the program as you see it in this repository**. Any changes you made are up to you, and
