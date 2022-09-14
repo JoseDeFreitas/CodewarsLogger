@@ -61,7 +61,7 @@ OS).
 4. Follow the instructions prompted.
 
 After all the data is copied inside the directory you selected, you just need to use git to add to the stage,
-commit and push to your private GitHub repository. You can create a `.gitignore` to ignore the executable
+commit and push to your private GitHub repository. You can create a `.gitignore` file to ignore the executable
 files, that you probably don't want them to show up.
 
 ### After completion
