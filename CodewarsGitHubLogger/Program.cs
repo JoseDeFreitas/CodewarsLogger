@@ -149,7 +149,7 @@ namespace CodewarsGitHubLogger
             Console.WriteLine("CodewarsGitHubLogger, v1.1.0. Source code: https://github.com/JoseDeFreitas/CodewarsGitHubLogger");
             Console.Write("Enter your Codewars username:");
             credentials.Add(Console.ReadLine());
-            Console.Write("Press \"g\" to log using GitHub or \"c\" to log using Codewars:");
+            Console.Write("Press \"g\" to log using GitHub or \"c\" to log using Codewars: ");
             string loginMethod = Console.ReadLine();
 
             while (loopFlag)
@@ -179,7 +179,7 @@ namespace CodewarsGitHubLogger
                     Environment.Exit(3);
             }
 
-            Console.Write("Do you want to create an index file (y/n)?");
+            Console.Write("Do you want to create an index file? (y/n): ");
             string decision = Console.ReadLine();
 
             while (!loopFlag)
