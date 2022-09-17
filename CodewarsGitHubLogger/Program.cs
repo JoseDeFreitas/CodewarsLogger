@@ -120,7 +120,7 @@ namespace CodewarsGitHubLogger
 
             driver.Quit();
 
-            string separatorLine = "-------------------------\n";
+            string separatorLine = "===== \n";
 
             if (numberOfExceptions == 0)
                 Console.WriteLine($"{separatorLine}All data was loaded successfully.");
