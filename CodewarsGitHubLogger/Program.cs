@@ -17,7 +17,7 @@ namespace CodewarsGitHubLogger
 {
     class Program
     {
-        static HttpClient httpClient = new HttpClient();
+        static HttpClient Client = new HttpClient();
         static int CompletedKatasCount = 0;
         static int NumberOfExceptions = 0;
         static List<string> IdsOfExceptions = new List<string>();
@@ -80,20 +80,20 @@ namespace CodewarsGitHubLogger
             SignInToCodewars(driver, loginMethod, usernameOrEmail, password);
 
             // Response used only to get the total number of pages available
-            Stream mainResponseJson = await httpClient.GetStreamAsync(completedKatasUrl);
+            Stream mainResponseJson = await Client.GetStreamAsync(completedKatasUrl);
             KataCompleted mainResponseObject = await JsonSerializer.DeserializeAsync<KataCompleted>(mainResponseJson);
             int numberOfPages = mainResponseObject.totalPages;
 
             for (int page = 0; page < numberOfPages; page++)
             {
                 // Response used to get the information of all the katas in the specified page
-                Stream responseStream = await httpClient.GetStreamAsync($"{completedKatasUrl}?page={page}");
+                Stream responseStream = await Client.GetStreamAsync($"{completedKatasUrl}?page={page}");
                 KataCompleted kataObject = await JsonSerializer.DeserializeAsync<KataCompleted>(responseStream);
 
                 foreach (var kata in kataObject.data)
                 {
                     // Response used only to get the description of the kata
-                    Stream responseKataInfo = await httpClient.GetStreamAsync($"{kataInfoUrl}{kata.id}");
+                    Stream responseKataInfo = await Client.GetStreamAsync($"{kataInfoUrl}{kata.id}");
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
                     string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
 
