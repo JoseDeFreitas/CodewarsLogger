@@ -19,9 +19,9 @@ namespace CodewarsGitHubLogger
     {
         static HttpClient httpClient = new HttpClient();
         static int CompletedKatasCount = 0;
-        static int numberOfExceptions = 0;
-        static List<string> idsOfExceptions = new List<string>();
-        static Dictionary<string, string> languagesExtensions = new Dictionary<string, string>() {
+        static int NumberOfExceptions = 0;
+        static List<string> IdsOfExceptions = new List<string>();
+        static Dictionary<string, string> LanguagesExtensions = new Dictionary<string, string>() {
             {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
             {"clojure", "clj"}, {"cobol", "cob"}, {"coffeescript", "coffee"}, {"commonlisp", "lisp"},
             {"coq", "coq"}, {"cplusplus", "cpp"}, {"crystal", "cr"}, {"csharp", "cs"},
@@ -36,7 +36,7 @@ namespace CodewarsGitHubLogger
             {"ruby", "rb"}, {"rust", "rs"}, {"scala", "scala"}, {"shell", "sh"},
             {"sql", "sql"}, {"swift", "swift"}, {"typescript", "ts"}, {"vb", "vb"},
         };
-        static Dictionary<string, List<string>> kataCategories = new Dictionary<string, List<string>>() {
+        static Dictionary<string, List<string>> KataCategories = new Dictionary<string, List<string>>() {
             {"reference", new List<string>()}, // Equivalent to the "Fundamentals" category
             {"algorithms", new List<string>()},
             {"bug_fixes", new List<string>()},
@@ -99,7 +99,7 @@ namespace CodewarsGitHubLogger
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
                     string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
 
-                    kataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{kata.slug})");
+                    KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{kata.slug})");
 
                     await CreateMainFilesAsync(
                         kataFolderPath, kata.name, kataInfoUrl,
@@ -111,7 +111,7 @@ namespace CodewarsGitHubLogger
 
                     foreach (string language in kata.completedLanguages)
                     {
-                        string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{languagesExtensions[language]}");
+                        string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{LanguagesExtensions[language]}");
 
                         await CreateCodeFileAsync(driver, codeFilePath, kata.id, language);
                     }
@@ -125,10 +125,10 @@ namespace CodewarsGitHubLogger
 
             string separatorLine = "=====\n";
 
-            if (numberOfExceptions == 0)
+            if (NumberOfExceptions == 0)
                 Console.WriteLine($"{separatorLine}All data was loaded successfully.");
             else
-                Console.WriteLine($"{separatorLine}All data was loaded except {numberOfExceptions.ToString()} katas: {string.Join(" - ", idsOfExceptions)}.");
+                Console.WriteLine($"{separatorLine}All data was loaded except {NumberOfExceptions.ToString()} katas: {string.Join(" - ", IdsOfExceptions)}.");
 
             Console.Write("Press any key to exit.");
             Console.ReadLine();
@@ -286,8 +286,8 @@ namespace CodewarsGitHubLogger
             catch (IOException exception)
             {
                 Console.WriteLine(exception);
-                numberOfExceptions++;
-                idsOfExceptions.Add(id);
+                NumberOfExceptions++;
+                IdsOfExceptions.Add(id);
             }
         }
 
@@ -340,8 +340,8 @@ namespace CodewarsGitHubLogger
             }
             catch (IOException)
             {
-                numberOfExceptions++;
-                idsOfExceptions.Add(id);
+                NumberOfExceptions++;
+                IdsOfExceptions.Add(id);
             }
         }
 
@@ -358,11 +358,11 @@ namespace CodewarsGitHubLogger
             string content =
             $"# Index of katas by its category/discipline\n\n"
             + $"These are all the code-challenges I've successfully completed. Total completed katas: {CompletedKatasCount}"
-            + $"\n## Fundamentals\n\n{string.Join("\n", kataCategories["reference"])}"
-            + $"\n## Algorithms\n\n{string.Join("\n", kataCategories["algorithms"])}"
-            + $"\n## Bug Fixes\n\n{string.Join("\n", kataCategories["bug_fixes"])}"
-            + $"\n## Refactoring\n\n{string.Join("\n", kataCategories["refactoring"])}"
-            + $"\n## Puzzles\n\n{string.Join("\n", kataCategories["games"])}";
+            + $"\n## Fundamentals\n\n{string.Join("\n", KataCategories["reference"])}"
+            + $"\n## Algorithms\n\n{string.Join("\n", KataCategories["algorithms"])}"
+            + $"\n## Bug Fixes\n\n{string.Join("\n", KataCategories["bug_fixes"])}"
+            + $"\n## Refactoring\n\n{string.Join("\n", KataCategories["refactoring"])}"
+            + $"\n## Puzzles\n\n{string.Join("\n", KataCategories["games"])}";
 
             try
             {
