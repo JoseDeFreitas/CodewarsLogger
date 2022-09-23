@@ -120,7 +120,7 @@ namespace CodewarsGitHubLogger
 
             driver.Quit();
 
-            string separatorLine = "===== \n";
+            string separatorLine = "=====\n";
 
             if (numberOfExceptions == 0)
                 Console.WriteLine($"{separatorLine}All data was loaded successfully.");
@@ -147,7 +147,7 @@ namespace CodewarsGitHubLogger
             bool loopFlag = true;
 
             Console.WriteLine("CodewarsGitHubLogger, v1.1.0. Source code: https://github.com/JoseDeFreitas/CodewarsGitHubLogger");
-            Console.Write("Enter your Codewars username:");
+            Console.Write("Enter your Codewars username: ");
             credentials.Add(Console.ReadLine());
             Console.Write("Press \"g\" to log using GitHub or \"c\" to log using Codewars: ");
             string loginMethod = Console.ReadLine();
@@ -157,9 +157,9 @@ namespace CodewarsGitHubLogger
                 if (loginMethod == "g")
                 {
                     credentials.Add(loginMethod);
-                    Console.Write("Enter your GitHub username:");
+                    Console.Write("Enter your GitHub username: ");
                     credentials.Add(Console.ReadLine());
-                    Console.Write("Enter your GitHub password:");
+                    Console.Write("Enter your GitHub password: ");
                     credentials.Add(Console.ReadLine());
 
                     loopFlag = false;
@@ -167,9 +167,9 @@ namespace CodewarsGitHubLogger
                 else if (loginMethod == "c")
                 {
                     credentials.Add(loginMethod);
-                    Console.Write("Enter your email:");
+                    Console.Write("Enter your email: ");
                     credentials.Add(Console.ReadLine());
-                    Console.Write("Enter your Codewars password:");
+                    Console.Write("Enter your Codewars password: ");
                     credentials.Add(Console.ReadLine());
 
                     loopFlag = false;
