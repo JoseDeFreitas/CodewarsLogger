@@ -99,7 +99,7 @@ namespace CodewarsGitHubLogger
 
                     KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{kata.slug})");
 
-                    await CreateMainFilesAsync(
+                    await CreateMainFileAsync(
                         kataFolderPath, kata.name, kata.id,
                         kata.completedAt, kata.completedLanguages,
                         kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
@@ -175,8 +175,10 @@ namespace CodewarsGitHubLogger
                     loopFlag = false;
                 }
                 else
+                {
                     Console.WriteLine("Only \"g\" and \"c\" are valid options.");
                     Environment.Exit(3);
+                }
             }
 
             return credentials;
@@ -191,7 +193,10 @@ namespace CodewarsGitHubLogger
         /// <param name="usernameOrEmail">The GitHub username or the email of the user.</param>
         /// <param name="password">The GitHub password or the Codewars password of the user.</param>
         /// <exception>When the driver can't connect to the Codewars website.</exception>
-        static void SignInToCodewars(IWebDriver driver, string loginMethod, string usernameOrEmail, string password)
+        static void SignInToCodewars(
+            IWebDriver driver, string loginMethod, string usernameOrEmail,
+            string password
+        )
         {
             try
             {
@@ -235,7 +240,7 @@ namespace CodewarsGitHubLogger
         /// <param name="languages">The programming languages the kata was completed in.</param>
         /// <param name="description">The description of the kata (Markdown-formatted).</param>
         /// <exception>If the folder can't be created.</exception>
-        static async Task CreateMainFilesAsync(
+        static async Task CreateMainFileAsync(
             string folder, string name, string id,
             string date, List<string> languages, string description,
             Dictionary<string, object> rank, List<string> tags
