@@ -67,7 +67,7 @@ namespace CodewarsGitHubLogger
             }
             catch (IndexOutOfRangeException)
             {
-                Console.WriteLine("You must pass the credentials.");
+                Console.WriteLine("You must pass all the credentials.");
                 Environment.Exit(1);
             }
 
