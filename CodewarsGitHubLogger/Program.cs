@@ -146,7 +146,7 @@ namespace CodewarsGitHubLogger
             List<string> credentials = new List<string>();
             bool loopFlag = true;
 
-            Console.WriteLine("CodewarsGitHubLogger, v1.1.0. Source code: https://github.com/JoseDeFreitas/CodewarsGitHubLogger");
+            Console.WriteLine("CodewarsGitHubLogger, v1.1.2. Source code: https://github.com/JoseDeFreitas/CodewarsGitHubLogger");
             Console.Write("Enter your Codewars username: ");
             credentials.Add(Console.ReadLine());
             Console.Write("Press \"g\" to log using GitHub or \"c\" to log using Codewars: ");
