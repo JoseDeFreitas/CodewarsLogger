@@ -57,7 +57,6 @@ namespace CodewarsGitHubLogger
             string codewarsUsername = "";
             string usernameOrEmail = "";
             string password = "";
-            string createIndexFile = "";
 
             try
             {
@@ -65,7 +64,6 @@ namespace CodewarsGitHubLogger
                 codewarsUsername = credentials[0];
                 usernameOrEmail = credentials[2];
                 password = credentials[3];
-                createIndexFile = credentials[4];
             }
             catch (IndexOutOfRangeException)
             {
@@ -118,8 +116,7 @@ namespace CodewarsGitHubLogger
                 }
             }
 
-            if (credentials[4] == "y")
-                await CreateIndexFileAsync();
+            await CreateIndexFileAsync();
 
             driver.Quit();
 
@@ -179,21 +176,6 @@ namespace CodewarsGitHubLogger
                 }
                 else
                     Console.WriteLine("Only \"g\" and \"c\" are valid options.");
-                    Environment.Exit(3);
-            }
-
-            Console.Write("Do you want to create an index file? (y/n): ");
-            string decision = Console.ReadLine();
-
-            while (!loopFlag)
-            {
-                if (decision == "y" || decision == "n")
-                {
-                    credentials.Add(decision);
-                    loopFlag = true;
-                }
-                else
-                    Console.WriteLine("Only \"y\" and \"n\" are valid options.");
                     Environment.Exit(3);
             }
 
@@ -354,7 +336,7 @@ namespace CodewarsGitHubLogger
         /// <exception>If the file can't be created.</exception>
         static async Task CreateIndexFileAsync()
         {
-            string filePath = "../INDEX.md";
+            string filePath = "../README.md";
             string content =
             $"# Index of katas by its category/discipline\n\n"
             + $"These are all the code-challenges I've successfully completed. Total completed katas: {CompletedKatasCount}"
