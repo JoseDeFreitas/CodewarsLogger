@@ -18,6 +18,7 @@ namespace CodewarsGitHubLogger
     class Program
     {
         static HttpClient httpClient = new HttpClient();
+        static int CompletedKatasCount = 0;
         static int numberOfExceptions = 0;
         static List<string> idsOfExceptions = new List<string>();
         static Dictionary<string, string> languagesExtensions = new Dictionary<string, string>() {
@@ -105,6 +106,8 @@ namespace CodewarsGitHubLogger
                         kata.id, kata.completedAt, kata.completedLanguages,
                         kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
                     );
+
+                    CompletedKatasCount++;
 
                     foreach (string language in kata.completedLanguages)
                     {
@@ -354,7 +357,7 @@ namespace CodewarsGitHubLogger
             string filePath = "../INDEX.md";
             string content =
             $"# Index of katas by its category/discipline\n\n"
-            + $"These are all the code-challenges I've successfully completed. Total completed katas: {{}}"
+            + $"These are all the code-challenges I've successfully completed. Total completed katas: {CompletedKatasCount}"
             + $"\n## Fundamentals\n\n{string.Join("\n", kataCategories["reference"])}"
             + $"\n## Algorithms\n\n{string.Join("\n", kataCategories["algorithms"])}"
             + $"\n## Bug Fixes\n\n{string.Join("\n", kataCategories["bug_fixes"])}"
