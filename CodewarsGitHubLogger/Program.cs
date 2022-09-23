@@ -100,8 +100,8 @@ namespace CodewarsGitHubLogger
                     KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{kata.slug})");
 
                     await CreateMainFilesAsync(
-                        kataFolderPath, kata.name, kataInfoUrl,
-                        kata.id, kata.completedAt, kata.completedLanguages,
+                        kataFolderPath, kata.name, kata.id,
+                        kata.completedAt, kata.completedLanguages,
                         kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
                     );
 
@@ -230,21 +230,20 @@ namespace CodewarsGitHubLogger
         /// </summary>
         /// <param name="folder">The name of the folder (based on the kata slug).</param>
         /// <param name="name">The name of the kata (not the slug).</param>
-        /// <param name="url">The url to the kata on the Codewars website.</param>
         /// <param name="id">The ID of the kata.</param>
         /// <param name="date">The date the kata was completed on.</param>
         /// <param name="languages">The programming languages the kata was completed in.</param>
         /// <param name="description">The description of the kata (Markdown-formatted).</param>
         /// <exception>If the folder can't be created.</exception>
         static async Task CreateMainFilesAsync(
-            string folder, string name, string url,
-            string id, string date, List<string> languages,
-            string description, Dictionary<string, object> rank, List<string> tags
+            string folder, string name, string id,
+            string date, List<string> languages, string description,
+            Dictionary<string, object> rank, List<string> tags
         )
         {
             string filePath = Path.Combine(folder, "README.md");
             string content =
-            $"# [{name}]({url}{id})\n"
+            $"# [{name}](https://www.codewars.com/kata/{id})\n"
             + $"\n- **Completed at:** {date}\n\n"
             + $"- **Completed languages:** {string.Join(", ", languages)}\n\n"
             + $"- **Tags:** {string.Join(", ", tags)}\n\n"
