@@ -1,5 +1,5 @@
 /*
-Program created by José De Freitas (https://github.com/JoseDeFreitas).
+Program created by José de Freitas (https://github.com/JoseDeFreitas).
 Link to the repository: https://github.com/JoseDeFreitas/CodewarsGitHubLogger.
 Licensed under the BSD-2-Clause License.
 */
