@@ -201,28 +201,42 @@ namespace CodewarsGitHubLogger
             {
                 driver.Navigate().GoToUrl(@"https://www.codewars.com/users/sign_in");
             }
-            catch (TimeoutException ex)
+            catch (TimeoutException)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("The driver took too much time.");
                 Environment.Exit(1);
             }
 
             if (loginMethod == "g")
             {
-                IWebElement siginForm = driver.FindElement(By.Id("new_user"));
-                siginForm.FindElement(By.TagName("button")).Click();
+                try
+                {
+                    IWebElement siginForm = driver.FindElement(By.Id("new_user"));
+                    siginForm.FindElement(By.TagName("button")).Click();
 
-                driver.FindElement(By.Id("login_field")).SendKeys(usernameOrEmail);
-                driver.FindElement(By.Id("password")).SendKeys(password);
-                driver.FindElement(By.Name("commit")).Click();
+                    driver.FindElement(By.Id("login_field")).SendKeys(usernameOrEmail);
+                    driver.FindElement(By.Id("password")).SendKeys(password);
+                    driver.FindElement(By.Name("commit")).Click();
+                }
+                catch (NoSuchElementException)
+                {
+                    Console.WriteLine("The element was not found on the page.");
+                }
             }
             else
             {
-                IWebElement siginForm = driver.FindElement(By.Id("new_user"));
-
-                driver.FindElement(By.Id("user_email")).SendKeys(usernameOrEmail);
-                driver.FindElement(By.Id("user_password")).SendKeys(password);
-                siginForm.FindElement(By.ClassName("is-red")).Click();
+                try
+                {
+                    IWebElement siginForm = driver.FindElement(By.Id("new_user"));
+    
+                    driver.FindElement(By.Id("user_email")).SendKeys(usernameOrEmail);
+                    driver.FindElement(By.Id("user_password")).SendKeys(password);
+                    siginForm.FindElement(By.ClassName("is-red")).Click();
+                }
+                catch (NoSuchElementException)
+                {
+                    Console.WriteLine("The element was not found on the page.");
+                }
             }
         }
 
@@ -314,14 +328,14 @@ namespace CodewarsGitHubLogger
                 else
                     await File.WriteAllTextAsync(path, solutionCode);
             }
-            catch (TimeoutException ex)
+            catch (TimeoutException)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("The driver took too much time.");
                 return;
             }
-            catch (NoSuchElementException ex)
+            catch (NoSuchElementException)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("The element was not found on the page.");
                 return;
             }
             catch (IOException)
