@@ -177,7 +177,7 @@ namespace CodewarsGitHubLogger
                 else
                 {
                     Console.WriteLine("Only \"g\" and \"c\" are valid options.");
-                    Environment.Exit(3);
+                    Environment.Exit(1);
                 }
             }
 
@@ -202,10 +202,10 @@ namespace CodewarsGitHubLogger
             {
                 driver.Navigate().GoToUrl(@"https://www.codewars.com/users/sign_in");
             }
-            catch (TimeoutException exception)
+            catch (TimeoutException ex)
             {
-                Console.WriteLine(exception);
-                Environment.Exit(2);
+                Console.WriteLine(ex);
+                Environment.Exit(1);
             }
 
             if (loginMethod == "g")
@@ -269,9 +269,9 @@ namespace CodewarsGitHubLogger
                 else
                     await File.WriteAllTextAsync(filePath, content);
             }
-            catch (IOException exception)
+            catch (IOException ex)
             {
-                Console.WriteLine(exception);
+                Console.WriteLine(ex);
                 NumberOfExceptions++;
                 IdsOfExceptions.Add(id);
             }
@@ -315,13 +315,14 @@ namespace CodewarsGitHubLogger
                 else
                     await File.WriteAllTextAsync(path, solutionCode);
             }
-            catch (TimeoutException exception)
+            catch (TimeoutException ex)
             {
-                Console.WriteLine(exception);
+                Console.WriteLine(ex);
                 return;
             }
-            catch (NoSuchElementException)
+            catch (NoSuchElementException ex)
             {
+                Console.WriteLine(ex);
                 return;
             }
             catch (IOException)
@@ -361,9 +362,9 @@ namespace CodewarsGitHubLogger
                 else
                     await File.WriteAllTextAsync(filePath, content);
             }
-            catch (IOException exception)
+            catch (IOException ex)
             {
-                Console.WriteLine(exception);
+                Console.WriteLine(ex);
             }
         }
     }
