@@ -149,8 +149,8 @@ namespace CodewarsGitHubLogger
             Console.Write("Enter your Codewars username: ");
             credentials.Add(Console.ReadLine());
             Console.Write("Press \"g\" to log using GitHub or \"c\" to log using Codewars: ");
-            string loginMethod = Console.ReadLine();
 
+            string loginMethod = Console.ReadLine();
             while (loopFlag)
             {
                 if (loginMethod == "g")
@@ -221,6 +221,7 @@ namespace CodewarsGitHubLogger
                 catch (NoSuchElementException)
                 {
                     Console.WriteLine("The element was not found on the page.");
+                    Environment.Exit(1);
                 }
             }
             else
@@ -228,7 +229,7 @@ namespace CodewarsGitHubLogger
                 try
                 {
                     IWebElement siginForm = driver.FindElement(By.Id("new_user"));
-    
+
                     driver.FindElement(By.Id("user_email")).SendKeys(usernameOrEmail);
                     driver.FindElement(By.Id("user_password")).SendKeys(password);
                     siginForm.FindElement(By.ClassName("is-red")).Click();
@@ -236,6 +237,7 @@ namespace CodewarsGitHubLogger
                 catch (NoSuchElementException)
                 {
                     Console.WriteLine("The element was not found on the page.");
+                    Environment.Exit(1);
                 }
             }
         }
@@ -282,9 +284,9 @@ namespace CodewarsGitHubLogger
                 else
                     await File.WriteAllTextAsync(filePath, content);
             }
-            catch (IOException ex)
+            catch (IOException)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("There was a problem while creating the main file.");
                 NumberOfExceptions++;
                 IdsOfExceptions.Add(id);
             }
@@ -340,6 +342,7 @@ namespace CodewarsGitHubLogger
             }
             catch (IOException)
             {
+                Console.WriteLine("There was a problem while creating the code file.");
                 NumberOfExceptions++;
                 IdsOfExceptions.Add(id);
             }
@@ -375,9 +378,9 @@ namespace CodewarsGitHubLogger
                 else
                     await File.WriteAllTextAsync(filePath, content);
             }
-            catch (IOException ex)
+            catch (IOException)
             {
-                Console.WriteLine(ex);
+                Console.WriteLine("There was a problem while creating the index file.");
             }
         }
     }
