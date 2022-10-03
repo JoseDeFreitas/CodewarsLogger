@@ -175,7 +175,6 @@ namespace CodewarsGitHubLogger
                 else
                 {
                     Console.WriteLine("Only \"g\" and \"c\" are valid options.");
-                    Environment.Exit(1);
                 }
             }
 
@@ -332,12 +331,10 @@ namespace CodewarsGitHubLogger
             catch (TimeoutException)
             {
                 Console.WriteLine("The driver took too much time.");
-                return;
             }
             catch (NoSuchElementException)
             {
                 Console.WriteLine("The element was not found on the page.");
-                return;
             }
             catch (IOException)
             {
