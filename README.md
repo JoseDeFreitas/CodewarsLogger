@@ -48,9 +48,9 @@ To use this program you need:
 can make everything by itself).
 - A Codewars account (it doesn't matter if you signed up using the GitHub OAuth or the Codewars form).
 
-**Important thing to note**: this program only navigates to the Codewars website; if you need to input
-a code for the GitHub OAuth option (because you have two-factor authentication), you'll not be able to
-use the program. If you use the Codewars login credentials there shouldn't be any problems.
+**Important thing to note**: if you need to input a GitHub token because you have 2FA authentication,
+you'll not be able to use the program. If you use the Codewars login credentials there shouldn't be
+any problems.
 
 ### Execution
 
