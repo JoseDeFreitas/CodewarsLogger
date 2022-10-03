@@ -62,9 +62,9 @@ OS).
 3. Run the executable with the geckodriver file in the same directory.
 4. Follow the instructions prompted.
 
-After all the data is copied inside the directory you selected, you just need to use git to add to the stage,
-commit and push to your private GitHub repository. You can create a `.gitignore` file to ignore the executable
-files, that you probably don't want them to show up.
+After all the data is copied inside the directory of the executable file of the program, so you just need
+to use git to add to the stage, commit and push to your private GitHub repository. You can create a
+`.gitignore` file to ignore the executable.
 
 ### After completion
 
@@ -72,15 +72,13 @@ And that's it! Keep in mind that it will take some minutes the first time you ru
 have completed a lot of katas, because the program must loop through all of them). You must run the program
 every time you want to update the katas. It takes into consideration repeated files and code refactors.
 
-You can customise some aspects of the program, such as the content of the README.md files,
-the name and the directory of the INDEX.md file and other stuff. Head to the ["Customisation" section](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Customisation) in
+Head to the ["Customisation" section](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Customisation) in
 the wiki of this repository to learn more about what you can do. Also, head to the ["Privacy" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Privacy) in
-the wiki to learn about the protection of your credentials. I recommend you take a read to the entire
-wiki because there is useful and important information for you to know.
+the wiki to learn about the protection of your credentials.
 
 If you're facing a problem, go to the ["Failures" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Failures)
-of the wiki and look if the error/warning you're getting appears in there. If it doesn't, please open an
-issue by choosing a template from the available [issue templates](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new/choose).
+of the wiki and look if the error/warning you're getting appears in there. If it doesn't, please
+[open an issue](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new?assignees=&labels=bug&template=bug_report.yaml).
 
 ## Screenshots
 
