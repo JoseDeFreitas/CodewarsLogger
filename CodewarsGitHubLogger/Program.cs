@@ -73,7 +73,7 @@ namespace CodewarsGitHubLogger
 
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
-            string mainFolderPath = "../Katas";
+            string mainFolderPath = "/Katas";
 
             Directory.CreateDirectory(mainFolderPath);
 
@@ -97,7 +97,7 @@ namespace CodewarsGitHubLogger
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
                     string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
 
-                    KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{kata.slug})");
+                    KataCategories[kataInfoObject.category].Add($"- [{kata.name}](/Katas/{kata.slug})");
 
                     await CreateMainFileAsync(
                         kataFolderPath, kata.name, kata.id,
@@ -110,7 +110,6 @@ namespace CodewarsGitHubLogger
                     foreach (string language in kata.completedLanguages)
                     {
                         string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{LanguagesExtensions[language]}");
-
                         await CreateCodeFileAsync(driver, codeFilePath, kata.id, language);
                     }
                 }
@@ -356,7 +355,7 @@ namespace CodewarsGitHubLogger
         /// <exception>If the file can't be created.</exception>
         static async Task CreateIndexFileAsync()
         {
-            string filePath = "../README.md";
+            string filePath = "/README.md";
             string content =
             $"# Index of katas by its category/discipline\n\n"
             + $"These are all the code-challenges I've successfully completed. Total completed katas: {CompletedKatasCount}"
