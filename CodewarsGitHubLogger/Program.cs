@@ -223,7 +223,7 @@ namespace CodewarsGitHubLogger
                     Environment.Exit(1);
                 }
             }
-            else
+            else if (loginMethod == "c")
             {
                 try
                 {
