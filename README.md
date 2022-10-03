@@ -16,9 +16,8 @@ the last rule).**
 **Although it's not prohibited, please: don't put your Codewars solutions publicly available on GitHub.
 Keep your repository private.**
 
-To keep this file simple and short, I only describe here
-the most important information, and a summary of other topics. To see all the information, go to the
-[repository wiki](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki).
+To see additional information about the program, go to the
+[wiki of the repository](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki).
 
 ## Why?
 
