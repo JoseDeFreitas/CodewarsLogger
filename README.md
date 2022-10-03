@@ -72,10 +72,6 @@ And that's it! Keep in mind that it will take some minutes the first time you ru
 have completed a lot of katas, because the program must loop through all of them). You must run the program
 every time you want to update the katas. It takes into consideration repeated files and code refactors.
 
-Head to the ["Customisation" section](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Customisation) in
-the wiki of this repository to learn more about what you can do. Also, head to the ["Privacy" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Privacy) in
-the wiki to learn about the protection of your credentials.
-
 If you're facing a problem, go to the ["Failures" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Failures)
 of the wiki and look if the error/warning you're getting appears in there. If it doesn't, please
 [open an issue](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new?assignees=&labels=bug&template=bug_report.yaml).
