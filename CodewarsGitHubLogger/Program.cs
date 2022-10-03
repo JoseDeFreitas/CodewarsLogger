@@ -262,8 +262,8 @@ namespace CodewarsGitHubLogger
         {
             string filePath = Path.Combine(folder, "README.md");
             string content =
-            $"# [{name}](https://www.codewars.com/kata/{id})\n"
-            + $"\n- **Completed at:** {date}\n\n"
+            $"# [{name}](https://www.codewars.com/kata/{id})\n\n"
+            + $"- **Completed at:** {date}\n\n"
             + $"- **Completed languages:** {string.Join(", ", languages)}\n\n"
             + $"- **Tags:** {string.Join(", ", tags)}\n\n"
             + $"- **Rank:** {rank["name"]}\n\n"
