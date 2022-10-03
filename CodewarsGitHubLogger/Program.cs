@@ -6,6 +6,7 @@ Licensed under the BSD-2-Clause License.
 
 using System;
 using System.IO;
+using System.Linq;
 using OpenQA.Selenium;
 using System.Net.Http;
 using System.Text.Json;
@@ -19,7 +20,6 @@ namespace CodewarsGitHubLogger
     {
         static HttpClient Client = new HttpClient();
         static int CompletedKatasCount = 0;
-        static int NumberOfExceptions = 0;
         static List<string> IdsOfExceptions = new List<string>();
         static Dictionary<string, string> LanguagesExtensions = new Dictionary<string, string>() {
             {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
@@ -119,11 +119,15 @@ namespace CodewarsGitHubLogger
 
             driver.Quit();
 
-            string separatorLine = "\n";
-            if (NumberOfExceptions == 0)
-                Console.WriteLine($"{separatorLine}All data was loaded successfully.");
+            IdsOfExceptions = IdsOfExceptions.Distinct().ToList();
+            if (IdsOfExceptions.Count == 0)
+                Console.WriteLine("\nAll data was loaded successfully.");
             else
-                Console.WriteLine($"{separatorLine}All data was loaded except {NumberOfExceptions.ToString()} katas: {string.Join(" - ", IdsOfExceptions)}.");
+            {
+                Console.WriteLine(
+                    $"\nAll data was loaded successfully except {IdsOfExceptions.Count} katas: {string.Join("\n", IdsOfExceptions)}."
+                );
+            }
 
             Console.Write("Press any key to exit.");
             Console.ReadLine();
@@ -285,7 +289,6 @@ namespace CodewarsGitHubLogger
             catch (IOException)
             {
                 Console.WriteLine("There was a problem while creating the main file.");
-                NumberOfExceptions++;
                 IdsOfExceptions.Add(id);
             }
         }
@@ -339,7 +342,6 @@ namespace CodewarsGitHubLogger
             catch (IOException)
             {
                 Console.WriteLine("There was a problem while creating the code file.");
-                NumberOfExceptions++;
                 IdsOfExceptions.Add(id);
             }
         }
