@@ -65,6 +65,9 @@ After all the data is copied inside the directory of the executable file of the 
 to use git to add to the stage, commit and push to your private GitHub repository. You can create a
 `.gitignore` file to ignore the executable.
 
+You can also clone the repository to have the code in you local machine and run the program from there.
+This way it's faster for you to customise whatever you want.
+
 ### After completion
 
 And that's it! Keep in mind that it will take some minutes the first time you run it (especially if you
