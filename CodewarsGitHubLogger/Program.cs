@@ -185,7 +185,7 @@ namespace CodewarsGitHubLogger
             }
             catch (NoSuchElementException)
             {
-                Console.WriteLine("The element was not found on the page.");
+                Console.WriteLine("A web element was not found on the page (sign-in step).");
                 Environment.Exit(1);
             }
         }
@@ -283,7 +283,7 @@ namespace CodewarsGitHubLogger
             }
             catch (NoSuchElementException)
             {
-                Console.WriteLine("The element was not found on the page.");
+                Console.WriteLine("A web element was not found on the page (create code file step).");
             }
             catch (IOException)
             {
@@ -324,7 +324,7 @@ namespace CodewarsGitHubLogger
             }
             catch (IOException)
             {
-                Console.WriteLine("There was a problem while creating the index file.");
+                Console.WriteLine("There was a problem while creating the README file.");
             }
         }
     }
