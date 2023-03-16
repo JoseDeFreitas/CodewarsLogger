@@ -49,7 +49,7 @@ namespace CodewarsGitHubLogger
             List<string> credentials = ReadUserCredentials();
 
             FirefoxOptions options = new FirefoxOptions();
-            // options.AddArgument("--headless");
+            options.AddArgument("--headless");
             IWebDriver driver = new FirefoxDriver("./", options);
 
             // Define variables for each credential
