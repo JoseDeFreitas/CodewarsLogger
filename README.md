@@ -89,7 +89,7 @@ have completed a lot of katas, because the program must loop through all of them
 program every time you want to update the katas. It takes into consideration repeated files and code
 refactors.
 
-If you're facing a problem, go to the ["Failures" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Failures)
+If you're facing a problem, go to the ["Failures" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Errors)
 of the wiki and look if the error/warning you're getting appears in there. If it doesn't, please
 [open an issue](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new?assignees=&labels=bug&template=bug_report.yaml).
 
