@@ -89,6 +89,16 @@ have completed a lot of katas, because the program must loop through all of them
 program every time you want to update the katas. It takes into consideration repeated files and code
 refactors.
 
+By some reason, the API endpoint of Codewars that lists the "completed" katas includes also katas that
+you have trained but that aren't literally "completed"; that is, katas that have some solution that didn't
+pass all the tests. You complete a kata when you click the blue button "Attempt" and then the green button
+"Submit". This may lead to some warnings on the console that say "A web element was not found on the page
+(create code file step).", because Codewars shows a text saying "No solutions", instead of the list of
+solutions that the program looks for.
+
+For a clearer view of how the program goes through all the katas, **you can comment out the [line 52]()
+(`options.AddArgument("--headless");`)**.
+
 If you're facing a problem, go to the ["Failures" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Errors)
 of the wiki and look if the error/warning you're getting appears in there. If it doesn't, please
 [open an issue](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new?assignees=&labels=bug&template=bug_report.yaml).
