@@ -284,6 +284,7 @@ namespace CodewarsGitHubLogger
             catch (NoSuchElementException)
             {
                 Console.WriteLine("A web element was not found on the page (create code file step).");
+                IdsOfExceptions.Add(id);
             }
             catch (IOException)
             {
