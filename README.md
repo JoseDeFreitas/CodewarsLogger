@@ -65,13 +65,11 @@ the files and directories are stored in such a way that it's easy to navigate th
 To use this program you need:
 
 - Firefox web browser installed on your computer.
-- GeckoDriver file from Mozilla (which is just an executable of the Mozilla Firefox web browser, so it
-can make everything by itself).
-- A Codewars account (it doesn't matter if you signed up using the GitHub OAuth or the Codewars form).
+- GeckoDriver file from Mozilla (link to download it in the "[Execution](#execution)" section).
 
-**Important thing to note**: if you need to input a GitHub token because you have 2FA authentication,
-you'll not be able to use the program. If you use the Codewars login credentials there shouldn't be
-any problems.
+**Important thing to note**: If you registered into Codewars using the GitHub OAuth option, you must
+create a Codewars password. You can do this easily by clicking on the text "Forgot your password?"
+in the [Codewars sign in page](https://www.codewars.com/users/sign_in).
 
 ### Execution
 
