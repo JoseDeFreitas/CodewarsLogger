@@ -21,7 +21,7 @@ To see additional information about the program, go to the
 ## Screenshots
 
 <details>
-   <summary>Main repository page</summary>
+   <summary>README file (index)</summary>
    <img src="https://user-images.githubusercontent.com/37962411/168847084-a6d12825-881e-414c-8ae3-0c7655c7a63a.png">
 </details>
 
