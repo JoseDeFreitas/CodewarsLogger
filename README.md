@@ -18,6 +18,28 @@ the last rule).**
 To see additional information about the program, go to the
 [wiki of the repository](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki).
 
+## Screenshots
+
+<details>
+   <summary>Main repository page</summary>
+   <img src="https://user-images.githubusercontent.com/37962411/168847084-a6d12825-881e-414c-8ae3-0c7655c7a63a.png">
+</details>
+
+<details>
+   <summary>Folders of the katas</summary>
+   <img src="https://user-images.githubusercontent.com/37962411/168847279-53692969-6a12-4b2e-8ed6-85b929d49beb.png">
+</details>
+
+<details>
+   <summary>Inside a kata folder</summary>
+   <img src="https://user-images.githubusercontent.com/37962411/168847303-9f71d056-5888-489d-804d-12c0b330ad91.png">
+</details>
+
+<details>
+   <summary>Solution of a kata</summary>
+   <img src="https://user-images.githubusercontent.com/37962411/168847325-97818ed9-da90-4dda-bb41-cbaa6b04cc2c.png">
+</details>
+
 ## Why?
 
 A key skill every programmer should have is problem solving (algorithms, paradigms, data structures,
@@ -72,28 +94,6 @@ refactors.
 If you're facing a problem, go to the ["Failures" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Failures)
 of the wiki and look if the error/warning you're getting appears in there. If it doesn't, please
 [open an issue](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new?assignees=&labels=bug&template=bug_report.yaml).
-
-## Screenshots
-
-<details>
-   <summary>Main repository page</summary>
-   <img src="https://user-images.githubusercontent.com/37962411/168847084-a6d12825-881e-414c-8ae3-0c7655c7a63a.png">
-</details>
-
-<details>
-   <summary>Folders of the katas</summary>
-   <img src="https://user-images.githubusercontent.com/37962411/168847279-53692969-6a12-4b2e-8ed6-85b929d49beb.png">
-</details>
-
-<details>
-   <summary>Inside a kata folder</summary>
-   <img src="https://user-images.githubusercontent.com/37962411/168847303-9f71d056-5888-489d-804d-12c0b330ad91.png">
-</details>
-
-<details>
-   <summary>Solution of a kata</summary>
-   <img src="https://user-images.githubusercontent.com/37962411/168847325-97818ed9-da90-4dda-bb41-cbaa6b04cc2c.png">
-</details>
 
 ## Disclaimer
 
