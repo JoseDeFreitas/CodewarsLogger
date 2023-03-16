@@ -4,7 +4,7 @@
 
 This program allows you to connect to [Codewars](https://www.codewars.com) by using your credentials
 (through the GitHub OAuth sign in option or through the Codewars sign in form) and extract all the
-code of each programming language of every kata you have completed.
+code of each programming language of every kata you have completed into a folder.
 
 **It's discouraged to put your Codewars solutions publicly available because, even though it depends
 on every person and it's a responsibility of one self, having your solutions publicly available may
@@ -13,8 +13,7 @@ can get sanctioned if the Codewars' staff notice an unusual behaviour. Read the
 [Codewars Code of Conduct](https://docs.codewars.com/community/rules/) for more information (especially
 the last rule).**
 
-**Although it's not prohibited, please: don't put your Codewars solutions publicly available on GitHub.
-Keep your repository private.**
+**Although it's not prohibited, please: don't put your Codewars solutions publicly available on GitHub.**
 
 To see additional information about the program, go to the
 [wiki of the repository](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki).
@@ -26,15 +25,15 @@ etc.), and Codewars is a very good platform to practice this hability because of
 of multiple programming languages, user rank system, easily (with moderation) code challenge creation
 system and social interaction between users (similar code-challenges, comments, votes, and more).
 
-By having a private repository that contains all the code challenges you have completed, you can keep a
-personal registry of all your katas in a more readable way. Moreover, you can allow (temporarily) a recruiter
-to see what you've done, so they will know your strenghts and weaknesses, as well as the programming languages
-you use with ease. You could do all of this manually, but going to all the pages of solutions of all the
-katas you've completed (plus more than one programming language if available) would take you a lot of time
-(and you'd have to update it every time you complete a kata).
+By having a folder that contains all the code challenges you have completed, you can keep a personal
+registry of all your katas in a more readable way. Moreover, you can send the folder to a recruiter so
+they can see what you've done, so they will know your strenghts and weaknesses, as well as the
+programming languages you use with ease. You could do all of this manually, but going to all the pages
+of solutions of all the katas you've completed (plus more than one programming language if available)
+would take you a lot of time (and you'd have to update it every time you complete a new kata).
 
-This repository allows you to copy in your private repository the code of the completed challanges you've
-done automatically: you don't have to do anything, just run the program and let it do its job. Moreover,
+This program allows you to copy in a folder the code of the completed challanges you've done
+automatically: you don't have to do anything, just run the program and let it do its job. Moreover,
 the files and directories are stored in such a way that it's easy to navigate through them.
 
 ## Usage
@@ -56,14 +55,9 @@ any problems.
 
 These are the steps that you must follow to run the program:
 1. Download the executable file depending on the OS you have (head to the ["Releases" tab](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/releases)).
-2. Get the [Mozilla geckodriver](https://github.com/mozilla/geckodriver/releases) from the "Releases" tab in Mozilla's repository (also according to your
-OS).
+2. Get the [Mozilla geckodriver](https://github.com/mozilla/geckodriver/releases) from the "Releases" tab in Mozilla's repository (also according to your OS).
 3. Run the executable with the geckodriver file in the same directory.
 4. Follow the instructions prompted.
-
-After all the data is copied inside the directory of the executable file of the program, so you just need
-to use git to add to the stage, commit and push to your private GitHub repository. You can create a
-`.gitignore` file to ignore the executable.
 
 You can also clone the repository to have the code in you local machine and run the program from there.
 This way it's faster for you to customise whatever you want.
@@ -71,8 +65,9 @@ This way it's faster for you to customise whatever you want.
 ### After completion
 
 And that's it! Keep in mind that it will take some minutes the first time you run it (especially if you
-have completed a lot of katas, because the program must loop through all of them). You must run the program
-every time you want to update the katas. It takes into consideration repeated files and code refactors.
+have completed a lot of katas, because the program must loop through all of them). You must run the
+program every time you want to update the katas. It takes into consideration repeated files and code
+refactors.
 
 If you're facing a problem, go to the ["Failures" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Failures)
 of the wiki and look if the error/warning you're getting appears in there. If it doesn't, please
@@ -107,7 +102,7 @@ This repository is under the [BSD-2-Clause License](LICENSE) to follow
 on April, 2022).
 
 If you've read above sections, you know you can customise the program to make it work as you want. Keep in
-mind that **I offer the program as you see it in this repository**. Any changes you made are up to you, and
+mind that **I offer the program as you see it in this repository**. Any changes you made are up to you,
 and I'm not responsible for them. Be careful on what you change. For more related information, please read
 the ["Privacy" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Privacy) of the wiki. I
 encourage you to read the whole wiki, too. **Don't forget to read the rules from Codewars.**
