@@ -16,4 +16,4 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Test
-      run: dotnet test ../../../CodewarsGitHubLogger/CodewarsGitHubLogger.csproj --verbosity normal
+      run: dotnet test ../../../CodewarsLogger/CodewarsLogger.csproj --verbosity normal

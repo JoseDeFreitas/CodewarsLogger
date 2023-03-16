@@ -1,5 +1,5 @@
-# CodewarsGitHubLogger
-![GitHub all releases](https://img.shields.io/github/downloads/JoseDeFreitas/CodewarsGitHubLogger/total)
+# CodewarsLogger
+![GitHub all releases](https://img.shields.io/github/downloads/JoseDeFreitas/CodewarsLogger/total)
 ![Supported OS versions](https://img.shields.io/badge/for-Windows%2C%20MacOS%2C%20Linux-blue)
 
 This program allows you to connect to [Codewars](https://www.codewars.com) by using your Codewars
@@ -16,7 +16,7 @@ the last rule).
 **Although it's not prohibited, please: don't put your Codewars solutions publicly available on GitHub.**
 
 To see additional information about the program, go to the
-[wiki of the repository](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki).
+[wiki of the repository](https://github.com/JoseDeFreitas/CodewarsLogger/wiki).
 
 ## Screenshots
 
@@ -74,7 +74,7 @@ in the [Codewars sign in page](https://www.codewars.com/users/sign_in).
 ### Execution
 
 These are the steps that you must follow to run the program:
-1. Download the executable file depending on the OS you have (head to the ["Releases" tab](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/releases)).
+1. Download the executable file depending on the OS you have (head to the ["Releases" tab](https://github.com/JoseDeFreitas/CodewarsLogger/releases)).
 2. Get the [Mozilla geckodriver](https://github.com/mozilla/geckodriver/releases) from the "Releases" tab in Mozilla's repository (also according to your OS).
 3. Run the executable with the geckodriver file in the same directory.
 4. Follow the instructions prompted.
@@ -99,9 +99,9 @@ solutions that the program looks for.
 For a clearer view of how the program goes through all the katas, **you can comment out the [line 52]()
 (`options.AddArgument("--headless");`)**.
 
-If you're facing a problem, go to the ["Failures" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Errors)
+If you're facing a problem, go to the ["Errors" page](https://github.com/JoseDeFreitas/CodewarsLogger/wiki/Errors)
 of the wiki and look if the error/warning you're getting appears in there. If it doesn't, please
-[open an issue](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/issues/new?assignees=&labels=bug&template=bug_report.yaml).
+[open an issue](https://github.com/JoseDeFreitas/CodewarsLogger/issues/new?assignees=&labels=bug&template=bug_report.yaml).
 
 ## Disclaimer
 
@@ -112,5 +112,5 @@ on April, 2022).
 If you've read above sections, you know you can customise the program to make it work as you want. Keep in
 mind that **I offer the program as you see it in this repository**. Any changes you made are up to you,
 and I'm not responsible for them. Be careful on what you change. For more related information, please read
-the ["Privacy" page](https://github.com/JoseDeFreitas/CodewarsGitHubLogger/wiki/Privacy) of the wiki. I
+the ["Privacy" page](https://github.com/JoseDeFreitas/CodewarsLogger/wiki/Privacy) of the wiki. I
 encourage you to read the whole wiki, too. **Don't forget to read the rules from Codewars.**

@@ -1,6 +1,6 @@
 /*
 Program created by José de Freitas (https://github.com/JoseDeFreitas).
-Link to the repository: https://github.com/JoseDeFreitas/CodewarsGitHubLogger.
+Link to the repository: https://github.com/JoseDeFreitas/CodewarsLogger.
 Licensed under the BSD-2-Clause License.
 */
 
@@ -14,7 +14,7 @@ using OpenQA.Selenium.Firefox;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace CodewarsGitHubLogger
+namespace CodewarsLogger
 {
     class Program
     {
@@ -144,7 +144,7 @@ namespace CodewarsGitHubLogger
         {
             List<string> credentials = new List<string>();
 
-            Console.WriteLine("CodewarsGitHubLogger, v1.1.3. Source code: https://github.com/JoseDeFreitas/CodewarsGitHubLogger");
+            Console.WriteLine("CodewarsLogger, v1.1.3. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
             Console.Write("Enter your Codewars username: ");
             credentials.Add(Console.ReadLine());
             Console.Write("Enter your email: ");
