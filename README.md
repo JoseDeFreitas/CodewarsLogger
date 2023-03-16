@@ -2,9 +2,9 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/JoseDeFreitas/CodewarsGitHubLogger/total)
 ![Supported OS versions](https://img.shields.io/badge/for-Windows%2C%20MacOS%2C%20Linux-blue)
 
-This program allows you to connect to [Codewars](https://www.codewars.com) by using your credentials
-(through the GitHub OAuth sign in option or through the Codewars sign in form) and extract all the
-code of each programming language of every kata you have completed into a folder.
+This program allows you to connect to [Codewars](https://www.codewars.com) by using your Codewars
+credentials and extract all the code of each programming language of every kata you have completed
+into a folder.
 
 It's discouraged to put your Codewars solutions publicly available because, even though it depends
 on every person and it's a responsibility of one self, having your solutions publicly available may
