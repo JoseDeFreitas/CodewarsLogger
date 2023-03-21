@@ -1,6 +1,9 @@
 # CodewarsLogger
+
 ![GitHub all releases](https://img.shields.io/github/downloads/JoseDeFreitas/CodewarsLogger/total)
 ![Supported OS versions](https://img.shields.io/badge/for-Windows%2C%20MacOS%2C%20Linux-blue)
+
+> Also check [Codewars Activity Chart](https://github.com/JoseDeFreitas/codewars-activity-chart)!
 
 This program allows you to connect to [Codewars](https://www.codewars.com) by using your Codewars
 credentials and extract all the code of each programming language of every kata you have completed
