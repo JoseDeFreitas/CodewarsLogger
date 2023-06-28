@@ -57,8 +57,8 @@ programming languages you use with ease. You could do all of this manually, but 
 of solutions of all the katas you've completed (plus more than one programming language if available)
 would take you a lot of time (and you'd have to update it every time you complete a new kata).
 
-This program allows you to copy in a folder the code of the completed challanges you've done
-automatically: you don't have to do anything, just run the program and let it do its job. Moreover,
+This program allows you to automatically copy into a folder the code of the completed challanges you've
+done: you don't have to do anything, just run the program and let it do its job. Moreover,
 the files and directories are stored in such a way that it's easy to navigate through them.
 
 ## Usage
