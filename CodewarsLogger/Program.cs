@@ -154,7 +154,7 @@ namespace CodewarsLogger
         {
             List<string> credentials = new List<string>();
 
-            Console.WriteLine("CodewarsLogger, v1.2.0. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
+            Console.WriteLine("CodewarsLogger, v1.2.1. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
             Console.Write("Enter your Codewars username: ");
             credentials.Add(Console.ReadLine());
             Console.Write("Enter your email: ");
