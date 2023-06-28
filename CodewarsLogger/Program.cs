@@ -11,8 +11,8 @@ using OpenQA.Selenium;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
-using OpenQA.Selenium.Firefox;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Firefox;
 using System.Collections.Generic;
 
 namespace CodewarsLogger
