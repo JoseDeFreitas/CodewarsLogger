@@ -10,6 +10,7 @@ using System.Linq;
 using OpenQA.Selenium;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 using OpenQA.Selenium.Firefox;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -81,6 +82,8 @@ namespace CodewarsLogger
             Stream mainResponseJson = await Client.GetStreamAsync(completedKatasUrl);
             KataCompleted mainResponseObject = await JsonSerializer.DeserializeAsync<KataCompleted>(mainResponseJson);
             int numberOfPages = mainResponseObject.totalPages;
+            int numberOfKatas = mainResponseObject.totalItems;
+            int currentKataNumber = 1;
 
             for (int page = 0; page < numberOfPages; page++)
             {
@@ -110,6 +113,13 @@ namespace CodewarsLogger
                         string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{LanguagesExtensions[language]}");
                         await CreateCodeFileAsync(driver, codeFilePath, kata.id, language);
                     }
+
+                    // Create and update the progress bar based on the amount of katas
+                    double progressPercentage = (currentKataNumber / (double)numberOfKatas) * 100;
+                    Console.Write($"\rProgress: {(int)progressPercentage}%");
+                    Thread.Sleep(50);
+
+                    currentKataNumber++;
                 }
             }
 
@@ -172,7 +182,7 @@ namespace CodewarsLogger
             }
             catch (TimeoutException)
             {
-                Console.WriteLine("The driver took too much time.");
+                Console.WriteLine("\rThe driver took too much time.");
                 Environment.Exit(1);
             }
 
@@ -185,7 +195,7 @@ namespace CodewarsLogger
             }
             catch (NoSuchElementException)
             {
-                Console.WriteLine("A web element was not found on the page (sign-in step).");
+                Console.WriteLine("\rA web element was not found on the page (sign-in step).");
                 Environment.Exit(1);
             }
         }
@@ -234,7 +244,7 @@ namespace CodewarsLogger
             }
             catch (IOException)
             {
-                Console.WriteLine("There was a problem while creating the main file.");
+                Console.WriteLine("\rThere was a problem while creating the main file.");
                 IdsOfExceptions.Add(id);
             }
         }
@@ -279,16 +289,16 @@ namespace CodewarsLogger
             }
             catch (TimeoutException)
             {
-                Console.WriteLine("The driver took too much time.");
+                Console.WriteLine("\rThe driver took too much time.");
             }
             catch (NoSuchElementException)
             {
-                Console.WriteLine("A web element was not found on the page (create code file step).");
+                Console.WriteLine("\rA web element was not found on the page (create code file step).");
                 IdsOfExceptions.Add(id);
             }
             catch (IOException)
             {
-                Console.WriteLine("There was a problem while creating the code file.");
+                Console.WriteLine("\rThere was a problem while creating the code file.");
                 IdsOfExceptions.Add(id);
             }
         }
@@ -325,7 +335,7 @@ namespace CodewarsLogger
             }
             catch (IOException)
             {
-                Console.WriteLine("There was a problem while creating the README file.");
+                Console.WriteLine("\rThere was a problem while creating the README file.");
             }
         }
     }
