@@ -95,8 +95,8 @@ refactors.
 By some reason, the API endpoint of Codewars that lists the "completed" katas includes also katas that
 you have trained but that aren't literally "completed"; that is, katas that have some solution that didn't
 pass all the tests. You complete a kata when you click the blue button "Attempt" and then the green button
-"Submit". This may lead to some warnings on the console that say "A web element was not found on the page
-(create code file step).", because Codewars shows a text saying "No solutions", instead of the list of
+"Submit". This may lead to some warnings on the console that say `A web element was not found on the page
+(create code file step).`, because Codewars shows a text saying "No solutions", instead of the list of
 solutions that the program looks for.
 
 For a clearer view of how the program goes through all the katas, **you can comment out the [line 52](https://github.com/JoseDeFreitas/CodewarsLogger/blob/abbd8663663ce033c51e6e5390ea6a14acaa0bbf/CodewarsLogger/Program.cs#L52)**
