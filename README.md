@@ -10,11 +10,10 @@ credentials and extract all the code of each programming language of every kata 
 into a folder.
 
 It's discouraged to put your Codewars solutions publicly available because, even though it depends
-on every person and it's a responsibility of one self, having your solutions publicly available may
-increase the number of dishonest users that copy and paste the solutions to their own advantage. An user
-can get sanctioned if the Codewars' staff notice an unusual behaviour. Read the
-[Codewars Code of Conduct](https://docs.codewars.com/community/rules/) for more information (especially
-the last rule).
+on every person, having your solutions publicly available may increase the number of dishonest users
+that copy and paste the solutions to their own advantage. An user can get sanctioned if the Codewars'
+staff notice an unusual behaviour. Read the [Codewars Code of Conduct](https://docs.codewars.com/community/rules/)
+for more information (especially the last rule).
 
 **Although it's not prohibited, please: don't put your Codewars solutions publicly available on GitHub.**
 
@@ -46,20 +45,20 @@ To see additional information about the program, go to the
 ## Why?
 
 A key skill every programmer should have is problem solving (algorithms, paradigms, data structures,
-etc.), and Codewars is a very good platform to practice this hability because of its structure, support
+etc.), and Codewars is a very good platform to practice this hability because of its structure: support
 of multiple programming languages, user rank system, easily (with moderation) code challenge creation
 system and social interaction between users (similar code-challenges, comments, votes, and more).
 
 By having a folder that contains all the code challenges you have completed, you can keep a personal
 registry of all your katas in a more readable way. Moreover, you can send the folder to a recruiter so
-they can see what you've done, so they will know your strenghts and weaknesses, as well as the
-programming languages you use with ease. You could do all of this manually, but going to all the pages
-of solutions of all the katas you've completed (plus more than one programming language if available)
-would take you a lot of time (and you'd have to update it every time you complete a new kata).
+they can see what you've done, get to know your strenghts and weaknesses, and see what are the
+programming languages you use with ease. You could do all of this manually, but going through all the pages
+of solutions of all the katas you've completed (plus more than one programming language, depending on the case)
+would take you a lot of time, and you'd have to update it every time you complete a new kata.
 
 This program allows you to automatically copy into a folder the code of the completed challanges you've
-done: you don't have to do anything, just run the program and let it do its job. Moreover,
-the files and directories are stored in such a way that it's easy to navigate through them.
+done: you just have to run the program and let it do its job. Moreover, the files and directories are
+stored in such a way that it's easy to navigate through them.
 
 ## Usage
 
@@ -87,20 +86,19 @@ This way it's faster for you to customise whatever you want.
 
 ### After completion
 
-And that's it! Keep in mind that it will take some minutes the first time you run it (especially if you
-have completed a lot of katas, because the program must loop through all of them). You must run the
-program every time you want to update the katas. It takes into consideration repeated files and code
-refactors.
+And that's it! Keep in mind that it will take some minutes the first time you run it because the program
+must loop through all of the katas. You must run the program every time you want to update the katas.
+It takes into consideration repeated files and code refactors.
 
 By some reason, the API endpoint of Codewars that lists the "completed" katas includes also katas that
 you have trained but that aren't literally "completed"; that is, katas that have some solution that didn't
 pass all the tests. You complete a kata when you click the blue button "Attempt" and then the green button
 "Submit". This may lead to some warnings on the console that say `A web element was not found on the page
-(create code file step).`, because Codewars shows a text saying "No solutions", instead of the list of
+(create code file step).`, because Codewars shows a text saying "No solutions" instead of the list of
 solutions that the program looks for.
 
 For a clearer view of how the program goes through all the katas, **you can comment out the [line 52](https://github.com/JoseDeFreitas/CodewarsLogger/blob/abbd8663663ce033c51e6e5390ea6a14acaa0bbf/CodewarsLogger/Program.cs#L52)**
-(`options.AddArgument("--headless");`).
+(`options.AddArgument("--headless");`) by adding `//` before it.
 
 If you're facing a problem, go to the ["Errors" page](https://github.com/JoseDeFreitas/CodewarsLogger/wiki/Errors)
 of the wiki and look if the error/warning you're getting appears in there. If it doesn't, please
