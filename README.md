@@ -90,7 +90,7 @@ And that's it! Keep in mind that it will take some minutes the first time you ru
 must loop through all of the katas. You must run the program every time you want to update the katas.
 It takes into consideration repeated files and code refactors.
 
-By some reason, the API endpoint of Codewars that lists the "completed" katas includes also katas that
+For some reason, the API endpoint of Codewars that lists the "completed" katas includes also katas that
 you have trained but that aren't literally "completed"; that is, katas that have some solution that didn't
 pass all the tests. You complete a kata when you click the blue button "Attempt" and then the green button
 "Submit". This may lead to some warnings on the console that say `A web element was not found on the page
