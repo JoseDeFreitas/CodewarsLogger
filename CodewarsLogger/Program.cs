@@ -19,10 +19,10 @@ namespace CodewarsLogger
 {
     class Program
     {
-        static HttpClient Client = new HttpClient();
+        static HttpClient Client = new();
         static int CompletedKatasCount = 0;
-        static List<string> IdsOfExceptions = new List<string>();
-        static Dictionary<string, string> LanguagesExtensions = new Dictionary<string, string>() {
+        static List<string> IdsOfExceptions = new();
+        static Dictionary<string, string> LanguagesExtensions = new() {
             {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
             {"clojure", "clj"}, {"cobol", "cob"}, {"coffeescript", "coffee"}, {"commonlisp", "lisp"},
             {"coq", "coq"}, {"cplusplus", "cpp"}, {"crystal", "cr"}, {"csharp", "cs"},
@@ -37,7 +37,7 @@ namespace CodewarsLogger
             {"ruby", "rb"}, {"rust", "rs"}, {"scala", "scala"}, {"shell", "sh"},
             {"sql", "sql"}, {"swift", "swift"}, {"typescript", "ts"}, {"vb", "vb"},
         };
-        static Dictionary<string, List<string>> KataCategories = new Dictionary<string, List<string>>() {
+        static Dictionary<string, List<string>> KataCategories = new() {
             {"reference", new List<string>()}, // Equivalent to the "Fundamentals" category
             {"algorithms", new List<string>()},
             {"bug_fixes", new List<string>()},
@@ -49,7 +49,10 @@ namespace CodewarsLogger
         {
             List<string> credentials = ReadUserCredentials();
 
-            FirefoxOptions options = new FirefoxOptions();
+            FirefoxOptions options = new()
+            {
+                BrowserExecutableLocation = @"C:\Program Files\Mozilla Firefox\firefox.exe"
+            };
             options.AddArgument("--headless");
             IWebDriver driver = new FirefoxDriver("./", options);
 
@@ -152,7 +155,7 @@ namespace CodewarsLogger
         /// </returns>
         static List<string> ReadUserCredentials()
         {
-            List<string> credentials = new List<string>();
+            List<string> credentials = new();
 
             Console.WriteLine("CodewarsLogger, v1.2.1. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
             Console.Write("Enter your Codewars username: ");
