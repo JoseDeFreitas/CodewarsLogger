@@ -79,7 +79,7 @@ namespace CodewarsLogger
             {
                 Driver = new FirefoxDriver("./", options);
             }
-            catch (Exception)
+            catch (WebDriverArgumentException)
             {
                 Console.WriteLine("The Firefox executable couldn't be found.");
                 Environment.Exit(1);
