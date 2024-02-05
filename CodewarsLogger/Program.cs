@@ -47,11 +47,26 @@ namespace CodewarsLogger
 
         static async Task Main(string[] args)
         {
+            string firefoxDirectory = "";
+
+            try
+            {
+                using (var fd = new StreamReader("firefox_directory.txt"))
+                {
+                    firefoxDirectory = fd.ReadToEnd();
+                }
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("The \"firefox_directory\" file couldn't be read.");
+                Environment.Exit(1);
+            }
+
             List<string> credentials = ReadUserCredentials();
 
             FirefoxOptions options = new()
             {
-                BrowserExecutableLocation = @"C:\Program Files\Mozilla Firefox\firefox.exe"
+                BrowserExecutableLocation = firefoxDirectory
             };
             options.AddArgument("--headless");
             IWebDriver driver = new FirefoxDriver("./", options);
