@@ -48,7 +48,6 @@ namespace CodewarsLogger
         static async Task Main(string[] args)
         {
             string firefoxDirectory = "";
-
             try
             {
                 using (var fd = new StreamReader("firefox_directory.txt"))
@@ -59,6 +58,12 @@ namespace CodewarsLogger
             catch (IOException)
             {
                 Console.WriteLine("The \"firefox_directory\" file couldn't be read.");
+                Environment.Exit(1);
+            }
+
+            if (!File.Exists(@$"{Environment.CurrentDirectory}\geckodriver.exe"))
+            {
+                Console.WriteLine("\"geckodriver.exe\" file must be in the program's directory.");
                 Environment.Exit(1);
             }
 
