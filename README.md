@@ -76,13 +76,18 @@ in the [Codewars sign in page](https://www.codewars.com/users/sign_in).
 ### Execution
 
 These are the steps that you must follow to run the program:
-1. Download the executable file depending on the OS you have (head to the ["Releases" tab](https://github.com/JoseDeFreitas/CodewarsLogger/releases)).
+1. Download the program folder depending on the OS you use (head to the ["Releases" tab](https://github.com/JoseDeFreitas/CodewarsLogger/releases)).
 2. Get the [Mozilla geckodriver](https://github.com/mozilla/geckodriver/releases) from the "Releases" tab in Mozilla's repository (also according to your OS).
-3. Run the executable with the geckodriver file in the same directory.
-4. Follow the instructions prompted.
+3. Check the "firefox_directory.txt" file to see if the Firefox binary location is actually in that directory
+(change it if it's not the case).
+4. With the "geckodriver.exe" file in the program's directory, run the executable.
+5. Follow the instructions prompted.
 
 You can also clone the repository to have the code in you local machine and run the program from there.
-This way it's faster for you to customise whatever you want.
+This way it's faster for you to customise whatever you want. For this, use
+`git clone https://github.com/JoseDeFreitas/CodewarsLogger.git`.
+You need to have [.NET](https://dotnet.microsoft.com/en-us/download) installed. If you do, go to the
+"CodewarsLogger" folder (where the "Program.cs" lies) and use `dotnet run` in the console.
 
 ### After completion
 
