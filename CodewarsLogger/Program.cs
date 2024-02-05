@@ -246,6 +246,8 @@ namespace CodewarsLogger
         /// <param name="date">The date the kata was completed on.</param>
         /// <param name="languages">The programming languages the kata was completed in.</param>
         /// <param name="description">The description of the kata (Markdown-formatted).</param>
+        /// <param name="rank">The rank of the kata.</param>
+        /// <param name="tags">The tags of the kata.</param>
         /// <exception>If the folder can't be created.</exception>
         static async Task CreateMainFileAsync(
             string folder, string name, string id,
