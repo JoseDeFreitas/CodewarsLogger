@@ -351,11 +351,11 @@ namespace CodewarsLogger
             string content =
             $"# Index of katas by its category/discipline\n\n"
             + $"These are the {CompletedKatasCount} code challenges I have completed:"
-            + $"\n## Fundamentals\n\n{string.Join("\n", KataCategories["reference"])}"
-            + $"\n## Algorithms\n\n{string.Join("\n", KataCategories["algorithms"])}"
-            + $"\n## Bug Fixes\n\n{string.Join("\n", KataCategories["bug_fixes"])}"
-            + $"\n## Refactoring\n\n{string.Join("\n", KataCategories["refactoring"])}"
-            + $"\n## Puzzles\n\n{string.Join("\n", KataCategories["games"])}";
+            + $"\n\n## Fundamentals\n\n{string.Join("\n", KataCategories["reference"])}"
+            + $"\n\n## Algorithms\n\n{string.Join("\n", KataCategories["algorithms"])}"
+            + $"\n\n## Bug Fixes\n\n{string.Join("\n", KataCategories["bug_fixes"])}"
+            + $"\n\n## Refactoring\n\n{string.Join("\n", KataCategories["refactoring"])}"
+            + $"\n\n## Puzzles\n\n{string.Join("\n", KataCategories["games"])}";
 
             try
             {
