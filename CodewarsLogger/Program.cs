@@ -44,6 +44,7 @@ namespace CodewarsLogger
             {"refactoring", new List<string>()},
             {"games", new List<string>()} // Equivalent to the "Puzzles" category
         };
+        static IWebDriver Driver;
 
         static async Task Main(string[] args)
         {
@@ -74,7 +75,16 @@ namespace CodewarsLogger
                 BrowserExecutableLocation = firefoxDirectory
             };
             options.AddArgument("--headless");
-            IWebDriver driver = new FirefoxDriver("./", options);
+
+            try
+            {
+                Driver = new FirefoxDriver("./", options);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("The Firefox executable couldn't be found.");
+                Environment.Exit(1);
+            }
 
             // Define variables for each credential
             string codewarsUsername = "";
@@ -99,7 +109,7 @@ namespace CodewarsLogger
 
             Directory.CreateDirectory(mainFolderPath);
 
-            SignInToCodewars(driver, email, codewarsPassword);
+            SignInToCodewars(Driver, email, codewarsPassword);
 
             // Response used only to get the total number of pages available
             Stream mainResponseJson = await Client.GetStreamAsync(completedKatasUrl);
@@ -134,7 +144,7 @@ namespace CodewarsLogger
                     foreach (string language in kata.completedLanguages)
                     {
                         string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{LanguagesExtensions[language]}");
-                        await CreateCodeFileAsync(driver, codeFilePath, kata.id, language);
+                        await CreateCodeFileAsync(Driver, codeFilePath, kata.id, language);
                     }
 
                     // Create and update the progress bar based on the amount of katas
@@ -148,7 +158,7 @@ namespace CodewarsLogger
 
             await CreateIndexFileAsync();
 
-            driver.Quit();
+            Driver.Quit();
 
             IdsOfExceptions = IdsOfExceptions.Distinct().ToList();
             if (IdsOfExceptions.Count == 0)
