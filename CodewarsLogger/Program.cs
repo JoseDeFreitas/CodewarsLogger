@@ -10,7 +10,6 @@ using System.Linq;
 using OpenQA.Selenium;
 using System.Net.Http;
 using System.Text.Json;
-using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Firefox;
 using System.Collections.Generic;
@@ -19,10 +18,10 @@ namespace CodewarsLogger
 {
     class Program
     {
-        static HttpClient Client = new();
-        static int CompletedKatasCount = 0;
-        static List<string> IdsOfExceptions = new();
-        static Dictionary<string, string> LanguagesExtensions = new() {
+        private static readonly HttpClient Client = new();
+        private static int CompletedKatasCount = 0;
+        private static List<string> IdsOfExceptions = new();
+        private static readonly Dictionary<string, string> LanguagesExtensions = new() {
             {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
             {"clojure", "clj"}, {"cobol", "cob"}, {"coffeescript", "coffee"}, {"commonlisp", "lisp"},
             {"coq", "coq"}, {"cplusplus", "cpp"}, {"crystal", "cr"}, {"csharp", "cs"},
@@ -37,76 +36,24 @@ namespace CodewarsLogger
             {"ruby", "rb"}, {"rust", "rs"}, {"scala", "scala"}, {"shell", "sh"},
             {"sql", "sql"}, {"swift", "swift"}, {"typescript", "ts"}, {"vb", "vb"},
         };
-        static Dictionary<string, List<string>> KataCategories = new() {
+        private static readonly Dictionary<string, List<string>> KataCategories = new() {
             {"reference", new List<string>()}, // Equivalent to the "Fundamentals" category
             {"algorithms", new List<string>()},
             {"bug_fixes", new List<string>()},
             {"refactoring", new List<string>()},
             {"games", new List<string>()} // Equivalent to the "Puzzles" category
         };
-        static IWebDriver Driver;
+        private static IWebDriver Driver;
 
-        static async Task Main(string[] args)
+        static async Task Main()
         {
-            // Handle exceptions
-            string firefoxDirectory = "";
-            try
-            {
-                using (var fd = new StreamReader("firefox_directory.txt"))
-                {
-                    firefoxDirectory = fd.ReadToEnd();
-                }
-            }
-            catch (IOException)
-            {
-                Console.WriteLine("The \"firefox_directory\" file couldn't be read.");
-                Environment.Exit(1);
-            }
+            Initialise();
 
-            if (!File.Exists(@$"{Environment.CurrentDirectory}\geckodriver.exe"))
-            {
-                Console.WriteLine("\"geckodriver.exe\" file must be in the program's directory.");
-                Environment.Exit(1);
-            }
-
-            FirefoxOptions options = new()
-            {
-                BrowserExecutableLocation = firefoxDirectory
-            };
-            options.AddArgument("--headless");
-
-            try
-            {
-                Driver = new FirefoxDriver("./", options);
-            }
-            catch (WebDriverArgumentException)
-            {
-                Console.WriteLine("The Firefox executable couldn't be found.");
-                Environment.Exit(1);
-            }
-
-            List<string> credentials = ReadUserCredentials();
-
-            // Define variables for each credential
-            string codewarsUsername = "";
-            string email = "";
-            string codewarsPassword = "";
-
-            try
-            {
-                codewarsUsername = credentials[0];
-                email = credentials[1];
-                codewarsPassword = credentials[2];
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("You must pass all the credentials.");
-                Environment.Exit(1);
-            }
+            (string codewarsUsername, string email, string codewarsPassword) = ReadUserCredentials();
 
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
-            string mainFolderPath = "./Katas";
+            string mainFolderPath = Path.Combine(Environment.CurrentDirectory, "Katas");
 
             Directory.CreateDirectory(mainFolderPath);
 
@@ -149,9 +96,8 @@ namespace CodewarsLogger
                     }
 
                     // Create and update the progress bar based on the amount of katas
-                    double progressPercentage = (currentKataNumber / (double)numberOfKatas) * 100;
+                    double progressPercentage = currentKataNumber / (double)numberOfKatas * 100;
                     Console.Write($"\rProgress: {(int)progressPercentage}%");
-                    Thread.Sleep(50);
 
                     currentKataNumber++;
                 }
@@ -176,27 +122,67 @@ namespace CodewarsLogger
         }
 
         /// <summary>
+        /// Checks for all the necessary files ("geckodriver.exe" and "firefox_directory.txt)
+        /// to be present and creates the Driver object.
+        /// </summary>
+        static void Initialise()
+        {
+            string firefoxDirectory = "";
+            try
+            {
+                using (var fileRead = new StreamReader("firefox_directory.txt"))
+                {
+                    firefoxDirectory = fileRead.ReadToEnd();
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine($"\"firefox_directory.txt\" was not found.\n{e.Message}");
+            }
+
+            if (!File.Exists(Path.Combine(Environment.CurrentDirectory, "geckodriver.exe")))
+            {
+                throw new FileNotFoundException(
+                    "\"geckodriver.exe\" file must be in the program's directory."
+                );
+            }
+
+            FirefoxOptions options = new()
+            {
+                BrowserExecutableLocation = firefoxDirectory
+            };
+            options.AddArgument("--headless");
+
+            try
+            {
+                Driver = new FirefoxDriver(Environment.CurrentDirectory, options);
+            }
+            catch (WebDriverArgumentException e)
+            {
+                Console.WriteLine($"The Firefox executable couldn't be found.\n{e.Message}");
+            }
+        }
+
+        /// <summary>
         /// Serves as the main view of the console application by asking the user for the
         /// necessary Codewars credentials and saving all the information and sending it
         /// to the main method.
         /// </summary>
         /// <returns>
-        /// A list of 3 strings: the Codewars username, the email, and the Codewars
-        /// password.
+        /// 3 strings: the Codewars username, the email, and the Codewars password.
         /// </returns>
-        static List<string> ReadUserCredentials()
+        static (string, string, string) ReadUserCredentials()
         {
-            List<string> credentials = new();
-
             Console.WriteLine("CodewarsLogger, v1.2.1. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
-            Console.Write("Enter your Codewars username: ");
-            credentials.Add(Console.ReadLine());
-            Console.Write("Enter your email: ");
-            credentials.Add(Console.ReadLine());
-            Console.Write("Enter your Codewars password: ");
-            credentials.Add(Console.ReadLine());
 
-            return credentials;
+            Console.Write("Enter your Codewars username: ");
+            string codewarsUsername = Console.ReadLine();
+            Console.Write("Enter your email: ");
+            string email = Console.ReadLine();
+            Console.Write("Enter your Codewars password: ");
+            string codewarsPassword = Console.ReadLine();
+
+            return (codewarsUsername, email, codewarsPassword);
         }
 
         /// <summary>
@@ -214,10 +200,9 @@ namespace CodewarsLogger
             {
                 driver.Navigate().GoToUrl(@"https://www.codewars.com/users/sign_in");
             }
-            catch (TimeoutException)
+            catch (TimeoutException e)
             {
-                Console.WriteLine("\rThe driver took too much time.");
-                Environment.Exit(1);
+                Console.WriteLine($"\rThe driver took too much time.\n{e.Message}");
             }
 
             try
@@ -227,10 +212,9 @@ namespace CodewarsLogger
                 driver.FindElement(By.Id("user_password")).SendKeys(codewarsPassword);
                 siginForm.FindElement(By.ClassName("is-red")).Click();
             }
-            catch (NoSuchElementException)
+            catch (NoSuchElementException e)
             {
-                Console.WriteLine("\rA web element was not found on the page (sign-in step).");
-                Environment.Exit(1);
+                Console.WriteLine($"\rA web element was not found on the page (sign-in step).\n{e.Message}");
             }
         }
 
@@ -255,7 +239,7 @@ namespace CodewarsLogger
             Dictionary<string, object> rank, List<string> tags
         )
         {
-            string filePath = Path.Combine(folder, "README.md");
+            string path = Path.Combine(folder, "README.md");
             string content =
             $"# [{name}](https://www.codewars.com/kata/{id})\n\n"
             + $"- **Completed at:** {date}\n\n"
@@ -268,19 +252,11 @@ namespace CodewarsLogger
             {
                 Directory.CreateDirectory(folder);
 
-                if (File.Exists(filePath))
-                {
-                    if (String.Compare(await File.ReadAllTextAsync(filePath), content) != 0)
-                        await File.WriteAllTextAsync(filePath, content);
-                    else
-                        return;
-                }
-                else
-                    await File.WriteAllTextAsync(filePath, content);
+                await CreateFile(path, content);
             }
-            catch (IOException)
+            catch (IOException e)
             {
-                Console.WriteLine("\rThere was a problem while creating the main file.");
+                Console.WriteLine($"\rThere was a problem while creating the main file.\n{e.Message}");
                 IdsOfExceptions.Add(id);
             }
         }
@@ -303,7 +279,7 @@ namespace CodewarsLogger
         {
             IWebElement solutionsList;
             IWebElement solutionItem;
-            string solutionCode = "";
+            string content;
 
             try
             {
@@ -311,30 +287,22 @@ namespace CodewarsLogger
 
                 solutionsList = driver.FindElement(By.Id("solutions_list"));
                 solutionItem = solutionsList.FindElement(By.TagName("div"));
-                solutionCode = solutionItem.FindElement(By.TagName("pre")).Text;
+                content = solutionItem.FindElement(By.TagName("pre")).Text;
 
-                if (File.Exists(path))
-                {
-                    if (String.Compare(await File.ReadAllTextAsync(path), solutionCode) != 0)
-                        await File.WriteAllTextAsync(path, solutionCode);
-                    else
-                        return;
-                }
-                else
-                    await File.WriteAllTextAsync(path, solutionCode);
+                await CreateFile(path, content);
             }
-            catch (TimeoutException)
+            catch (TimeoutException e)
             {
-                Console.WriteLine("\rThe driver took too much time.");
+                Console.WriteLine($"\rThe driver took too much time.\n{e.Message}");
             }
-            catch (NoSuchElementException)
+            catch (NoSuchElementException e)
             {
-                Console.WriteLine("\rA web element was not found on the page (create code file step).");
+                Console.WriteLine($"\rA web element was not found on the page (create code file step).\n{e.Message}");
                 IdsOfExceptions.Add(id);
             }
-            catch (IOException)
+            catch (IOException e)
             {
-                Console.WriteLine("\rThere was a problem while creating the code file.");
+                Console.WriteLine($"\rThere was a problem while creating the code file.\n{e.Message}");
                 IdsOfExceptions.Add(id);
             }
         }
@@ -347,7 +315,7 @@ namespace CodewarsLogger
         /// <exception>If the file can't be created.</exception>
         static async Task CreateIndexFileAsync()
         {
-            string filePath = "./README.md";
+            string path = Path.Combine(Environment.CurrentDirectory, "README.md");
             string content =
             $"# Index of katas by its category/discipline\n\n"
             + $"These are the {CompletedKatasCount} code challenges I have completed:"
@@ -359,20 +327,29 @@ namespace CodewarsLogger
 
             try
             {
-                if (File.Exists(filePath))
-                {
-                    if (String.Compare(await File.ReadAllTextAsync(filePath), content) != 0)
-                        await File.WriteAllTextAsync(filePath, content);
-                    else
-                        return;
-                }
-                else
-                    await File.WriteAllTextAsync(filePath, content);
+                await CreateFile(path, content);
             }
-            catch (IOException)
+            catch (IOException e)
             {
-                Console.WriteLine("\rThere was a problem while creating the README file.");
+                Console.WriteLine($"\rThere was a problem while creating the README file.\n{e.Message}");
             }
+        }
+
+        /// <summary>
+        /// Checks if the file exists, handles the relative creation of files
+        /// and compares the content of old and new files.
+        /// <summary>
+        static async Task CreateFile(string filePath, string fileContent)
+        {
+            if (File.Exists(filePath))
+            {
+                if (String.Compare(await File.ReadAllTextAsync(filePath), fileContent) != 0)
+                    await File.WriteAllTextAsync(filePath, fileContent);
+                else
+                    return;
+            }
+            else
+                await File.WriteAllTextAsync(filePath, fileContent);
         }
     }
 
