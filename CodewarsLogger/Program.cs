@@ -48,6 +48,7 @@ namespace CodewarsLogger
 
         static async Task Main(string[] args)
         {
+            // Handle exceptions
             string firefoxDirectory = "";
             try
             {
@@ -68,8 +69,6 @@ namespace CodewarsLogger
                 Environment.Exit(1);
             }
 
-            List<string> credentials = ReadUserCredentials();
-
             FirefoxOptions options = new()
             {
                 BrowserExecutableLocation = firefoxDirectory
@@ -85,6 +84,8 @@ namespace CodewarsLogger
                 Console.WriteLine("The Firefox executable couldn't be found.");
                 Environment.Exit(1);
             }
+
+            List<string> credentials = ReadUserCredentials();
 
             // Define variables for each credential
             string codewarsUsername = "";
