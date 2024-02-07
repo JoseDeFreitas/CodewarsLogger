@@ -51,9 +51,8 @@ namespace CodewarsLogger
             (string codewarsUsername, string email, string codewarsPassword) = ReadUserCredentials();
 
             string mainFolderPath = Path.Combine(Environment.CurrentDirectory, "Katas");
-            Directory.CreateDirectory(mainFolderPath);
-
             SignInToCodewars(Driver, email, codewarsPassword);
+            Directory.CreateDirectory(mainFolderPath);
             await NavigateWebsite(codewarsUsername, mainFolderPath);
 
             IdsOfExceptions = IdsOfExceptions.Distinct().ToList();
