@@ -79,7 +79,7 @@ in the [Codewars sign in page](https://www.codewars.com/users/sign_in).
 These are the steps that you must follow to run the program:
 1. Download the program folder depending on the OS you use (head to the ["Releases" tab](https://github.com/JoseDeFreitas/CodewarsLogger/releases)).
 2. Download the [.NET runtime](https://dotnet.microsoft.com/en-us/download) from the official Microsoft website
-(currently, the program is targeted to the version 6.0).
+(currently, the program is targeted to the version 8.0).
 3. Download the [Mozilla geckodriver](https://github.com/mozilla/geckodriver/releases) from the "Releases" tab in Mozilla's repository.
 4. Check the "firefox_directory.txt" file to see if the Firefox binary location is actually in that directory
 (change it if it's not the case).
