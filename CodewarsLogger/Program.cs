@@ -70,7 +70,7 @@ namespace CodewarsLogger
         }
 
         /// <summary>
-        /// Checks for all the necessary files ("geckodriver.exe" and "firefox_directory.txt)
+        /// Checks for all the necessary files ("geckodriver.exe" and "firefox_location.txt)
         /// to be present and creates the Driver object.
         /// </summary>
         static void Initialise()
@@ -78,14 +78,14 @@ namespace CodewarsLogger
             string firefoxDirectory = "";
             try
             {
-                using (var fileRead = new StreamReader("firefox_directory.txt"))
+                using (var fileRead = new StreamReader("firefox_location.txt"))
                 {
                     firefoxDirectory = fileRead.ReadToEnd();
                 }
             }
             catch (FileNotFoundException e)
             {
-                Console.WriteLine($"\"firefox_directory.txt\" was not found.\n{e.Message}");
+                Console.WriteLine($"\"firefox_location.txt\" was not found.\n{e.Message}");
             }
 
             if (!File.Exists(Path.Combine(Environment.CurrentDirectory, "geckodriver.exe")))
