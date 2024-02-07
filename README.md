@@ -102,7 +102,7 @@ pass all the tests. You complete a kata when you click the blue button "Attempt"
 (create code file step).`, because Codewars shows a text saying "No solutions" instead of the list of
 solutions that the program looks for.
 
-For a clearer view of how the program goes through all the katas, **you can comment out the [line 154](https://github.com/JoseDeFreitas/CodewarsLogger/blob/06302fd2622f5c9d9fb29553447e4b75555c97e0/CodewarsLogger/Program.cs#L154)**
+For a clearer view of how the program goes through all the katas, **you can comment out the [line 102](https://github.com/JoseDeFreitas/CodewarsLogger/blob/89830706167212643a03de70df8ed3aae22bc008/CodewarsLogger/Program.cs#L102)**
 (`options.AddArgument("--headless");`) by adding `//` before it.
 
 If you're facing a problem, go to the ["Errors" page](https://github.com/JoseDeFreitas/CodewarsLogger/wiki/Errors)
