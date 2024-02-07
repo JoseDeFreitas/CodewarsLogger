@@ -48,64 +48,13 @@ namespace CodewarsLogger
         static async Task Main()
         {
             Initialise();
-
             (string codewarsUsername, string email, string codewarsPassword) = ReadUserCredentials();
 
-            string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
-            string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
             string mainFolderPath = Path.Combine(Environment.CurrentDirectory, "Katas");
-
             Directory.CreateDirectory(mainFolderPath);
 
             SignInToCodewars(Driver, email, codewarsPassword);
-
-            // Response used only to get the total number of pages available
-            Stream mainResponseJson = await Client.GetStreamAsync(completedKatasUrl);
-            KataCompleted mainResponseObject = await JsonSerializer.DeserializeAsync<KataCompleted>(mainResponseJson);
-            int numberOfPages = mainResponseObject.totalPages;
-            int numberOfKatas = mainResponseObject.totalItems;
-            int currentKataNumber = 1;
-
-            for (int page = 0; page < numberOfPages; page++)
-            {
-                // Response used to get the information of all the katas in the specified page
-                Stream responseStream = await Client.GetStreamAsync($"{completedKatasUrl}?page={page}");
-                KataCompleted kataObject = await JsonSerializer.DeserializeAsync<KataCompleted>(responseStream);
-
-                foreach (var kata in kataObject.data)
-                {
-                    // Response used only to get the description of the kata
-                    Stream responseKataInfo = await Client.GetStreamAsync($"{kataInfoUrl}{kata.id}");
-                    KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
-                    string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
-
-                    KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{kata.slug})");
-
-                    await CreateMainFileAsync(
-                        kataFolderPath, kata.name, kata.id,
-                        kata.completedAt, kata.completedLanguages,
-                        kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
-                    );
-
-                    CompletedKatasCount++;
-
-                    foreach (string language in kata.completedLanguages)
-                    {
-                        string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{LanguagesExtensions[language]}");
-                        await CreateCodeFileAsync(Driver, codeFilePath, kata.id, language);
-                    }
-
-                    // Create and update the progress bar based on the amount of katas
-                    double progressPercentage = currentKataNumber / (double)numberOfKatas * 100;
-                    Console.Write($"\rProgress: {(int)progressPercentage}%");
-
-                    currentKataNumber++;
-                }
-            }
-
-            await CreateIndexFileAsync();
-
-            Driver.Quit();
+            await NavigateWebsite(codewarsUsername, mainFolderPath);
 
             IdsOfExceptions = IdsOfExceptions.Distinct().ToList();
             if (IdsOfExceptions.Count == 0)
@@ -219,6 +168,68 @@ namespace CodewarsLogger
         }
 
         /// <summary>
+        /// The primary method of the program. It cicles through all of the katas the user
+        /// has completed and creates the corresponding folders and files. Also, it keeps
+        /// tracks of other information, such as the global data structure that saves the
+        /// data of the categories. It creates and updates the progress bar.
+        /// </summary>
+        /// <param name="codewarsUsername">The Codewars name of the user.</param>
+        /// <param name="mainFolderPath">.The "/Katas" directory string.</param>
+        static async Task NavigateWebsite(string codewarsUsername, string mainFolderPath)
+        {
+            string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
+            string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
+
+            // Response used only to get the total number of pages available
+            Stream mainResponseJson = await Client.GetStreamAsync(completedKatasUrl);
+            KataCompleted mainResponseObject = await JsonSerializer.DeserializeAsync<KataCompleted>(mainResponseJson);
+            int numberOfPages = mainResponseObject.totalPages;
+            int numberOfKatas = mainResponseObject.totalItems;
+            int currentKataNumber = 1;
+
+            for (int page = 0; page < numberOfPages; page++)
+            {
+                // Response used to get the information of all the katas in the specified page
+                Stream responseStream = await Client.GetStreamAsync($"{completedKatasUrl}?page={page}");
+                KataCompleted kataObject = await JsonSerializer.DeserializeAsync<KataCompleted>(responseStream);
+
+                foreach (var kata in kataObject.data)
+                {
+                    // Response used only to get the description of the kata
+                    Stream responseKataInfo = await Client.GetStreamAsync($"{kataInfoUrl}{kata.id}");
+                    KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
+                    string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
+
+                    KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{kata.slug})");
+
+                    await CreateMainFileAsync(
+                        kataFolderPath, kata.name, kata.id,
+                        kata.completedAt, kata.completedLanguages,
+                        kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
+                    );
+
+                    CompletedKatasCount++;
+
+                    foreach (string language in kata.completedLanguages)
+                    {
+                        string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{LanguagesExtensions[language]}");
+                        await CreateCodeFileAsync(Driver, codeFilePath, kata.id, language);
+                    }
+
+                    // Create and update the progress bar based on the amount of katas
+                    double progressPercentage = currentKataNumber / (double)numberOfKatas * 100;
+                    Console.Write($"\rProgress: {(int)progressPercentage}%");
+
+                    currentKataNumber++;
+                }
+            }
+
+            await CreateIndexFileAsync();
+
+            Driver.Quit();
+        }
+
+        /// <summary>
         /// "Main files" are: the kata folder and the README.md file. The name of the
         /// folder will be the slug of the kata, and the README.md file will contain some
         /// information about the kata (the name, the link to the Codewars page of the kata,
@@ -251,7 +262,6 @@ namespace CodewarsLogger
             try
             {
                 Directory.CreateDirectory(folder);
-
                 await CreateFile(path, content);
             }
             catch (IOException e)
