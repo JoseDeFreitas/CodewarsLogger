@@ -66,8 +66,9 @@ stored in such a way that it's easy to navigate through them.
 
 To use this program you need:
 
+- .NET runtime installed on your computer.
 - Firefox web browser installed on your computer.
-- GeckoDriver file from Mozilla (link to download it in the "[Execution](#execution)" section).
+- Geckodriver file from Mozilla.
 
 **Important thing to note**: If you registered into Codewars using the GitHub OAuth option, you must
 create a Codewars password. You can do this easily by clicking on the text "Forgot your password?"
@@ -77,17 +78,19 @@ in the [Codewars sign in page](https://www.codewars.com/users/sign_in).
 
 These are the steps that you must follow to run the program:
 1. Download the program folder depending on the OS you use (head to the ["Releases" tab](https://github.com/JoseDeFreitas/CodewarsLogger/releases)).
-2. Get the [Mozilla geckodriver](https://github.com/mozilla/geckodriver/releases) from the "Releases" tab in Mozilla's repository (also according to your OS).
-3. Check the "firefox_directory.txt" file to see if the Firefox binary location is actually in that directory
+2. Download the [.NET runtime](https://dotnet.microsoft.com/en-us/download) from the official Microsoft website
+(currently, the program is targeted to the version 6.0).
+3. Download the [Mozilla geckodriver](https://github.com/mozilla/geckodriver/releases) from the "Releases" tab in Mozilla's repository.
+4. Check the "firefox_directory.txt" file to see if the Firefox binary location is actually in that directory
 (change it if it's not the case).
-4. With the "geckodriver.exe" file in the program's directory, run the executable.
-5. Follow the instructions prompted.
+5. With the "geckodriver.exe" file in the program's directory, run the executable.
+6. Follow the instructions prompted.
 
 You can also clone the repository to have the code in you local machine and run the program from there.
 This way it's faster for you to customise whatever you want. For this, use
 `git clone https://github.com/JoseDeFreitas/CodewarsLogger.git`.
-You need to have [.NET](https://dotnet.microsoft.com/en-us/download) installed. If you do, go to the
-"CodewarsLogger" folder (where the "Program.cs" lies) and use `dotnet run` in the console.
+You need to have [.NET](https://dotnet.microsoft.com/en-us/download) and Firefox installed. If you do, go to the
+"CodewarsLogger" folder (where the "Program.cs" lies) and type `dotnet run` in the console.
 
 ### After completion
 
