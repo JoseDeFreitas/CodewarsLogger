@@ -195,12 +195,14 @@ namespace CodewarsLogger
 
                 foreach (var kata in kataObject.data)
                 {
+                    string pureKataName = String.Join("", kata.slug.Split('/', '\\', ':', '<', '>', '"', '|', '*', '?'));
+
                     // Response used only to get the description of the kata
                     Stream responseKataInfo = await Client.GetStreamAsync($"{kataInfoUrl}{kata.id}");
                     KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
-                    string kataFolderPath = Path.Combine(mainFolderPath, kata.slug);
+                    string kataFolderPath = Path.Combine(mainFolderPath, pureKataName);
 
-                    KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{kata.slug})");
+                    KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{pureKataName})");
 
                     await CreateMainFileAsync(
                         kataFolderPath, kata.name, kata.id,
@@ -212,7 +214,7 @@ namespace CodewarsLogger
 
                     foreach (string language in kata.completedLanguages)
                     {
-                        string codeFilePath = Path.Combine(kataFolderPath, $"{kata.slug}.{LanguagesExtensions[language]}");
+                        string codeFilePath = Path.Combine(kataFolderPath, $"{pureKataName}.{LanguagesExtensions[language]}");
                         await CreateCodeFileAsync(Driver, codeFilePath, kata.id, language);
                     }
 
