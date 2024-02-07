@@ -17,9 +17,6 @@ for more information (especially the last rule).
 
 **Although it's not prohibited, please: don't put your Codewars solutions publicly available on GitHub.**
 
-To see additional information about the program, go to the
-[wiki of the repository](https://github.com/JoseDeFreitas/CodewarsLogger/wiki).
-
 ## Screenshots
 
 <details>
