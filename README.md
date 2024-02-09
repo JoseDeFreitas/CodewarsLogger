@@ -10,9 +10,9 @@ credentials and extract all the code of each programming language of every kata 
 into a folder.
 
 It's discouraged to put your Codewars solutions publicly available because, even though it depends
-on every person, having your solutions publicly available may increase the number of dishonest users
-that copy and paste the solutions to their own advantage. An user can get sanctioned if the Codewars'
-staff notice an unusual behaviour. Read the [Codewars Code of Conduct](https://docs.codewars.com/community/rules/)
+on every person, this may increase the number of dishonest users that copy and paste the solutions
+to their own advantage. An user can get sanctioned if the Codewars' staff notice an unusual behaviour.
+Read the [Codewars Code of Conduct](https://docs.codewars.com/community/rules/)
 for more information (especially the last rule).
 
 **Although it's not prohibited, please: don't put your Codewars solutions publicly available on GitHub.**
