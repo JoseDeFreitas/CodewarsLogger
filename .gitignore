@@ -2,7 +2,7 @@ bin
 obj
 .vscode
 *.sln
-firefox_directory.txt
+firefox_location.txt
 geckodriver.exe
 CodewarsLogger/Katas
 CodewarsLogger/README.md
