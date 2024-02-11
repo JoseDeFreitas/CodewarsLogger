@@ -2,6 +2,7 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/JoseDeFreitas/CodewarsLogger/total)
 ![Supported OS versions](https://img.shields.io/badge/for-Windows%2C%20MacOS%2C%20Linux-blue)
+![Architecture of 64 bits](https://img.shields.io/badge/architecture-64--bit-purple)
 
 > Also check [Codewars Activity Chart](https://github.com/JoseDeFreitas/codewars-activity-chart)!
 
