@@ -121,7 +121,7 @@ namespace CodewarsLogger
         /// </returns>
         static (string, string, string) ReadUserCredentials()
         {
-            Console.WriteLine("CodewarsLogger, v1.3.0. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
+            Console.WriteLine("CodewarsLogger, v1.3.1. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
 
             Console.Write("Enter your Codewars username: ");
             string codewarsUsername = Console.ReadLine();
@@ -184,6 +184,9 @@ namespace CodewarsLogger
             KataCompleted mainResponseObject = await JsonSerializer.DeserializeAsync<KataCompleted>(mainResponseJson);
             int numberOfPages = mainResponseObject.totalPages;
             int numberOfKatas = mainResponseObject.totalItems;
+
+            Console.WriteLine($"You have completed a total of {numberOfKatas} katas.");
+
             int currentKataNumber = 1;
 
             for (int page = 0; page < numberOfPages; page++)
