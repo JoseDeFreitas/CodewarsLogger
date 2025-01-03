@@ -55,7 +55,7 @@ of solutions of all the katas you've completed (plus more than one programming l
 would take you a lot of time, and you'd have to update it every time you complete a new kata.
 
 This program allows you to automatically copy into a folder the code of the completed challanges you've
-done: you just have to run the program and let it do its job. Moreover, the files and directories are
+done: you just have to run the program and let it do its job. The files and directories are
 stored in such a way that it's easy to navigate through them.
 
 ## Usage
