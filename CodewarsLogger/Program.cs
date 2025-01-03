@@ -169,7 +169,7 @@ namespace CodewarsLogger
         /// <summary>
         /// The primary method of the program. It cicles through all of the katas the user
         /// has completed and creates the corresponding folders and files. Also, it keeps
-        /// tracks of other information, such as the global data structure that saves the
+        /// track of other information, such as the global data structure that saves the
         /// data of the categories. It creates and updates the progress bar.
         /// </summary>
         /// <param name="codewarsUsername">The Codewars name of the user.</param>
