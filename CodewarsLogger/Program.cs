@@ -197,7 +197,7 @@ namespace CodewarsLogger
 
                 foreach (var kata in kataObject.data)
                 {
-                    string pureKataName = String.Join("", kata.slug.Split('/', '\\', ':', '<', '>', '"', '|', '*', '?'));
+                    string pureKataName = string.Join("", kata.slug.Split('/', '\\', ':', '<', '>', '"', '|', '*', '?'));
 
                     // Response used only to get the description of the kata
                     Stream responseKataInfo = await Client.GetStreamAsync($"{kataInfoUrl}{kata.id}");
@@ -357,7 +357,7 @@ namespace CodewarsLogger
         {
             if (File.Exists(filePath))
             {
-                if (String.Compare(await File.ReadAllTextAsync(filePath), fileContent) != 0)
+                if (string.Compare(await File.ReadAllTextAsync(filePath), fileContent) != 0)
                     await File.WriteAllTextAsync(filePath, fileContent);
                 else
                     return;
