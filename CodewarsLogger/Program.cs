@@ -257,7 +257,7 @@ namespace CodewarsLogger
             string path = Path.Combine(folder, "README.md");
             string content =
             $"# [{name}](https://www.codewars.com/kata/{id})\n\n"
-            + $"- **Completed at:** {date}\n\n"
+            + $"- **Completed at:** {date.Substring(0, 10)}\n\n"
             + $"- **Completed languages:** {string.Join(", ", languages)}\n\n"
             + $"- **Tags:** {string.Join(", ", tags)}\n\n"
             + $"- **Rank:** {rank["name"]}\n\n"
