@@ -20,6 +20,7 @@ namespace CodewarsLogger
     {
         private static readonly HttpClient Client = new();
         private static int CompletedKatasCount = 0;
+        private static string LastSavedKata = "";
         private static List<string> IdsOfExceptions = new();
         private static readonly Dictionary<string, string> LanguagesExtensions = new() {
             {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
@@ -70,8 +71,8 @@ namespace CodewarsLogger
         }
 
         /// <summary>
-        /// Checks for all the necessary files ("geckodriver.exe" and "firefox_location.txt)
-        /// to be present and creates the Driver object.
+        /// Checks for all the necessary files ("geckodriver.exe", "firefox_location.txt",
+        /// and "last_saved_kata.txt") to be present and creates the Driver object.
         /// </summary>
         static void Initialise()
         {
@@ -86,6 +87,21 @@ namespace CodewarsLogger
             catch (FileNotFoundException e)
             {
                 Console.WriteLine($"\"firefox_location.txt\" was not found.\n{e.Message}");
+            }
+
+            try
+            {
+                using (var fileRead = new StreamReader("last_saved_kata.txt"))
+                {
+                    LastSavedKata = fileRead.ReadToEnd();
+                }
+
+                if (LastSavedKata != "0")
+                    Console.WriteLine($"The program will start from the last saved kata: {LastSavedKata}.");
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine($"\"last_saved_kata.txt\" was not found.\n{e.Message}");
             }
 
             if (!File.Exists(Path.Combine(Environment.CurrentDirectory, "geckodriver.exe")))
