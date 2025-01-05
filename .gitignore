@@ -3,6 +3,7 @@ obj
 .vscode
 *.sln
 firefox_location.txt
+last_saved_kata.txt
 geckodriver.exe
 CodewarsLogger/Katas
 CodewarsLogger/README.md
