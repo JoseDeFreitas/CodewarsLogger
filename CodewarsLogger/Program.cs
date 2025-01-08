@@ -97,7 +97,7 @@ namespace CodewarsLogger
                 }
 
                 if (LastSavedKata != "")
-                    Console.WriteLine($"The program will start from the last saved kata: {LastSavedKata}.");
+                    Console.WriteLine($"The program will start from the last saved kata.");
             }
             catch (FileNotFoundException e)
             {
