@@ -20,7 +20,7 @@ namespace CodewarsLogger
     {
         private static readonly HttpClient Client = new();
         private static int CompletedKatasCount = 0;
-        private static int LastSavedKata = 0;
+        private static string LastSavedKata = "";
         private static List<string> IdsOfExceptions = new();
         private static readonly Dictionary<string, string> LanguagesExtensions = new() {
             {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
@@ -93,10 +93,10 @@ namespace CodewarsLogger
             {
                 using (var fileRead = new StreamReader("last_saved_kata.txt"))
                 {
-                    LastSavedKata = int.Parse(fileRead.ReadToEnd());
+                    LastSavedKata = fileRead.ReadToEnd();
                 }
 
-                if (LastSavedKata != 0)
+                if (LastSavedKata != "")
                     Console.WriteLine($"The program will start from the last saved kata: {LastSavedKata}.");
             }
             catch (FileNotFoundException e)
