@@ -10,6 +10,7 @@ using System.Linq;
 using OpenQA.Selenium;
 using System.Net.Http;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium.Firefox;
 using System.Collections.Generic;
@@ -20,7 +21,6 @@ namespace CodewarsLogger
     {
         private static readonly HttpClient Client = new();
         private static int CompletedKatasCount = 0;
-        private static string LastSavedKata = "";
         private static List<string> IdsOfExceptions = new();
         private static readonly Dictionary<string, string> LanguagesExtensions = new() {
             {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
@@ -87,21 +87,6 @@ namespace CodewarsLogger
             catch (FileNotFoundException e)
             {
                 Console.WriteLine($"\"firefox_location.txt\" was not found.\n{e.Message}");
-            }
-
-            try
-            {
-                using (var fileRead = new StreamReader("last_saved_kata.txt"))
-                {
-                    LastSavedKata = fileRead.ReadToEnd();
-                }
-
-                if (LastSavedKata != "")
-                    Console.WriteLine($"The program will start from the last saved kata.");
-            }
-            catch (FileNotFoundException e)
-            {
-                Console.WriteLine($"\"last_saved_kata.txt\" was not found.\n{e.Message}");
             }
 
             if (!File.Exists(Path.Combine(Environment.CurrentDirectory, "geckodriver.exe")))
@@ -207,40 +192,47 @@ namespace CodewarsLogger
 
             for (int page = 0; page < numberOfPages; page++)
             {
-                // Response used to get the information of all the katas in the specified page
-                Stream responseStream = await Client.GetStreamAsync($"{completedKatasUrl}?page={page}");
-                KataCompleted kataObject = await JsonSerializer.DeserializeAsync<KataCompleted>(responseStream);
-
-                foreach (var kata in kataObject.data)
+                try
                 {
-                    string pureKataName = string.Join("", kata.slug.Split('/', '\\', ':', '<', '>', '"', '|', '*', '?'));
+                    // Response used to get the information of all the katas in the specified page
+                    Stream responseStream = await Client.GetStreamAsync($"{completedKatasUrl}?page={page}");
+                    KataCompleted kataObject = await JsonSerializer.DeserializeAsync<KataCompleted>(responseStream);
 
-                    // Response used only to get the description of the kata
-                    Stream responseKataInfo = await Client.GetStreamAsync($"{kataInfoUrl}{kata.id}");
-                    KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
-                    string kataFolderPath = Path.Combine(mainFolderPath, pureKataName);
-
-                    KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{pureKataName})");
-
-                    await CreateMainFileAsync(
-                        kataFolderPath, kata.name, kata.id,
-                        kata.completedAt, kata.completedLanguages,
-                        kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
-                    );
-
-                    CompletedKatasCount++;
-
-                    foreach (string language in kata.completedLanguages)
+                    foreach (var kata in kataObject.data)
                     {
-                        string codeFilePath = Path.Combine(kataFolderPath, $"{pureKataName}.{LanguagesExtensions[language]}");
-                        await CreateCodeFileAsync(Driver, codeFilePath, kata.id, language);
+                        string pureKataName = string.Join("", kata.slug.Split('/', '\\', ':', '<', '>', '"', '|', '*', '?'));
+
+                        // Response used only to get the description of the kata
+                        Stream responseKataInfo = await Client.GetStreamAsync($"{kataInfoUrl}{kata.id}");
+                        KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
+                        string kataFolderPath = Path.Combine(mainFolderPath, pureKataName);
+
+                        KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{pureKataName})");
+
+                        await CreateMainFileAsync(
+                            kataFolderPath, kata.name, kata.id,
+                            kata.completedAt, kata.completedLanguages,
+                            kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
+                        );
+
+                        CompletedKatasCount++;
+
+                        foreach (string language in kata.completedLanguages)
+                        {
+                            string codeFilePath = Path.Combine(kataFolderPath, $"{pureKataName}.{LanguagesExtensions[language]}");
+                            await CreateCodeFileAsync(Driver, codeFilePath, kata.id, language);
+                        }
+
+                        // Create and update the progress bar based on the amount of katas
+                        double progressPercentage = currentKataNumber / (double)numberOfKatas * 100;
+                        Console.Write($"\rProgress: {(int)progressPercentage}%");
+
+                        currentKataNumber++;
                     }
-
-                    // Create and update the progress bar based on the amount of katas
-                    double progressPercentage = currentKataNumber / (double)numberOfKatas * 100;
-                    Console.Write($"\rProgress: {(int)progressPercentage}%");
-
-                    currentKataNumber++;
+                }
+                catch (HttpRequestException)
+                {
+                    Thread.Sleep(60000);
                 }
             }
 
