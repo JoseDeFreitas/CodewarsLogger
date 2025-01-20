@@ -140,7 +140,9 @@ namespace CodewarsLogger
         /// <param name="driver">The Firefox driver initialised in the Main method.</param>
         /// <param name="email">The email of the user.</param>
         /// <param name="codewarsPassword">The Codewars password of the user.</param>
-        /// <exception>When the driver can't connect to the Codewars website.</exception>
+        /// <exception>
+        /// When the driver can't connect to the Codewars website.
+        /// </exception>
         static void SignInToCodewars(
             IWebDriver driver, string email, string codewarsPassword
         )
@@ -267,7 +269,9 @@ namespace CodewarsLogger
         /// <param name="description">The description of the kata (Markdown-formatted).</param>
         /// <param name="rank">The rank of the kata.</param>
         /// <param name="tags">The tags of the kata.</param>
-        /// <exception>If the folder can't be created.</exception>
+        /// <exception>
+        /// If the folder can't be created.
+        /// </exception>
         static async Task CreateMainFileAsync(
             string folder, string name, string id,
             string date, List<string> languages, string description,
@@ -346,7 +350,9 @@ namespace CodewarsLogger
         /// discipline, in order to make the navigation through the katas easier
         /// and faster.
         /// <summary>
-        /// <exception>If the file can't be created.</exception>
+        /// <exception>
+        /// If the file can't be created.
+        /// </exception>
         static async Task CreateIndexFileAsync()
         {
             string path = Path.Combine(Environment.CurrentDirectory, "README.md");
@@ -371,8 +377,11 @@ namespace CodewarsLogger
 
         /// <summary>
         /// Checks if the file exists, handles the relative creation of files
-        /// and compares the content of old and new files.
+        /// and compares the content of old and new files. (Global function used
+        /// for every file creation.)
         /// <summary>
+        /// <param name="filePath">The path of the file.</param>
+        /// <param name="fileContent">The content of the file.</param>
         static async Task CreateFile(string filePath, string fileContent)
         {
             if (File.Exists(filePath))
