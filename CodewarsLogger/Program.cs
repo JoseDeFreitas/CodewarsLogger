@@ -233,7 +233,7 @@ namespace CodewarsLogger
 
                     await CreateMainFileAsync(
                         kataFolderPath, kataObject.data[kata].name, kataObject.data[kata].id,
-                        kataObject.data[kata].completedAt, kataObject.data[kata].completedLanguages,
+                        kataObject.data[kata].slug, kataObject.data[kata].completedAt, kataObject.data[kata].completedLanguages,
                         kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
                     );
 
@@ -242,7 +242,7 @@ namespace CodewarsLogger
                     foreach (string language in kataObject.data[kata].completedLanguages)
                     {
                         string codeFilePath = Path.Combine(kataFolderPath, $"{pureKataName}.{LanguagesExtensions[language]}");
-                        await CreateCodeFileAsync(Driver, codeFilePath, kataObject.data[kata].id, language);
+                        await CreateCodeFileAsync(Driver, codeFilePath, kataObject.data[kata].id, kataObject.data[kata].slug, language);
                     }
 
                     // Create and update the progress bar based on the amount of katas
@@ -267,6 +267,7 @@ namespace CodewarsLogger
         /// <param name="folder">The name of the folder (based on the kata slug).</param>
         /// <param name="name">The name of the kata (not the slug).</param>
         /// <param name="id">The ID of the kata.</param>
+        /// <param name="slug">The slug of the kata.</param>
         /// <param name="date">The date the kata was completed on.</param>
         /// <param name="languages">The programming languages the kata was completed in.</param>
         /// <param name="description">The description of the kata (Markdown-formatted).</param>
@@ -276,7 +277,7 @@ namespace CodewarsLogger
         /// If the folder can't be created.
         /// </exception>
         static async Task CreateMainFileAsync(
-            string folder, string name, string id,
+            string folder, string name, string id, string slug,
             string date, List<string> languages, string description,
             Dictionary<string, object> rank, List<string> tags
         )
@@ -298,7 +299,7 @@ namespace CodewarsLogger
             catch (IOException e)
             {
                 Console.WriteLine($"\rThere was a problem while creating the main file.\n{e.Message}");
-                IdsOfExceptions.Add(id);
+                IdsOfExceptions.Add(slug);
             }
         }
 
@@ -311,12 +312,13 @@ namespace CodewarsLogger
         /// <param name="driver">The Firefox driver initialised in the Main method.</param>
         /// <param name="path">The path of the code file (for each language).</param>
         /// <param name="id">The ID of the kata.</param>
+        /// <param name="slug">The slug of the kata.</param>
         /// <param name="language">The programming language inside the list of them.</param>
         /// <exception>
         /// When the driver can't connect to the Codewars website or the DOM elements
         /// couldn't be found (due to a problem with Codewars).
         /// </exception>
-        static async Task CreateCodeFileAsync(IWebDriver driver, string path, string id, string language)
+        static async Task CreateCodeFileAsync(IWebDriver driver, string path, string id, string slug, string language)
         {
             IWebElement solutionsList;
             IWebElement solutionItem;
@@ -336,15 +338,14 @@ namespace CodewarsLogger
             {
                 Console.WriteLine($"\rThe driver took too much time.\n{e.Message}");
             }
-            catch (NoSuchElementException e)
+            catch (NoSuchElementException)
             {
-                Console.WriteLine($"\rA web element was not found on the page (create code file step).\n{e.Message}");
-                IdsOfExceptions.Add(id);
+                IdsOfExceptions.Add(slug);
             }
             catch (IOException e)
             {
                 Console.WriteLine($"\rThere was a problem while creating the code file.\n{e.Message}");
-                IdsOfExceptions.Add(id);
+                IdsOfExceptions.Add(slug);
             }
         }
 
