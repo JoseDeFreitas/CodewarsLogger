@@ -192,47 +192,59 @@ namespace CodewarsLogger
 
             for (int page = 0; page < numberOfPages; page++)
             {
-                try
-                {
+                Stream responseStream;
+                try {
                     // Response used to get the information of all the katas in the specified page
-                    Stream responseStream = await Client.GetStreamAsync($"{completedKatasUrl}?page={page}");
-                    KataCompleted kataObject = await JsonSerializer.DeserializeAsync<KataCompleted>(responseStream);
-
-                    foreach (var kata in kataObject.data)
-                    {
-                        string pureKataName = string.Join("", kata.slug.Split('/', '\\', ':', '<', '>', '"', '|', '*', '?'));
-
-                        // Response used only to get the description of the kata
-                        Stream responseKataInfo = await Client.GetStreamAsync($"{kataInfoUrl}{kata.id}");
-                        KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
-                        string kataFolderPath = Path.Combine(mainFolderPath, pureKataName);
-
-                        KataCategories[kataInfoObject.category].Add($"- [{kata.name}](./Katas/{pureKataName})");
-
-                        await CreateMainFileAsync(
-                            kataFolderPath, kata.name, kata.id,
-                            kata.completedAt, kata.completedLanguages,
-                            kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
-                        );
-
-                        CompletedKatasCount++;
-
-                        foreach (string language in kata.completedLanguages)
-                        {
-                            string codeFilePath = Path.Combine(kataFolderPath, $"{pureKataName}.{LanguagesExtensions[language]}");
-                            await CreateCodeFileAsync(Driver, codeFilePath, kata.id, language);
-                        }
-
-                        // Create and update the progress bar based on the amount of katas
-                        double progressPercentage = currentKataNumber / (double)numberOfKatas * 100;
-                        Console.Write($"\rProgress: {(int)progressPercentage}%");
-
-                        currentKataNumber++;
-                    }
+                    responseStream = await Client.GetStreamAsync($"{completedKatasUrl}?page={page}");
                 }
                 catch (HttpRequestException)
                 {
-                    Thread.Sleep(60000);
+                    Thread.Sleep(120000);
+                    page--;
+                    continue;
+                }
+                KataCompleted kataObject = await JsonSerializer.DeserializeAsync<KataCompleted>(responseStream);
+
+                for (int kata = 0; kata < kataObject.data.Count; kata++)
+                {
+                    string pureKataName = string.Join("", kataObject.data[kata].slug.Split('/', '\\', ':', '<', '>', '"', '|', '*', '?'));
+
+                    Stream responseKataInfo;
+                    try
+                    {
+                        // Response used only to get the description of the kata
+                        responseKataInfo = await Client.GetStreamAsync($"{kataInfoUrl}{kataObject.data[kata].id}");
+                    }
+                    catch (HttpRequestException)
+                    {
+                        Thread.Sleep(120000);
+                        kata--;
+                        continue;
+                    }
+                    KataInfo kataInfoObject = await JsonSerializer.DeserializeAsync<KataInfo>(responseKataInfo);
+                    string kataFolderPath = Path.Combine(mainFolderPath, pureKataName);
+
+                    KataCategories[kataInfoObject.category].Add($"- [{kataObject.data[kata].name}](./Katas/{pureKataName})");
+
+                    await CreateMainFileAsync(
+                        kataFolderPath, kataObject.data[kata].name, kataObject.data[kata].id,
+                        kataObject.data[kata].completedAt, kataObject.data[kata].completedLanguages,
+                        kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
+                    );
+
+                    CompletedKatasCount++;
+
+                    foreach (string language in kataObject.data[kata].completedLanguages)
+                    {
+                        string codeFilePath = Path.Combine(kataFolderPath, $"{pureKataName}.{LanguagesExtensions[language]}");
+                        await CreateCodeFileAsync(Driver, codeFilePath, kataObject.data[kata].id, language);
+                    }
+
+                    // Create and update the progress bar based on the amount of katas
+                    double progressPercentage = currentKataNumber / (double)numberOfKatas * 100;
+                    Console.Write($"\rProgress: {(int)progressPercentage}%");
+
+                    currentKataNumber++;
                 }
             }
 
