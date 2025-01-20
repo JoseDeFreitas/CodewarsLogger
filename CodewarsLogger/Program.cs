@@ -74,6 +74,9 @@ namespace CodewarsLogger
         /// Checks for all the necessary files ("geckodriver.exe", "firefox_location.txt",
         /// and "last_saved_kata.txt") to be present and creates the Driver object.
         /// </summary>
+        /// <exception>
+        /// If a file can't be found.
+        /// </exception>
         static void Initialise()
         {
             string firefoxDirectory = "";
