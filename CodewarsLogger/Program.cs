@@ -233,7 +233,7 @@ namespace CodewarsLogger
 
                     await CreateMainFileAsync(
                         kataFolderPath, kataObject.data[kata].name, kataObject.data[kata].id,
-                        kataObject.data[kata].slug, kataObject.data[kata].completedAt, kataObject.data[kata].completedLanguages,
+                        pureKataName, kataObject.data[kata].completedAt, kataObject.data[kata].completedLanguages,
                         kataInfoObject.description, kataInfoObject.rank, kataInfoObject.tags
                     );
 
@@ -242,7 +242,7 @@ namespace CodewarsLogger
                     foreach (string language in kataObject.data[kata].completedLanguages)
                     {
                         string codeFilePath = Path.Combine(kataFolderPath, $"{pureKataName}.{LanguagesExtensions[language]}");
-                        await CreateCodeFileAsync(Driver, codeFilePath, kataObject.data[kata].id, kataObject.data[kata].slug, language);
+                        await CreateCodeFileAsync(Driver, codeFilePath, kataObject.data[kata].id, pureKataName, language);
                     }
 
                     // Create and update the progress bar based on the amount of katas
