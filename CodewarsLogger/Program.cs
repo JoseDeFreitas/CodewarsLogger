@@ -22,7 +22,7 @@ namespace CodewarsLogger
         private static readonly HttpClient Client = new();
         private static int CompletedKatasCount = 0;
         private static List<string> SlugsOfExceptions = new();
-        private static readonly Dictionary<string, string> LanguagesExtensions = new() {
+        private static readonly Dictionary<string, string> LanguageExtensions = new() {
             {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
             {"clojure", "clj"}, {"cobol", "cob"}, {"coffeescript", "coffee"}, {"commonlisp", "lisp"},
             {"coq", "coq"}, {"cplusplus", "cpp"}, {"crystal", "cr"}, {"csharp", "cs"},
@@ -243,7 +243,7 @@ namespace CodewarsLogger
 
                     foreach (string language in kataObject.data[kata].completedLanguages)
                     {
-                        string codeFilePath = Path.Combine(kataFolderPath, $"{pureKataName}.{LanguagesExtensions[language]}");
+                        string codeFilePath = Path.Combine(kataFolderPath, $"{pureKataName}.{LanguageExtensions[language]}");
                         await CreateCodeFileAsync(Driver, codeFilePath, kataObject.data[kata].id, pureKataName, language);
                     }
 
