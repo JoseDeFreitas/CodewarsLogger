@@ -21,7 +21,7 @@ namespace CodewarsLogger
     {
         private static readonly HttpClient Client = new();
         private static int CompletedKatasCount = 0;
-        private static List<string> IdsOfExceptions = new();
+        private static List<string> SlugsOfExceptions = new();
         private static readonly Dictionary<string, string> LanguagesExtensions = new() {
             {"agda", "agda"}, {"bf", "b"}, {"c", "c"}, {"cmlf", "cmfl"},
             {"clojure", "clj"}, {"cobol", "cob"}, {"coffeescript", "coffee"}, {"commonlisp", "lisp"},
@@ -49,20 +49,20 @@ namespace CodewarsLogger
         static async Task Main()
         {
             Initialise();
-            (string codewarsUsername, string email, string codewarsPassword) = ReadUserCredentials();
+            (string codewarsUsername, string email, string codewarsPassword, string modeChoice) = ReadUserCredentials();
 
             string mainFolderPath = Path.Combine(Environment.CurrentDirectory, "Katas");
             SignInToCodewars(Driver, email, codewarsPassword);
             Directory.CreateDirectory(mainFolderPath);
             await NavigateWebsite(codewarsUsername, mainFolderPath);
 
-            IdsOfExceptions = IdsOfExceptions.Distinct().ToList();
-            if (IdsOfExceptions.Count == 0)
+            SlugsOfExceptions = SlugsOfExceptions.Distinct().ToList();
+            if (SlugsOfExceptions.Count == 0)
                 Console.WriteLine("\nAll data was loaded successfully.");
             else
             {
                 Console.WriteLine(
-                    $"\nAll data was loaded successfully except {IdsOfExceptions.Count} katas:\n{string.Join("\n", IdsOfExceptions)}."
+                    $"\nAll data was loaded successfully except {SlugsOfExceptions.Count} katas:\n{string.Join("\n", SlugsOfExceptions)}."
                 );
             }
 
@@ -71,8 +71,8 @@ namespace CodewarsLogger
         }
 
         /// <summary>
-        /// Checks for all the necessary files ("geckodriver.exe", "firefox_location.txt",
-        /// and "last_saved_kata.txt") to be present and creates the Driver object.
+        /// Checks for all the necessary files ("geckodriver.exe" and "firefox_location.txt")
+        /// to be present and creates the Driver object.
         /// </summary>
         /// <exception>
         /// If a file can't be found.
@@ -123,7 +123,7 @@ namespace CodewarsLogger
         /// <returns>
         /// 3 strings: the Codewars username, the email, and the Codewars password.
         /// </returns>
-        static (string, string, string) ReadUserCredentials()
+        static (string, string, string, string) ReadUserCredentials()
         {
             Console.WriteLine("CodewarsLogger, v1.3.1. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
 
@@ -133,8 +133,10 @@ namespace CodewarsLogger
             string email = Console.ReadLine();
             Console.Write("Enter your Codewars password: ");
             string codewarsPassword = Console.ReadLine();
+            Console.Write("Do you want to run the program from the last saved kata? (y/n): ");
+            string modeChoice = Console.ReadLine();
 
-            return (codewarsUsername, email, codewarsPassword);
+            return (codewarsUsername, email, codewarsPassword, modeChoice);
         }
 
         /// <summary>
@@ -299,7 +301,7 @@ namespace CodewarsLogger
             catch (IOException e)
             {
                 Console.WriteLine($"\rThere was a problem while creating the main file.\n{e.Message}");
-                IdsOfExceptions.Add(slug);
+                SlugsOfExceptions.Add(slug);
             }
         }
 
@@ -340,12 +342,12 @@ namespace CodewarsLogger
             }
             catch (NoSuchElementException)
             {
-                IdsOfExceptions.Add(slug);
+                SlugsOfExceptions.Add(slug);
             }
             catch (IOException e)
             {
                 Console.WriteLine($"\rThere was a problem while creating the code file.\n{e.Message}");
-                IdsOfExceptions.Add(slug);
+                SlugsOfExceptions.Add(slug);
             }
         }
 
