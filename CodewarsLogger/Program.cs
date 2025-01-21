@@ -48,17 +48,23 @@ namespace CodewarsLogger
 
         static async Task Main()
         {
-            Initialise();
-            (string codewarsUsername, string email, string codewarsPassword, string modeChoice) = ReadUserCredentials();
-
-            string mainFolderPath = Path.Combine(Environment.CurrentDirectory, "Katas");
+            string lastSavedKata = Initialise();
+            (string codewarsUsername, string email, string codewarsPassword, string modeChoice) = ReadUserPrompt();
             SignInToCodewars(Driver, email, codewarsPassword);
-            Directory.CreateDirectory(mainFolderPath);
-            await NavigateWebsite(codewarsUsername, mainFolderPath);
+            
+            string mainFolderPath = Path.Combine(Environment.CurrentDirectory, "Katas");
+            if (!Directory.Exists(mainFolderPath))
+            {
+                Directory.CreateDirectory(mainFolderPath);
+            }
+
+            await NavigateWebsite(codewarsUsername, mainFolderPath, modeChoice, lastSavedKata);
 
             SlugsOfExceptions = SlugsOfExceptions.Distinct().ToList();
             if (SlugsOfExceptions.Count == 0)
+            {
                 Console.WriteLine("\nAll data was loaded successfully.");
+            }
             else
             {
                 Console.WriteLine(
@@ -71,25 +77,39 @@ namespace CodewarsLogger
         }
 
         /// <summary>
-        /// Checks for all the necessary files ("geckodriver.exe" and "firefox_location.txt")
-        /// to be present and creates the Driver object.
+        /// Checks for all the necessary files ("config.txt" and "geckodriver.exe")
+        /// to be present, assigns variables and creates the Driver object.
         /// </summary>
         /// <exception>
         /// If a file can't be found.
         /// </exception>
-        static void Initialise()
+        /// <returns>
+        /// A string with the slug of the last saved kata, if it exists.
+        /// </returns>
+        static string Initialise()
         {
+            string[] configInfo;
             string firefoxDirectory = "";
+            string lastSavedKata = "";
+
             try
             {
-                using (var fileRead = new StreamReader("firefox_location.txt"))
+                configInfo = File.ReadAllLines("config.txt");
+                foreach (string line in configInfo)
                 {
-                    firefoxDirectory = fileRead.ReadToEnd();
+                    if (line.StartsWith("DIRECTORY="))
+                    {
+                        firefoxDirectory = line.Substring("DIRECTORY=".Length);
+                    }
+                    else if (line.StartsWith("LAST_KATA="))
+                    {
+                        lastSavedKata = line.Substring("LAST_KATA=".Length);
+                    }
                 }
             }
             catch (FileNotFoundException e)
             {
-                Console.WriteLine($"\"firefox_location.txt\" was not found.\n{e.Message}");
+                Console.WriteLine($"\"config.txt\" was not found.\n{e.Message}");
             }
 
             if (!File.Exists(Path.Combine(Environment.CurrentDirectory, "geckodriver.exe")))
@@ -113,6 +133,8 @@ namespace CodewarsLogger
             {
                 Console.WriteLine($"The Firefox executable couldn't be found.\n{e.Message}");
             }
+
+            return lastSavedKata;
         }
 
         /// <summary>
@@ -121,9 +143,10 @@ namespace CodewarsLogger
         /// to the main method.
         /// </summary>
         /// <returns>
-        /// 3 strings: the Codewars username, the email, and the Codewars password.
+        /// 4 strings: the Codewars username, the email, the Codewars password, and the
+        /// choice of whether or not start the execution from the last saved kata.
         /// </returns>
-        static (string, string, string, string) ReadUserCredentials()
+        static (string, string, string, string) ReadUserPrompt()
         {
             Console.WriteLine("CodewarsLogger, v1.3.1. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
 
@@ -182,7 +205,7 @@ namespace CodewarsLogger
         /// </summary>
         /// <param name="codewarsUsername">The Codewars name of the user.</param>
         /// <param name="mainFolderPath">.The "/Katas" directory string.</param>
-        static async Task NavigateWebsite(string codewarsUsername, string mainFolderPath)
+        static async Task NavigateWebsite(string codewarsUsername, string mainFolderPath, string modeChoice, string lastSavedKata)
         {
             string completedKatasUrl = $"https://www.codewars.com/api/v1/users/{codewarsUsername}/code-challenges/completed";
             string kataInfoUrl = "https://www.codewars.com/api/v1/code-challenges/";
@@ -215,6 +238,36 @@ namespace CodewarsLogger
                 for (int kata = 0; kata < kataObject.data.Count; kata++)
                 {
                     string pureKataName = string.Join("", kataObject.data[kata].slug.Split('/', '\\', ':', '<', '>', '"', '|', '*', '?'));
+
+                    if (modeChoice == "y")
+                    {
+                        Console.WriteLine("\nStarting from the last saved kata…");
+
+                        if (lastSavedKata == pureKataName)
+                        {
+                            return;
+                        }
+                    }
+                    else if (modeChoice == "n")
+                    {
+                        if (kata == 0 && page == 0)
+                        {
+                            string[] configInfo = File.ReadAllLines("config.txt");
+                            string[] updatedKata = new string[configInfo.Length];
+
+                            for (int i = 0; i < configInfo.Length; i++)
+                            {
+                                if (configInfo[i].StartsWith("LAST_KATA="))
+                                {
+                                    configInfo[i] = "LAST_KATA=" + pureKataName;
+                                }
+
+                                updatedKata[i] = configInfo[i];
+                            }
+
+                            File.WriteAllLines("config.txt", updatedKata);
+                        }
+                    }
 
                     Stream responseKataInfo;
                     try
