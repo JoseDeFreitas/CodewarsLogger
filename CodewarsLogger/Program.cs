@@ -62,7 +62,7 @@ namespace CodewarsLogger
             else
             {
                 Console.WriteLine(
-                    $"\nAll data was loaded successfully except {IdsOfExceptions.Count} katas: {string.Join("\n", IdsOfExceptions)}."
+                    $"\nAll data was loaded successfully except {IdsOfExceptions.Count} katas:\n{string.Join("\n", IdsOfExceptions)}."
                 );
             }
 
