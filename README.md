@@ -112,7 +112,7 @@ pass all the tests. You complete a kata when you click the blue button "Attempt"
 "Submit". If you get a list of exceptions (katas which code couldn't be found) is because of this, since
 Codewars shows a text saying "No solutions" instead of the list of solutions that the program looks for.
 
-For a clearer view of how the program goes through all the katas, **you can comment out the [line 102](https://github.com/JoseDeFreitas/CodewarsLogger/blob/89830706167212643a03de70df8ed3aae22bc008/CodewarsLogger/Program.cs#L102)**
+For a clearer view of how the program goes through all the katas, **you can comment out the [line 120](https://github.com/JoseDeFreitas/CodewarsLogger/blob/80f372c874595b06d8591ff084665fae77f96e03/CodewarsLogger/Program.cs#L120)**
 (`options.AddArgument("--headless");`) by adding `//` before it.
 
 If you're facing a problem, go to the ["Errors" page](https://github.com/JoseDeFreitas/CodewarsLogger/wiki/Errors)
