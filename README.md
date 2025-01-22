@@ -4,6 +4,9 @@
 ![Supported OS versions](https://img.shields.io/badge/for-Windows%2C%20MacOS%2C%20Linux-blue)
 ![Architecture of 64 bits](https://img.shields.io/badge/architecture-64--bit-purple)
 
+> [!IMPORTANT]  
+> New version fixing the program! [1.4.0](https://github.com/JoseDeFreitas/CodewarsLogger/releases/tag/v1.4.0) (22/01/2025).
+
 > Also check [Codewars Activity Chart](https://github.com/JoseDeFreitas/codewars-activity-chart)!
 
 This program allows you to connect to [Codewars](https://www.codewars.com) by using your Codewars
