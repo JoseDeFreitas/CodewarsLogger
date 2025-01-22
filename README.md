@@ -55,8 +55,8 @@ of solutions of all the katas you've completed (plus more than one programming l
 would take you a lot of time, and you'd have to update it every time you complete a new kata.
 
 This program allows you to automatically copy into a folder the code of the completed challanges you've
-done: you just have to run the program and let it do its job. The files and directories are
-stored in such a way that it's easy to navigate through them.
+done: you just have to run the program and let it do its job. The files and directories are stored in
+such a way that it's easy to navigate through them.
 
 ## Usage
 
@@ -79,10 +79,11 @@ These are the steps that you must follow to run the program:
 2. Download the [.NET runtime](https://dotnet.microsoft.com/en-us/download) from the official Microsoft website
 (currently, the program is targeted to the version 8.0).
 3. Download the [Mozilla geckodriver](https://github.com/mozilla/geckodriver/releases) from the "Releases" tab in Mozilla's repository.
-4. Check the "firefox_directory.txt" file to see if the Firefox binary location is actually in that directory
-(change it if it's not the case).
+4. Check the "config.txt" file to see if the Firefox binary location is actually in that directory
+(change it if it's not the case; write it just after `DIRECTORY=`).
 5. With the "geckodriver.exe" file in the program's directory, run the executable.
-6. Follow the instructions prompted.
+6. Follow the instructions prompted. If you're running it for the first time, choose "n", as there is
+not any last kata saved yet.
 
 You can also clone the repository to have the code in you local machine and run the program from there.
 This way it's faster for you to customise whatever you want. For this, use
@@ -92,16 +93,24 @@ You need to have [.NET](https://dotnet.microsoft.com/en-us/download) and Firefox
 
 ### After completion
 
-And that's it! Keep in mind that it will take some minutes the first time you run it because the program
-must loop through all of the katas. You must run the program every time you want to update the katas.
-It takes into consideration repeated files and code refactors.
+And that's it! Keep in mind that it will take time depending on how many katas you've completed, since it
+must loop through all of them. When the 429 HTTP error ("Too Many Requests") gets thrown, the program
+automatically stops the execution and waits 2 minutes before continuing with the loop; this happens
+after approximately 250 API calls.
+
+The program let's you choose whether to run it through all of the katas or just until the last saved one.
+Every time you run the program, the slug of the last completed kata is saved in the "config.txt" file
+next to the `LAST_KATA=` text. Choosing to run the program until encountering this kata is useful if
+you know you haven't trained any previous kata and just want to update the folder by adding the new
+katas you have completed, massively decreasing the time of execution. If you refactored the code of a
+kata you completed in the past, you would have to not choose that option and let it loop through all of
+the katas to copy the new code and replace it. I haven't found a better solution for this issue.
 
 For some reason, the API endpoint of Codewars that lists the "completed" katas includes also katas that
 you have trained but that aren't literally "completed"; that is, katas that have some solution that didn't
 pass all the tests. You complete a kata when you click the blue button "Attempt" and then the green button
-"Submit". This may lead to some warnings on the console that say `A web element was not found on the page
-(create code file step).`, because Codewars shows a text saying "No solutions" instead of the list of
-solutions that the program looks for.
+"Submit". If you get a list of exceptions (katas which code couldn't be found) is because of this, since
+Codewars shows a text saying "No solutions" instead of the list of solutions that the program looks for.
 
 For a clearer view of how the program goes through all the katas, **you can comment out the [line 102](https://github.com/JoseDeFreitas/CodewarsLogger/blob/89830706167212643a03de70df8ed3aae22bc008/CodewarsLogger/Program.cs#L102)**
 (`options.AddArgument("--headless");`) by adding `//` before it.
