@@ -1,5 +1,5 @@
 /*
-Program created by José de Freitas (https://github.com/JoseDeFreitas).
+Program created by Jose de Freitas (https://github.com/JoseDeFreitas).
 Link to the repository: https://github.com/JoseDeFreitas/CodewarsLogger.
 Licensed under the BSD-2-Clause License.
 */
@@ -48,30 +48,27 @@ namespace CodewarsLogger
 
         static async Task Main()
         {
+            // Program initialisation
             string lastSavedKata = Initialise();
             (string codewarsUsername, string email, string codewarsPassword, string modeChoice) = ReadUserPrompt();
             SignInToCodewars(Driver, email, codewarsPassword);
             
+            // Program main functionality
             string mainFolderPath = Path.Combine(Environment.CurrentDirectory, "Katas");
             if (!Directory.Exists(mainFolderPath))
-            {
                 Directory.CreateDirectory(mainFolderPath);
-            }
-
             await NavigateWebsite(codewarsUsername, mainFolderPath, modeChoice, lastSavedKata);
 
+            // Program finalisation
             SlugsOfExceptions = SlugsOfExceptions.Distinct().ToList();
             if (SlugsOfExceptions.Count == 0)
-            {
                 Console.WriteLine("\nAll data was loaded successfully.");
-            }
             else
             {
                 Console.WriteLine(
                     $"\nAll data was loaded successfully except {SlugsOfExceptions.Count} katas:\n{string.Join("\n", SlugsOfExceptions)}."
                 );
             }
-
             Console.Write("Press any key to exit.");
             Console.ReadLine();
         }
@@ -88,23 +85,20 @@ namespace CodewarsLogger
         /// </returns>
         static string Initialise()
         {
-            string[] configInfo;
             string firefoxDirectory = "";
             string lastSavedKata = "";
 
+            string[] configInfo;
             try
             {
+                // Extract the info from the configuration file
                 configInfo = File.ReadAllLines("config.txt");
                 foreach (string line in configInfo)
                 {
                     if (line.StartsWith("DIRECTORY="))
-                    {
                         firefoxDirectory = line.Substring("DIRECTORY=".Length);
-                    }
                     else if (line.StartsWith("LAST_KATA="))
-                    {
                         lastSavedKata = line.Substring("LAST_KATA=".Length);
-                    }
                 }
             }
             catch (FileNotFoundException e)
@@ -144,11 +138,11 @@ namespace CodewarsLogger
         /// </summary>
         /// <returns>
         /// 4 strings: the Codewars username, the email, the Codewars password, and the
-        /// choice of whether or not start the execution from the last saved kata.
+        /// choice of whether or not to start the execution from the last saved kata.
         /// </returns>
         static (string, string, string, string) ReadUserPrompt()
         {
-            Console.WriteLine("CodewarsLogger, v1.3.1. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
+            Console.WriteLine("CodewarsLogger, v1.4.0. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
 
             Console.Write("Enter your Codewars username: ");
             string codewarsUsername = Console.ReadLine();
@@ -169,7 +163,7 @@ namespace CodewarsLogger
         /// <param name="email">The email of the user.</param>
         /// <param name="codewarsPassword">The Codewars password of the user.</param>
         /// <exception>
-        /// When the driver can't connect to the Codewars website.
+        /// If the driver can't connect to the Codewars website.
         /// </exception>
         static void SignInToCodewars(
             IWebDriver driver, string email, string codewarsPassword
@@ -201,7 +195,9 @@ namespace CodewarsLogger
         /// The primary method of the program. It cicles through all of the katas the user
         /// has completed and creates the corresponding folders and files. Also, it keeps
         /// track of other information, such as the global data structure that saves the
-        /// data of the categories. It creates and updates the progress bar.
+        /// data of the categories. It creates and updates the progress bar. If the user
+        /// chose to run the program from the last saved kata, it will stop when it reaches
+        /// it.
         /// </summary>
         /// <param name="codewarsUsername">The Codewars name of the user.</param>
         /// <param name="mainFolderPath">.The "/Katas" directory string.</param>
@@ -244,23 +240,20 @@ namespace CodewarsLogger
                         Console.WriteLine("\nStarting from the last saved kata…");
 
                         if (lastSavedKata == pureKataName)
-                        {
                             return;
-                        }
                     }
                     else if (modeChoice == "n")
                     {
                         if (kata == 0 && page == 0)
                         {
+                            // Save the last saved kata slug to the configuration file
                             string[] configInfo = File.ReadAllLines("config.txt");
                             string[] updatedKata = new string[configInfo.Length];
 
                             for (int i = 0; i < configInfo.Length; i++)
                             {
                                 if (configInfo[i].StartsWith("LAST_KATA="))
-                                {
                                     configInfo[i] = "LAST_KATA=" + pureKataName;
-                                }
 
                                 updatedKata[i] = configInfo[i];
                             }
@@ -360,8 +353,8 @@ namespace CodewarsLogger
 
         /// <summary>
         /// Pulls the code of the kata from the Codewars website. It supports all the
-        /// programming languages the code was completed in. With that code in hand,
-        /// copies it to a new file with the proper language extensions and adds it to
+        /// programming languages the code was completed in. With that code in hand, it
+        /// copies it to a new file with the proper language extension and adds it to
         /// the kata folder. One file per programming language completed.
         /// </summary>
         /// <param name="driver">The Firefox driver initialised in the Main method.</param>
@@ -370,8 +363,8 @@ namespace CodewarsLogger
         /// <param name="slug">The slug of the kata.</param>
         /// <param name="language">The programming language inside the list of them.</param>
         /// <exception>
-        /// When the driver can't connect to the Codewars website or the DOM elements
-        /// couldn't be found (due to a problem with Codewars).
+        /// If the driver can't connect to the Codewars website or the DOM elements
+        /// can't be found (due to a problem with Codewars).
         /// </exception>
         static async Task CreateCodeFileAsync(IWebDriver driver, string path, string id, string slug, string language)
         {
@@ -405,7 +398,7 @@ namespace CodewarsLogger
         }
 
         /// <summary>
-        /// Creates a "README.md" that lists all the katas based on its category/
+        /// Creates a "README.md" file that lists all the katas based on its category/
         /// discipline, in order to make the navigation through the katas easier
         /// and faster.
         /// <summary>
@@ -455,6 +448,7 @@ namespace CodewarsLogger
         }
     }
 
+    // The top-level data of completed katas specific to the user
     class KataCompleted
     {
         public int totalPages { get; set; }
@@ -462,6 +456,7 @@ namespace CodewarsLogger
         public List<KataData> data { get; set; }
     }
 
+    // The data of the kata specific to the user (used only in the "KataCompleted" class)
     class KataData
     {
         public string id { get; set; }
@@ -471,6 +466,7 @@ namespace CodewarsLogger
         public List<string> completedLanguages { get; set; }
     }
 
+        // The global/meta information of the kata
     class KataInfo
     {
         public string category { get; set; }
