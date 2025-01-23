@@ -254,7 +254,10 @@ namespace CodewarsLogger
                     if (modeChoice == "y")
                     {
                         if (lastSavedKata == pureKataName)
+                        {
+                            Driver.Quit();
                             return;
+                        }
                     }
 
                     Stream responseKataInfo;
