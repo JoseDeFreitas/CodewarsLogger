@@ -21,8 +21,7 @@ user completed and the individual information of each kata, each with a
 different URL.
 
 An example of the response that targets the user (URL "https://www.codewars.com/api/v1/users/USERNAME/code-challenges/completed",
-and with the possible addition of "?page=PAGE" if more than one page) is
-the following:
+and with the possible addition of `?page=PAGE` if more than one page):
 
 ```json
 {
@@ -60,10 +59,9 @@ the following:
 }
 ```
 
-(Shortened for it being an example);
+(Shortened);
 
-An example of the response that targets the kata (URL "https://www.codewars.com/api/v1/code-challenges/ID")
-is the following:
+An example of the response that targets the kata (URL "https://www.codewars.com/api/v1/code-challenges/ID"):
 
 ```json
 {
