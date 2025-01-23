@@ -235,31 +235,26 @@ namespace CodewarsLogger
                 {
                     string pureKataName = string.Join("", kataObject.data[kata].slug.Split('/', '\\', ':', '<', '>', '"', '|', '*', '?'));
 
+                    if (kata == 0 && page == 0)
+                    {
+                        // Save the last saved kata slug to the configuration file
+                        string[] configInfo = File.ReadAllLines("config.txt");
+                        string[] updatedKata = new string[configInfo.Length];
+
+                        for (int i = 0; i < configInfo.Length; i++)
+                        {
+                            if (configInfo[i].StartsWith("LAST_KATA="))
+                                configInfo[i] = "LAST_KATA=" + pureKataName;
+                            updatedKata[i] = configInfo[i];
+                        }
+
+                        File.WriteAllLines("config.txt", updatedKata);
+                    }
+
                     if (modeChoice == "y")
                     {
-                        Console.WriteLine("\nStarting from the last saved kata…");
-
                         if (lastSavedKata == pureKataName)
                             return;
-                    }
-                    else if (modeChoice == "n")
-                    {
-                        if (kata == 0 && page == 0)
-                        {
-                            // Save the last saved kata slug to the configuration file
-                            string[] configInfo = File.ReadAllLines("config.txt");
-                            string[] updatedKata = new string[configInfo.Length];
-
-                            for (int i = 0; i < configInfo.Length; i++)
-                            {
-                                if (configInfo[i].StartsWith("LAST_KATA="))
-                                    configInfo[i] = "LAST_KATA=" + pureKataName;
-
-                                updatedKata[i] = configInfo[i];
-                            }
-
-                            File.WriteAllLines("config.txt", updatedKata);
-                        }
                     }
 
                     Stream responseKataInfo;
@@ -466,7 +461,7 @@ namespace CodewarsLogger
         public List<string> completedLanguages { get; set; }
     }
 
-        // The global/meta information of the kata
+    // The global/meta information of the kata
     class KataInfo
     {
         public string category { get; set; }
