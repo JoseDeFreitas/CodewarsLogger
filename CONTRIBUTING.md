@@ -7,8 +7,7 @@ opening an issue and explaining what feature you would like to see being
 added to the program, and the second by forking the repository, making
 the changes in your copy and then opening a pull request with your
 additions. I will revise issues and pull requests to check that everything
-works great and that it's a great addition, ocassionaly with further
-comments
+works and that it's a great addition, ocassionaly with further comments.
 
 ## Code explanation
 
