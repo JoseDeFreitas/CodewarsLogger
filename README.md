@@ -20,6 +20,8 @@ for more information (especially the last rule).
 
 ## Screenshots
 
+### Folder
+
 <details>
    <summary>README file (index)</summary>
    <img src="https://user-images.githubusercontent.com/37962411/168847084-a6d12825-881e-414c-8ae3-0c7655c7a63a.png">
