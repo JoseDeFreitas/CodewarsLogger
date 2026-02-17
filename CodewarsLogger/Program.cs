@@ -50,7 +50,7 @@ namespace CodewarsLogger
         {
             // Program initialisation
             string lastSavedKata = Initialise();
-            (string codewarsUsername, string email, string codewarsPassword, string modeChoice) = ReadUserPrompt();
+            (string codewarsUsername, string email, string codewarsPassword, string modeChoice) = ReadUserPrompt(lastSavedKata);
             SignInToCodewars(Driver, email, codewarsPassword);
             
             // Program main functionality
@@ -140,9 +140,9 @@ namespace CodewarsLogger
         /// 4 strings: the Codewars username, the email, the Codewars password, and the
         /// choice of whether or not to start the execution from the last saved kata.
         /// </returns>
-        static (string, string, string, string) ReadUserPrompt()
+        static (string, string, string, string) ReadUserPrompt(string lastSavedKata)
         {
-            Console.WriteLine("CodewarsLogger, v1.4.0. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
+            Console.WriteLine("CodewarsLogger, v1.4.1. Source code: https://github.com/JoseDeFreitas/CodewarsLogger");
 
             Console.Write("Enter your Codewars username: ");
             string codewarsUsername = Console.ReadLine();
@@ -150,8 +150,17 @@ namespace CodewarsLogger
             string email = Console.ReadLine();
             Console.Write("Enter your Codewars password: ");
             string codewarsPassword = Console.ReadLine();
-            Console.Write("Do you want to run the program from the last saved kata? (y/n): ");
-            string modeChoice = Console.ReadLine();
+
+            string modeChoice;
+            if (lastSavedKata != "")
+            {
+                Console.Write("Do you want to run the program from the last saved kata? (y/n): ");
+                modeChoice = Console.ReadLine();
+            }
+            else
+            {
+                modeChoice = "n";
+            }
 
             return (codewarsUsername, email, codewarsPassword, modeChoice);
         }
